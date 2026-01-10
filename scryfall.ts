@@ -130,8 +130,11 @@ export class ScryfallClient {
   }
 }
 
+const SPLIT_CARD_NAME_TOKEN = "//";
+
 function normalizeName(name: string): string {
-  return name.trim().toLowerCase();
+  const primaryName = name.split(SPLIT_CARD_NAME_TOKEN)[0] ?? "";
+  return primaryName.trim().toLowerCase();
 }
 
 function chunkArray<T>(items: T[], size: number): T[][] {
