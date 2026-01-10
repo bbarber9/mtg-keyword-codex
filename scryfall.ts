@@ -32,7 +32,7 @@ export class ScryfallClient {
   private cache?: ScryfallCache;
   private lastRequestAt: number;
 
-  constructor(options: ScryfallClientOptions) {
+  constructor(options: ScryfallClientOptions = {}) {
     this.cache = options.cache;
     this.lastRequestAt = 0;
   }
