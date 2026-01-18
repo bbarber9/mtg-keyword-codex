@@ -1,4 +1,4 @@
-import type { ScryfallCache, ScryfallCard } from "./scryfall";
+import { normalizeCardName, type ScryfallCache, type ScryfallCard } from "./scryfall";
 
 export class ScryfallFileCache implements ScryfallCache {
 
@@ -15,7 +15,8 @@ export class ScryfallFileCache implements ScryfallCache {
         const content = await file.text();
         const cachedCards = JSON.parse(content) as ScryfallCard[];
         for (const card of cachedCards) {
-            this.cacheData.set(card.name, card);
+            const normalizedName = normalizeCardName(card.name);
+            this.cacheData.set(normalizedName, card);
         }
         this.isCacheLoaded = true;
     }
@@ -25,7 +26,8 @@ export class ScryfallFileCache implements ScryfallCache {
             await this.loadCache();
         }
         for (const card of cards) {
-            this.cacheData.set(card.name, card);
+            const normalizedName = normalizeCardName(card.name);
+            this.cacheData.set(normalizedName, card);
         }
         const file = Bun.file(this.filePath);
         const content = JSON.stringify(Array.from(this.cacheData.values()), null, 2);
@@ -41,11 +43,12 @@ export class ScryfallFileCache implements ScryfallCache {
         const foundCards: ScryfallCard[] = [];
         const missingNames: string[] = [];
         for (const name of names) {
-            const card = this.cacheData.get(name);
+            const normalizedName = normalizeCardName(name);
+            const card = this.cacheData.get(normalizedName);
             if (card) {
                 foundCards.push(card);
             } else {
-                missingNames.push(name);
+                missingNames.push(normalizedName);
             }
         }
         return { cards: foundCards, missingNames };

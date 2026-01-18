@@ -41,7 +41,7 @@ export class ScryfallClient {
     cards: ScryfallCard[];
     notFound: string[];
   }> {
-    const normalizedNames = names.map(normalizeName).filter(Boolean);
+    const normalizedNames = names.map(normalizeCardName).filter(Boolean);
     if (normalizedNames.length === 0) {
       return { cards: [], notFound: [] };
     }
@@ -132,7 +132,7 @@ export class ScryfallClient {
 
 const SPLIT_CARD_NAME_TOKEN = "//";
 
-function normalizeName(name: string): string {
+export function normalizeCardName(name: string): string {
   const primaryName = name.split(SPLIT_CARD_NAME_TOKEN)[0] ?? "";
   return primaryName.trim().toLowerCase();
 }
