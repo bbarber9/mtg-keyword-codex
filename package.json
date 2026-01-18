@@ -3,10 +3,18 @@
   "module": "index.ts",
   "type": "module",
   "private": true,
+  "scripts": {
+    "backend": "bun backend/index.ts",
+    "backend:dev": "bun --watch backend/index.ts",
+    "backend:scryfall-demo": "bun backend/scryfallDemo.ts"
+  },
   "devDependencies": {
     "@types/bun": "latest"
   },
   "peerDependencies": {
     "typescript": "^5"
+  },
+  "dependencies": {
+    "fastify": "^5.7.1"
   }
 }
