@@ -26,7 +26,7 @@
 
 ## Data and Storage
 - Bun built-in SQLite driver.
-- SQL files for schema/migrations.
+- Drizzle ORM with `drizzle-kit` for schema/migrations (schema defined in TypeScript).
 - Scryfall cache in same DB.
 
 ## Scryfall Integration
@@ -50,8 +50,7 @@ backend/
     health.ts
     cleanup.ts
   db/
-    schema/
-      001_init.sql
+    schema.ts
 ```
 
 ## Cleanup Endpoint

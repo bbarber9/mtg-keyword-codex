@@ -10,20 +10,6 @@ const COLUMN_NAME = "name";
 const COLUMN_DATA_JSON = "data_json";
 const COLUMN_UPDATED_AT = "updated_at";
 
-const CREATE_CARDS_TABLE_SQL = `
-  create table if not exists ${TABLE_CARDS} (
-    ${COLUMN_ID} text primary key,
-    ${COLUMN_NAME} text not null unique,
-    ${COLUMN_DATA_JSON} text not null,
-    ${COLUMN_UPDATED_AT} text not null
-  );
-`;
-
-const CREATE_CARDS_NAME_INDEX_SQL = `
-  create index if not exists ${TABLE_CARDS}_${COLUMN_NAME}_idx
-  on ${TABLE_CARDS}(${COLUMN_NAME});
-`;
-
 const UPSERT_CARD_SQL = `
   insert into ${TABLE_CARDS} (${COLUMN_ID}, ${COLUMN_NAME}, ${COLUMN_DATA_JSON}, ${COLUMN_UPDATED_AT})
   values ($id, $name, $data_json, $updated_at)
@@ -43,7 +29,6 @@ export class ScryfallSqliteCache implements ScryfallCache {
 
   constructor(databasePath: string = DEFAULT_SCRYFALL_DB_PATH) {
     this.database = new Database(databasePath);
-    this.initializeSchema();
   }
 
   async getByNames(
@@ -114,8 +99,4 @@ export class ScryfallSqliteCache implements ScryfallCache {
     transaction(cards);
   }
 
-  private initializeSchema(): void {
-    this.database.run(CREATE_CARDS_TABLE_SQL);
-    this.database.run(CREATE_CARDS_NAME_INDEX_SQL);
-  }
 }
