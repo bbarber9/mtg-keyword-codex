@@ -1,18 +1,14 @@
+import { loadConfig } from "./config";
 import { parseDecklist } from "./decklist";
 import { ScryfallClient } from "./scryfall";
-import {
-  DEFAULT_SCRYFALL_DB_PATH,
-  SCRYFALL_DB_PATH_ENV,
-  ScryfallSqliteCache,
-} from "./scryfallSqliteCache";
+import { ScryfallSqliteCache } from "./scryfallSqliteCache";
 
 async function main() {
   const mockDecklist = Bun.file("mockDeckList.txt");
   const content = await mockDecklist.text();
   const parsed = parseDecklist(content);
-  const databasePath =
-    process.env[SCRYFALL_DB_PATH_ENV] ?? DEFAULT_SCRYFALL_DB_PATH;
-  const scryfallCache = new ScryfallSqliteCache(databasePath);
+  const config = loadConfig();
+  const scryfallCache = new ScryfallSqliteCache(config.database.scryfallPath);
   const scryfall = new ScryfallClient({ cache: scryfallCache });
   const names = parsed.map((entry) => entry.name);
   const { cards, notFound } = await scryfall.getCardsByName(names);

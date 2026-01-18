@@ -10,6 +10,7 @@
 - Fastify with default logger enabled.
 - Env-based config with defaults.
 - Default Fastify error handling for now.
+- Centralized backend config module in `backend/config.ts` for env access.
 
 ## API Conventions
 - All routes prefixed with `/api`.

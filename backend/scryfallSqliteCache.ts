@@ -1,8 +1,13 @@
 import { Database } from "bun:sqlite";
-import { normalizeCardName, type ScryfallCache, type ScryfallCard } from "./scryfall";
+import { DEFAULT_SCRYFALL_DB_PATH, ENV } from "./config";
+import {
+  normalizeCardName,
+  type ScryfallCache,
+  type ScryfallCard,
+} from "./scryfall";
 
-export const DEFAULT_SCRYFALL_DB_PATH = "scryfall-cache.sqlite";
-export const SCRYFALL_DB_PATH_ENV = "SCRYFALL_DB_PATH";
+export const SCRYFALL_DB_PATH_ENV = ENV.SCRYFALL_DB_PATH;
+export { DEFAULT_SCRYFALL_DB_PATH };
 
 const TABLE_CARDS = "cards";
 const COLUMN_ID = "id";
