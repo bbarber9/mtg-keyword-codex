@@ -26,6 +26,7 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 .eslintcache
 .cache
 *.tsbuildinfo
+*.sqlite
 
 # IntelliJ based IDEs
 .idea
@@ -34,4 +35,4 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 .DS_Store
 
 # AI tool artifacts
-memory-bank
+ai-scratchpad
