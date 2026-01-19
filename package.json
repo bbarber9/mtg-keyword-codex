@@ -4,21 +4,28 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "backend": "bun backend/index.ts",
-    "backend:dev": "bun --watch backend/index.ts",
-    "backend:scryfall-demo": "bun backend/scryfallDemo.ts",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "bun backend/db/migrate.ts"
+    "db:migrate": "bun src/db/migrate.ts",
+    "dev": "bun run --bun vite dev",
+    "build": "bun run --bun vite build"
   },
   "devDependencies": {
     "@types/bun": "latest",
-    "drizzle-kit": "^0.31.8"
+    "@vitejs/plugin-react": "^5.1.2",
+    "drizzle-kit": "^0.31.8",
+    "vite": "^7.3.1"
   },
   "peerDependencies": {
     "typescript": "^5"
   },
   "dependencies": {
+    "@tanstack/react-router": "^1.153.1",
+    "@tanstack/react-start": "^1.153.1",
+    "@types/react": "^19.2.8",
+    "@types/react-dom": "^19.2.3",
     "drizzle-orm": "^0.45.1",
-    "fastify": "^5.7.1"
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "vite-tsconfig-paths": "^6.0.4"
   }
 }

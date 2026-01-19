@@ -13,13 +13,13 @@ This project provides a web app that generates shareable "codex" pages from a pa
 ## Key Decisions
 - Ingest method: paste-only decklist (no Archidekt/Moxfield URL parsing).
 - Terminology: generated pages are called "codices" (not decks).
-- Auth: Google OAuth only; login required to create codices.
+- Auth: Google OAuth only; login required to create codices. Implement via Auth.js using `start-authjs` with JWT sessions (default).
 - Visibility: codices are public and readable without login.
-- Storage: SQLite for minimal overhead; Bun backend.
+- Storage: SQLite for minimal overhead; Bun runtime.
 - Expiration: codices expire after 30 days of inactivity; visiting refreshes the timer. This threshold value should be configurable by the site owner, not the users.
 - Keywords source: trust Scryfall's keywords field.
 - Keyword data: static JSON file in `keywords/keywords.json`.
-- UI: React SPA; default route is "My Codices" with a modal create flow.
+- UI: TanStack Start fullstack app; default route is "My Codices" with a modal create flow.
 
 ## Data Model (SQLite)
 
@@ -62,19 +62,17 @@ Indexes
 ## API Contract
 
 Auth
-- GET /api/auth/google
-- GET /api/auth/google/callback
-- POST /api/auth/logout
+- Routes follow TanStack Start conventions (no `/api` prefix).
 
 Codices
-- POST /api/codices
+- POST /codices
   - Auth required
   - Body: {"title":"My Codex","list":"4 Lightning Bolt\n..."}
   - Response: {"id":"abc123"}
-- GET /api/codices/:id
+- GET /codices/:id
   - Public
   - Refreshes last_accessed_at and expires_at
-- GET /api/me/codices
+- GET /me/codices
   - Auth required
 
 Codex response shape
@@ -107,12 +105,18 @@ Codex response shape
 - On codex GET, update:
   - last_accessed_at = now
   - expires_at = now + 30 days
-- Cleanup: scheduled or lazy deletion of expired codices.
+- Cleanup: on-the-fly deletion of expired codices.
 
 ## Frontend UX
-- SPA default route: "My Codices" list.
+- TanStack Start default route: "My Codices" list.
 - "New Codex" button opens modal form (title + decklist).
 - After creation, close modal and add codex to list; user can navigate to public codex page.
 
 ## Internationalization
 - UI strings stored in a single locale file (English), structured for future locales.
+
+## Framework and Deployment
+- Framework: TanStack Start.
+- Auth: Auth.js via `start-authjs`.
+- Deployment: Nitro.
+- Project layout: `src/` contains all frontend and backend code.

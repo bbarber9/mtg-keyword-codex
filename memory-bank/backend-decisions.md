@@ -1,32 +1,40 @@
 # MTG Codex Backend Decisions
 
 ## Architecture
+- TanStack Start fullstack framework.
 - Modular layout, not monolithic.
-- Keep backend flat at `backend/` (no `src`).
-- Create `backend/routes/` and add other folders as needed later.
+- Use `src/` for all frontend and backend code.
+- Server and routes follow TanStack Start file-based conventions.
 
 ## Server and Runtime
 - Bun runtime.
-- Fastify with default logger enabled.
-- Env-based config with defaults.
-- Default Fastify error handling for now.
-- Centralized backend config module in `backend/config.ts` for env access.
+- TanStack Start server runtime (no separate Fastify app).
+- Env-based config with defaults (location TBD).
+- Server error handling follows TanStack Start conventions.
 
 ## API Conventions
-- All routes prefixed with `/api`.
-- No response envelope.
+- UI routes do not use `/api` prefix.
+- If rare API-only endpoints are needed, they may use `/api`.
+- Routes and server functions defined via TanStack Start.
+- Response shapes follow Start handler conventions (no response envelope).
 - Validation deferred; Valibot preferred when added.
 
 ## Health Check
-- `GET /api/health`, raw `200`, unauthenticated.
+- Health endpoint location TBD under TanStack Start routing.
 
 ## Auth
-- Sessions table in SQLite.
-- Use Fastify OAuth plugin for Google flow.
-- Auth guard via `preHandler`.
+- Auth.js via `start-authjs`.
+- Primary provider: Google.
+- Use JWT-based sessions (default).
+- Env vars (initial, may expand as Auth.js config is finalized):
+  - `AUTH_SECRET`
+  - `AUTH_TRUST_HOST`
+  - `AUTH_URL` (if required by deployment)
+  - `GOOGLE_CLIENT_ID`
+  - `GOOGLE_CLIENT_SECRET`
 
 ## Data and Storage
-- Bun built-in SQLite driver.
+- SQLite for minimal overhead.
 - Drizzle ORM with `drizzle-kit` for schema/migrations (schema defined in TypeScript).
 - Scryfall cache in same DB.
 
@@ -34,34 +42,21 @@
 - Existing client handles rate and caching policy.
 
 ## Codex Expiration and Cleanup
-- Scheduled deletion, not lazy refresh.
-- Daily cleanup via endpoint(s) invoked by external scheduler.
-- Cleanup removes expired codices and old sessions.
+- Cleanup on the fly for expired codices (no cleanup endpoint).
 - Expiration duration configured by env var.
 
 ## Deployment
-- Containerized deployment via podman.
+- Nitro deployment target.
+- No containerization planned.
 - `.env` support.
 
 ## Minimal Folder Layout
 ```
-backend/
-  index.ts
+src/
   routes/
-    health.ts
-    cleanup.ts
   db/
     schema.ts
 ```
 
 ## Cleanup Endpoint
-- `POST /api/maintenance/cleanup`
-- Auth: protected with a shared secret header.
-- Response: `{ "deletedCodices": number, "deletedSessions": number }`
-  - Header: `x-cleanup-secret`
-
-## Scheduler
-- External scheduler triggers cleanup daily.
-- Env vars:
-  - `CLEANUP_SHARED_SECRET`
-  - `CLEANUP_CRON` (default `0 3 * * *`)
+- Removed in favor of on-the-fly cleanup.
