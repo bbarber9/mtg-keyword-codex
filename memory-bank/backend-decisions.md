@@ -58,6 +58,7 @@ backend/
 - `POST /api/maintenance/cleanup`
 - Auth: protected with a shared secret header.
 - Response: `{ "deletedCodices": number, "deletedSessions": number }`
+  - Header: `x-cleanup-secret`
 
 ## Scheduler
 - External scheduler triggers cleanup daily.
