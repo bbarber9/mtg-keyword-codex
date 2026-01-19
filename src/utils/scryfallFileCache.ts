@@ -1,4 +1,4 @@
-import { normalizeCardName, type ScryfallCache, type ScryfallCard } from "../src/utils/scryfall";
+import { normalizeCardName, type ScryfallCache, type ScryfallCard } from "./scryfall";
 
 export class ScryfallFileCache implements ScryfallCache {
 
