@@ -112,6 +112,14 @@ Codex response shape
 - "New Codex" button opens modal form (title + decklist).
 - After creation, close modal and add codex to list; user can navigate to public codex page.
 
+## Frontend Guidelines
+- React for UI components and pages.
+- Styling via vanilla-extract (no CSS-in-JS runtime).
+- Component base behavior/accessibility via react-aria (headless, no component libraries).
+- Establish a design system with shared tokens (typography, color, spacing, radii, shadows, motion).
+- Support mobile browsers; define breakpoints once initial screens inform them.
+- Browser support: most recent major versions of Chrome, Firefox, Safari, Chrome Mobile, and Safari Mobile.
+
 ## Internationalization
 - UI strings stored in a single locale file (English), structured for future locales.
 
