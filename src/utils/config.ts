@@ -3,6 +3,7 @@ const ENV_VARS = {
   HOST: "HOST",
   CODEX_DB_PATH: "CODEX_DB_PATH",
   SCRYFALL_DB_PATH: "SCRYFALL_DB_PATH",
+  AUTH_SECRET: "AUTH_SECRET"
 } as const;
 
 const DEFAULTS = {
@@ -23,6 +24,9 @@ export type BackendConfig = {
     codexPath: string;
     scryfallPath: string;
   };
+  auth: {
+    secret: string;
+  }
 };
 
 function parseIntFromEnv(value: string | undefined, fallback: number): number {
@@ -35,6 +39,10 @@ function parseIntFromEnv(value: string | undefined, fallback: number): number {
 }
 
 export function loadConfig(env: NodeJS.ProcessEnv = process.env): BackendConfig {
+  const secret = env[ENV_VARS.AUTH_SECRET];
+  if (!secret) {
+    throw new Error(`Missing required environment variable: ${ENV_VARS.AUTH_SECRET}`);
+  }
   return {
     server: {
       port: parseIntFromEnv(env[ENV_VARS.PORT], DEFAULTS.port),
@@ -44,6 +52,9 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): BackendConfig 
       codexPath: env[ENV_VARS.CODEX_DB_PATH] ?? DEFAULTS.codexDbPath,
       scryfallPath: env[ENV_VARS.SCRYFALL_DB_PATH] ?? DEFAULTS.scryfallDbPath,
     },
+    auth: {
+      secret
+    }
   };
 }
 

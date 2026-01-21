@@ -6,8 +6,26 @@ import {
     HeadContent,
     Scripts,
 } from '@tanstack/react-router'
+import { type AuthSession, getSession } from 'start-authjs'
+import { createServerFn } from '@tanstack/react-start'
+import { getRequest } from '@tanstack/react-start/server'
+import { authConfig } from '../utils/auth'
+
+interface RouterContext {
+    session: AuthSession | null
+}
+
+const fetchSession = createServerFn({ method: "GET" }).handler(async () => {
+    const request = getRequest()
+    const session = await getSession(request, authConfig)
+    return session
+})
 
 export const Route = createRootRoute({
+    beforeLoad: async () => {
+        const session = await fetchSession()
+        return { session }
+    },
     head: () => ({
         meta: [
             {
