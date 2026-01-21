@@ -33,8 +33,8 @@ export const codices = sqliteTable(
     last_accessed_at: text("last_accessed_at").notNull(),
     expires_at: text("expires_at").notNull(),
   },
-  (table) => ({
-    ownerIndex: index("codices_owner_id_idx").on(table.owner_id),
-    expiresIndex: index("codices_expires_at_idx").on(table.expires_at),
-  }),
+  (table) => ([
+    index("codices_owner_id_idx").on(table.owner_id),
+    index("codices_expires_at_idx").on(table.expires_at),
+  ]),
 );
