@@ -20,15 +20,14 @@
     "typescript": "^5"
   },
   "dependencies": {
-    "@auth/core": "^0.34.3",
     "@tanstack/react-router": "^1.153.1",
     "@tanstack/react-start": "^1.153.1",
     "@types/react": "^19.2.8",
     "@types/react-dom": "^19.2.3",
+    "better-auth": "^1.4.17",
     "drizzle-orm": "^0.45.1",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
-    "start-authjs": "^1.0.2",
     "vite-tsconfig-paths": "^6.0.4"
   }
 }

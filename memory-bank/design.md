@@ -30,12 +30,7 @@ This project provides a web app that generates shareable "codex" pages from a pa
 - email (text)
 - name (text)
 - avatar_url (text)
-- created_at (datetime)
-
-### sessions
-- id (PK, text, uuid)
-- user_id (FK users.id)
-- expires_at (datetime)
+- username (text, unique, max 32, allowed: [A-Za-z0-9_-])
 - created_at (datetime)
 
 ### cards
@@ -81,6 +76,7 @@ Codex response shape
 - cards[] { name, qty, scryfall_id }
 - keywords[] { keyword, count, cards[] }
 - interactions[] { title, body }
+- created_by { username }
 - created_at
 - last_accessed_at
 
@@ -111,6 +107,7 @@ Codex response shape
 - TanStack Start default route: "My Codices" list.
 - "New Codex" button opens modal form (title + decklist).
 - After creation, close modal and add codex to list; user can navigate to public codex page.
+- Login screen available at `/login` and used for the current landing route; includes Google sign-in CTA.
 
 ## Frontend Guidelines
 - React for UI components and pages.

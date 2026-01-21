@@ -15,6 +15,13 @@
       "when": 1768966157188,
       "tag": "0001_soft_mongoose",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1768973621717,
+      "tag": "0002_steady_bushwacker",
+      "breakpoints": true
     }
   ]
 }

@@ -1,9 +1,19 @@
-import Google from "@auth/core/providers/google";
-import { StartAuthJSConfig } from "start-authjs";
-import { loadConfig } from "./config";
+import { betterAuth } from "better-auth";
+import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { db } from "../db/db";
+import { tanstackStartCookies } from "better-auth/tanstack-start";
+import * as schema from "../db/schema";
 
-const config = loadConfig()
-export const authConfig: StartAuthJSConfig = {
-  secret: config.auth.secret,
-  providers: [Google({})]
-}
+export const auth = betterAuth({
+  database: drizzleAdapter(db, { provider: "sqlite", schema }),
+  plugins: [tanstackStartCookies()],
+  emailAndPassword: {
+    enabled: true,
+  },
+  socialProviders: {
+    google: {
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+    }
+  }
+});

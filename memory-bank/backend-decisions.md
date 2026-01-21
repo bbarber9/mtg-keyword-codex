@@ -26,6 +26,8 @@
 - Auth.js via `start-authjs`.
 - Primary provider: Google.
 - Use JWT-based sessions (default).
+- Require username setup after first OAuth login (no existing users).
+- Usernames are editable later via account settings.
 - Env vars (initial, may expand as Auth.js config is finalized):
   - `AUTH_SECRET`
   - `AUTH_TRUST_HOST`
