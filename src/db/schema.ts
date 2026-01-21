@@ -18,9 +18,7 @@ export const cards = sqliteTable(
     data_json: text("data_json").notNull(),
     updated_at: text("updated_at").notNull(),
   },
-  (table) => ({
-    nameIndex: index("cards_name_idx").on(table.name),
-  }),
+  (table) => ([index("cards_name_idx").on(table.name)]),
 );
 
 export const codices = sqliteTable(
