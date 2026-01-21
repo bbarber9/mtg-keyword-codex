@@ -10,13 +10,6 @@ export const users = sqliteTable("users", {
   created_at: text("created_at").notNull(),
 });
 
-export const sessions = sqliteTable("sessions", {
-  id: text("id").primaryKey(),
-  user_id: text("user_id").notNull(),
-  expires_at: text("expires_at").notNull(),
-  created_at: text("created_at").notNull(),
-});
-
 export const cards = sqliteTable(
   "cards",
   {
