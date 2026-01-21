@@ -13,7 +13,7 @@ This project provides a web app that generates shareable "codex" pages from a pa
 ## Key Decisions
 - Ingest method: paste-only decklist (no Archidekt/Moxfield URL parsing).
 - Terminology: generated pages are called "codices" (not decks).
-- Auth: Google OAuth only; login required to create codices. Implement via Auth.js using `start-authjs` with JWT sessions (default).
+- Auth: Google OAuth; login required to create codices. Implement via Better Auth with the TanStack Start cookies plugin.
 - Visibility: codices are public and readable without login.
 - Storage: SQLite for minimal overhead; Bun runtime.
 - Expiration: codices expire after 30 days of inactivity; visiting refreshes the timer. This threshold value should be configurable by the site owner, not the users.
@@ -122,6 +122,6 @@ Codex response shape
 
 ## Framework and Deployment
 - Framework: TanStack Start.
-- Auth: Auth.js via `start-authjs`.
+- Auth: Better Auth.
 - Deployment: Nitro.
 - Project layout: `src/` contains all frontend and backend code.

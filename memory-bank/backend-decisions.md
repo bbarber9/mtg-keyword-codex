@@ -23,15 +23,12 @@
 - Health endpoint location TBD under TanStack Start routing.
 
 ## Auth
-- Auth.js via `start-authjs`.
-- Primary provider: Google.
-- Use JWT-based sessions (default).
+- Better Auth with TanStack Start cookies plugin.
+- Providers: Google OAuth; email/password enabled.
+- Use Drizzle adapter with SQLite.
 - Require username setup after first OAuth login (no existing users).
 - Usernames are editable later via account settings.
-- Env vars (initial, may expand as Auth.js config is finalized):
-  - `AUTH_SECRET`
-  - `AUTH_TRUST_HOST`
-  - `AUTH_URL` (if required by deployment)
+- Env vars (initial, may expand as Better Auth config is finalized):
   - `GOOGLE_CLIENT_ID`
   - `GOOGLE_CLIENT_SECRET`
 
