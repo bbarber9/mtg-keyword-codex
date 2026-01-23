@@ -4,7 +4,7 @@ import { getRequestHeaders } from "@tanstack/react-start/server";
 import { auth } from "../utils/auth";
 
 export const authMiddleware = createMiddleware().server(
-    async ({ next, request }) => {
+    async ({ next }) => {
         const headers = getRequestHeaders();
         const session = await auth.api.getSession({ headers })
 

@@ -111,8 +111,8 @@ Codex response shape
 
 ## Frontend Guidelines
 - React for UI components and pages.
-- Styling via vanilla-extract (no CSS-in-JS runtime).
-- Component base behavior/accessibility via react-aria (headless, no component libraries).
+- Styling via vanilla-extract, which is a no-runtime CSS-in-JS library (https://vanilla-extract.style/).
+- Component base behavior/accessibility via react-aria, which is a headless component library (https://react-aria.adobe.com/llms.txt).
 - Establish a design system with shared tokens (typography, color, spacing, radii, shadows, motion).
 - Support mobile browsers; define breakpoints once initial screens inform them.
 - Browser support: most recent major versions of Chrome, Firefox, Safari, Chrome Mobile, and Safari Mobile.
@@ -121,7 +121,7 @@ Codex response shape
 - UI strings stored in a single locale file (English), structured for future locales.
 
 ## Framework and Deployment
-- Framework: TanStack Start.
-- Auth: Better Auth.
+- Framework: TanStack Start. (https://tanstack.com/llms.txt)
+- Auth: Better Auth. (https://www.better-auth.com/llms.txt)
 - Deployment: Nitro.
 - Project layout: `src/` contains all frontend and backend code.
