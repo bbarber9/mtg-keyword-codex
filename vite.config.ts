@@ -2,6 +2,7 @@
 import { defineConfig } from 'vite'
 import tsConfigPaths from 'vite-tsconfig-paths'
 import { tanstackStart } from '@tanstack/react-start/plugin/vite'
+import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin'
 import viteReact from '@vitejs/plugin-react'
 
 export default defineConfig({
@@ -13,5 +14,6 @@ export default defineConfig({
         tanstackStart(),
         // react's vite plugin must come after start's vite plugin
         viteReact(),
+        vanillaExtractPlugin()
     ],
 })
