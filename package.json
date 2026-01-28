@@ -4,7 +4,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "auth:generate": "bun x @better-auth/cli generate --output src/db/schema/auth-schema.ts",
+    "auth:generate": "bunx --bun @better-auth/cli generate --output src/db/schema/auth-schema.ts",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "bun src/db/migrate.ts",
     "dev": "bun run --bun vite dev",
