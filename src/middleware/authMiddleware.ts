@@ -11,14 +11,7 @@ export const protectedByLogin = createMiddleware().server(async ({ next }) => {
 		throw redirect({ to: "/login" });
 	}
 
-	return await next();
-});
-
-export const hasUserName = createMiddleware().server(async ({ next }) => {
-	const headers = getRequestHeaders();
-	const session = await auth.api.getSession({ headers });
-
-	if (session?.user && !session.user.username) {
+	if (!session.user.username) {
 		throw redirect({ to: "/set-username" });
 	}
 
