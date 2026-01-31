@@ -14,4 +14,5 @@ export const inputStyles = style({
 	borderRadius: "4px",
 	border: `1px solid ${themeVars.color.surface.l4}`,
 	maxWidth: "300px",
+	color: themeVars.color.base.light,
 });

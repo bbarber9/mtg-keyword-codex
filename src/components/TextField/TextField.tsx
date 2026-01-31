@@ -14,6 +14,7 @@ export interface TextFieldProps extends AriaTextFieldProps {
 	description?: string;
 	errorMessage?: string | ((validation: ValidationResult) => string);
 	placeholder?: string;
+	autoComplete?: string;
 }
 
 export function TextField({
@@ -26,7 +27,11 @@ export function TextField({
 	return (
 		<AriaTextField {...props} className={containerStyles}>
 			<Label>{label}</Label>
-			<Input className={inputStyles} placeholder={placeholder} />
+			<Input
+				className={inputStyles}
+				placeholder={placeholder}
+				autoComplete={props.autoComplete}
+			/>
 			{description && <Text slot="description">{description}</Text>}
 			<FieldError>{errorMessage}</FieldError>
 		</AriaTextField>

@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Frame } from "../components/Frame/Frame";
 import { UsernameForm } from "../components/UsernameForm/UsernameForm";
 
 export const Route = createFileRoute("/set-username")({
@@ -6,5 +7,9 @@ export const Route = createFileRoute("/set-username")({
 });
 
 function RouteComponent() {
-	return <UsernameForm />;
+	return (
+		<Frame>
+			<UsernameForm />
+		</Frame>
+	);
 }
