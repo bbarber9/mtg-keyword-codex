@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { CodicesPage } from "../components/CodicesPage/CodicesPage";
 import { Frame } from "../components/Frame/Frame";
-import { UsernameForm } from "../components/UsernameForm/UsernameForm";
 import { protectedByLogin } from "../middleware/authMiddleware";
 
-export const Route = createFileRoute("/set-username")({
+export const Route = createFileRoute("/codices")({
 	component: RouteComponent,
 	server: { middleware: [protectedByLogin] },
 });
@@ -11,7 +11,7 @@ export const Route = createFileRoute("/set-username")({
 function RouteComponent() {
 	return (
 		<Frame>
-			<UsernameForm />
+			<CodicesPage />
 		</Frame>
 	);
 }
