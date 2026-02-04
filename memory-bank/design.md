@@ -43,16 +43,21 @@ This project provides a web app that generates shareable "codex" pages from a pa
 - id (PK, text, short id)
 - owner_id (FK users.id)
 - title (text)
-- canonical_list (text) - normalized list JSON
-- summary_json (text) - computed keywords + interactions JSON
+- normalized_decklist (text) - normalized list JSON
 - created_at (datetime)
 - last_accessed_at (datetime)
 - expires_at (datetime)
+
+### codex_keywords
+- codex_id (FK codices.id)
+- keyword (text) - normalized keyword name or ID
+- count (integer)
 
 Indexes
 - cards(name)
 - codices(owner_id)
 - codices(expires_at)
+- codex_keywords(codex_id)
 
 ## API Contract
 
@@ -74,8 +79,7 @@ Codex response shape
 - id
 - title
 - cards[] { name, qty, scryfall_id }
-- keywords[] { keyword, count, cards[] }
-- interactions[] { title, body }
+- keywords[] { keyword, count }
 - created_by { username }
 - created_at
 - last_accessed_at
@@ -91,7 +95,7 @@ Codex response shape
 
 ## Keyword Extraction
 - Use Scryfall `keywords` array.
-- Build a keyword index with counts and card references.
+- Build a keyword index with counts.
 
 ## Keyword data
 - This static file maps keywords to their descriptions to be used in the codex: keywords/keyword-descriptions.json 
