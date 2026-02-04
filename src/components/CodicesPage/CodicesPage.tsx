@@ -112,7 +112,9 @@ export const CodicesPage = () => {
 										}}
 									/>
 									<div className={buttonBarStyles}>
-										<Button slot="close">Close</Button>
+										<Button slot="close" variant="secondary">
+											Close
+										</Button>
 										<Button type="submit">Create</Button>
 									</div>
 								</Form>
