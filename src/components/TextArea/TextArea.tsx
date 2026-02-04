@@ -4,6 +4,7 @@ import {
 	type TextAreaProps as RACTextAreaProps,
 	TextField,
 } from "react-aria-components";
+import { textAreaContainerStyles, textAreaStyles } from "./TextArea.css";
 
 interface TextAreaProps extends RACTextAreaProps {
 	label?: string;
@@ -11,9 +12,9 @@ interface TextAreaProps extends RACTextAreaProps {
 
 export const TextArea = (props: TextAreaProps) => {
 	return (
-		<TextField>
+		<TextField className={textAreaContainerStyles}>
 			<Label>{props.label}</Label>
-			<RACTextArea {...props} />
+			<RACTextArea {...props} className={textAreaStyles} />
 		</TextField>
 	);
 };
