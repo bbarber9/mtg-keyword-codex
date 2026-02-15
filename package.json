@@ -10,6 +10,7 @@
     "dev": "bun run --bun vite dev",
     "build": "bun run --bun vite build",
     "generate:counter": "bun scripts/build-counters-json.ts",
+    "generate:keyword-action": "bun scripts/build-keyword-actions-json.ts",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {

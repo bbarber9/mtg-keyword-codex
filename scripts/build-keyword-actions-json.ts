@@ -4,33 +4,41 @@ import { fileURLToPath } from "node:url";
 import { type CheerioAPI, load } from "cheerio";
 import { createWikiHtmlPageFetcher } from "./wiki-html-fetcher";
 
-const FULL_LIST_URL = "https://mtg.wiki/page/Counter_(marker)/Full_List";
-const OUTPUT_FILE_RELATIVE_PATH = "src/data/wiki/counters.json";
+const KEYWORD_ACTION_ROOT_URL = "https://mtg.wiki/page/Keyword_action";
+const OUTPUT_FILE_RELATIVE_PATH = "src/data/wiki/keyword-actions.json";
 const WIKI_CACHE_DIRECTORY_RELATIVE_PATH = "scripts/mtg-wiki-cache";
-const COUNTER_IMPORTER_USER_AGENT = "mtg-keyword-codex/0.1 (counter-importer)";
+const KEYWORD_ACTION_IMPORTER_USER_AGENT =
+	"mtg-keyword-codex/0.1 (keyword-action-importer)";
 const NETWORK_REQUEST_DELAY_MS = 150;
 const JSON_INDENT_SPACES = 2;
 const FOOTNOTE_REFERENCE_PATTERN = /\[\d+\]/g;
+const RULES_SECTION_HEADING_LABEL = "rules";
+const RULE_ENTRY_PREFIX_PATTERN = /^701\.\d+\.\s+/;
 const WHITESPACE_PATTERN = /\s+/g;
 
-type CounterLink = {
-	counterName: string;
-	counterUrl: string;
+type KeywordActionLink = {
+	actionName: string;
+	actionUrl: string;
 };
 
-type CounterDetails = {
+type KeywordActionDetails = {
 	intro: string;
 	description: string;
-	use: string;
-	placedOn: string;
+	reminderText: string;
 	sourceUrl: string;
 };
 
 type BuildResult = {
-	counterDetailsByName: Record<string, CounterDetails>;
+	actionDetailsByName: Record<string, KeywordActionDetails>;
 	completeCount: number;
-	incompleteCounterReports: string[];
+	incompleteActionReports: string[];
 	duplicateCount: number;
+};
+
+type InfoboxFieldOptions = {
+	rowLabels: string[];
+	dataSources: string[];
+	allowContainsMatch?: boolean;
 };
 
 const SCRIPT_FILE_PATH = fileURLToPath(import.meta.url);
@@ -43,141 +51,186 @@ const WIKI_CACHE_DIRECTORY_PATH = resolve(
 );
 const fetchHtmlPage = createWikiHtmlPageFetcher({
 	cacheDirectoryPath: WIKI_CACHE_DIRECTORY_PATH,
-	userAgent: COUNTER_IMPORTER_USER_AGENT,
+	userAgent: KEYWORD_ACTION_IMPORTER_USER_AGENT,
 	requestDelayMs: NETWORK_REQUEST_DELAY_MS,
 });
 
 /**
- * Runs the end-to-end counter import workflow and writes the output JSON.
+ * Runs the end-to-end keyword-action import workflow and writes output JSON.
  */
 async function main(): Promise<void> {
-	const fullListHtml = await fetchHtmlPage(FULL_LIST_URL);
-	const counterLinks = collectCounterLinks(fullListHtml);
+	const keywordActionRootHtml = await fetchHtmlPage(KEYWORD_ACTION_ROOT_URL);
+	const keywordActionLinks = collectKeywordActionLinks(keywordActionRootHtml);
 
-	if (counterLinks.length === 0) {
-		throw new Error("Could not parse any counters from the full list page.");
+	if (keywordActionLinks.length === 0) {
+		throw new Error("Could not parse any keyword actions from the root page.");
 	}
 
-	const buildResult = await buildCounterDescriptions(counterLinks);
-	await writeOutputJson(buildResult.counterDetailsByName);
-	printSummary(counterLinks.length, buildResult);
+	const buildResult = await buildKeywordActionDetails(keywordActionLinks);
+	await writeOutputJson(buildResult.actionDetailsByName);
+	printSummary(keywordActionLinks.length, buildResult);
 }
 
 /**
- * Fetches each counter page, extracts details, and builds summary stats.
+ * Fetches each keyword-action page, extracts details, and builds summary stats.
  */
-async function buildCounterDescriptions(
-	counterLinks: CounterLink[],
+async function buildKeywordActionDetails(
+	keywordActionLinks: KeywordActionLink[],
 ): Promise<BuildResult> {
-	const counterDetailsByName: Record<string, CounterDetails> = {};
-	const incompleteCounterReports: string[] = [];
-	const seenCounterNames = new Map<string, string>();
+	const actionDetailsByName: Record<string, KeywordActionDetails> = {};
+	const incompleteActionReports: string[] = [];
+	const seenActionNames = new Map<string, string>();
 	let duplicateCount = 0;
 	let completeCount = 0;
 
-	for (const counterLink of counterLinks) {
-		const normalizedCounterName = normalizeForCollision(counterLink.counterName);
-		const existingCounterName = seenCounterNames.get(normalizedCounterName);
-		if (existingCounterName) {
+	for (const keywordActionLink of keywordActionLinks) {
+		const normalizedActionName = normalizeForCollision(keywordActionLink.actionName);
+		const existingActionName = seenActionNames.get(normalizedActionName);
+		if (existingActionName) {
 			duplicateCount += 1;
 			console.warn(
-				`[duplicate] Skipping "${counterLink.counterName}" because "${existingCounterName}" was already processed.`,
+				`[duplicate] Skipping "${keywordActionLink.actionName}" because "${existingActionName}" was already processed.`,
 			);
 			continue;
 		}
 
-		seenCounterNames.set(normalizedCounterName, counterLink.counterName);
+		seenActionNames.set(normalizedActionName, keywordActionLink.actionName);
 
 		try {
-			const counterPageHtml = await fetchHtmlPage(counterLink.counterUrl);
-			const counterDetails = extractCounterDetails(
-				counterPageHtml,
-				counterLink.counterUrl,
+			const actionPageHtml = await fetchHtmlPage(keywordActionLink.actionUrl);
+			const actionDetails = extractKeywordActionDetails(
+				actionPageHtml,
+				keywordActionLink.actionUrl,
 			);
-			counterDetailsByName[counterLink.counterName] = counterDetails;
+			actionDetailsByName[keywordActionLink.actionName] = actionDetails;
 
-			const missingFields = findMissingFields(counterDetails);
+			const missingFields = findMissingFields(actionDetails);
 			if (missingFields.length === 0) {
 				completeCount += 1;
 				continue;
 			}
 
 			console.warn(
-				`[missing-fields] "${counterLink.counterName}" missing: ${missingFields.join(", ")} (${counterLink.counterUrl})`,
+				`[missing-fields] "${keywordActionLink.actionName}" missing: ${missingFields.join(", ")} (${keywordActionLink.actionUrl})`,
 			);
-			incompleteCounterReports.push(
-				`${counterLink.counterName}: ${missingFields.join(", ")}`,
+			incompleteActionReports.push(
+				`${keywordActionLink.actionName}: ${missingFields.join(", ")}`,
 			);
 		} catch (error) {
 			console.warn(
-				`[fetch-failed] Could not process "${counterLink.counterName}" (${counterLink.counterUrl}): ${toErrorMessage(error)}`,
+				`[fetch-failed] Could not process "${keywordActionLink.actionName}" (${keywordActionLink.actionUrl}): ${toErrorMessage(error)}`,
 			);
-			counterDetailsByName[counterLink.counterName] = createEmptyCounterDetails(
-				counterLink.counterUrl,
-			);
-			incompleteCounterReports.push(`${counterLink.counterName}: fetch failed`);
+			actionDetailsByName[keywordActionLink.actionName] =
+				createEmptyKeywordActionDetails(keywordActionLink.actionUrl);
+			incompleteActionReports.push(`${keywordActionLink.actionName}: fetch failed`);
 		}
 	}
 
 	return {
-		counterDetailsByName,
+		actionDetailsByName,
 		completeCount,
-		incompleteCounterReports,
+		incompleteActionReports,
 		duplicateCount,
 	};
 }
 
 /**
- * Parses the full list page and returns candidate counter names and URLs.
+ * Parses the keyword-action root page and returns candidate action names and URLs.
  */
-function collectCounterLinks(fullListHtml: string): CounterLink[] {
-	const parsedHtml = load(fullListHtml);
-	const inContentAnchors = parsedHtml("#mw-content-text a[href]");
-	const anchorElements = inContentAnchors.length > 0
-		? inContentAnchors
-		: parsedHtml("a[href]");
-	const counterLinks: CounterLink[] = [];
-	for (const anchorElement of anchorElements.toArray()) {
-		const counterLink = extractCounterLink(parsedHtml, anchorElement);
-		if (counterLink) {
-			counterLinks.push(counterLink);
+function collectKeywordActionLinks(keywordActionRootHtml: string): KeywordActionLink[] {
+	const parsedHtml = load(keywordActionRootHtml);
+	const rulesListItems = collectRulesSectionListItems(parsedHtml);
+	const keywordActionLinks: KeywordActionLink[] = [];
+
+	for (const rulesListItem of rulesListItems) {
+		const listItem = parsedHtml(rulesListItem);
+		const listItemText = normalizeDisplayText(listItem.text());
+		if (!RULE_ENTRY_PREFIX_PATTERN.test(listItemText)) {
+			continue;
 		}
+
+		const linkAnchor = listItem.find("a[href]").first();
+		if (linkAnchor.length === 0) {
+			continue;
+		}
+
+		const actionName = normalizeDisplayText(linkAnchor.text());
+		if (actionName.length === 0) {
+			continue;
+		}
+
+		const actionUrl = resolveKeywordActionUrl(linkAnchor.attr("href") ?? null);
+		if (!actionUrl) {
+			continue;
+		}
+
+		keywordActionLinks.push({
+			actionName,
+			actionUrl,
+		});
 	}
 
-	return counterLinks;
+	return keywordActionLinks;
 }
 
 /**
- * Builds a counter link record from an anchor element when it looks valid.
+ * Collects list items that appear in the Rules section on the root page.
  */
-function extractCounterLink(
+function collectRulesSectionListItems(
 	parsedHtml: CheerioAPI,
-	anchorElement: Parameters<CheerioAPI>[0],
-): CounterLink | null {
-	const anchor = parsedHtml(anchorElement);
-	const counterName = normalizeDisplayText(anchor.text());
-	if (!isCounterName(counterName)) {
-		return null;
+): Parameters<CheerioAPI>[0][] {
+	let contentRoot = parsedHtml("#mw-content-text .mw-parser-output").first();
+	if (contentRoot.length === 0) {
+		contentRoot = parsedHtml(".mw-parser-output").first();
+	}
+	if (contentRoot.length === 0) {
+		contentRoot = parsedHtml("body").first();
 	}
 
-	const counterUrl = resolveCounterUrl(anchor.attr("href") ?? null);
-	if (!counterUrl) {
-		return null;
+	const headingElements = contentRoot.find("h2, h3, h4, h5, h6");
+	for (const headingElement of headingElements.toArray()) {
+		const heading = parsedHtml(headingElement);
+		if (getHeadingText(heading) !== RULES_SECTION_HEADING_LABEL) {
+			continue;
+		}
+
+		const listItems: Parameters<CheerioAPI>[0][] = [];
+		let currentElement = heading.next();
+		while (currentElement.length > 0) {
+			const tagName = getElementTagName(currentElement);
+			if (isHeadingTag(tagName)) {
+				break;
+			}
+
+			if (tagName === "li") {
+				listItems.push(currentElement.get(0));
+			}
+
+			for (const listItem of currentElement.find("li").toArray()) {
+				listItems.push(listItem);
+			}
+
+			currentElement = currentElement.next();
+		}
+
+		if (listItems.length > 0) {
+			return listItems;
+		}
 	}
 
-	return { counterName, counterUrl };
+	return [];
 }
 
 /**
  * Resolves and validates a wiki URL target from a link href.
  */
-function resolveCounterUrl(hrefValue: string | null): string | null {
+function resolveKeywordActionUrl(hrefValue: string | null): string | null {
 	if (!hrefValue || hrefValue.startsWith("#")) {
 		return null;
 	}
 
 	try {
-		const resolvedUrl = new URL(hrefValue, FULL_LIST_URL);
+		const resolvedUrl = new URL(hrefValue, KEYWORD_ACTION_ROOT_URL);
 		resolvedUrl.hash = "";
 		if (!isHttpProtocol(resolvedUrl.protocol)) {
 			return null;
@@ -188,7 +241,7 @@ function resolveCounterUrl(hrefValue: string | null): string | null {
 			return null;
 		}
 
-		if (resolvedUrl.toString() === FULL_LIST_URL) {
+		if (resolvedUrl.toString() === KEYWORD_ACTION_ROOT_URL) {
 			return null;
 		}
 
@@ -199,30 +252,30 @@ function resolveCounterUrl(hrefValue: string | null): string | null {
 }
 
 /**
- * Extracts all supported fields for a counter from its page HTML.
+ * Extracts all supported fields for a keyword action from its page HTML.
  */
-function extractCounterDetails(
-	counterPageHtml: string,
+function extractKeywordActionDetails(
+	actionPageHtml: string,
 	sourceUrl: string,
-): CounterDetails {
-	const parsedHtml = load(counterPageHtml);
+): KeywordActionDetails {
+	const parsedHtml = load(actionPageHtml);
 	return {
 		intro: extractIntro(parsedHtml),
 		description: extractDescription(parsedHtml),
-		use: extractInfoboxFieldValue(parsedHtml, {
-			rowLabels: ["use"],
-			dataSources: ["use"],
-		}),
-		placedOn: extractInfoboxFieldValue(parsedHtml, {
-			rowLabels: ["placed on"],
-			dataSources: ["placed_on", "placed-on", "placedon"],
+		reminderText: extractInfoboxFieldValue(parsedHtml, {
+			rowLabels: ["reminder text"],
+			dataSources: [
+				"reminder_text",
+				"reminder-text",
+				"remindertext",
+			],
 		}),
 		sourceUrl,
 	};
 }
 
 /**
- * Finds the first non-empty introductory paragraph for a counter page.
+ * Finds the first non-empty introductory paragraph for a keyword-action page.
  */
 function extractIntro(parsedHtml: CheerioAPI): string {
 	const introSelectors = [
@@ -249,16 +302,8 @@ function extractIntro(parsedHtml: CheerioAPI): string {
  * Extracts the Description section content from the page body.
  */
 function extractDescription(parsedHtml: CheerioAPI): string {
-	return extractSectionText(parsedHtml, [
-		"description",
-	]);
+	return extractSectionText(parsedHtml, ["description"]);
 }
-
-type InfoboxFieldOptions = {
-	rowLabels: string[];
-	dataSources: string[];
-	allowContainsMatch?: boolean;
-};
 
 /**
  * Collects text content under the first matching section heading.
@@ -425,7 +470,13 @@ function getElementTagName(element: ReturnType<CheerioAPI>): string {
  * Checks whether a tag name is an h2-h6 heading.
  */
 function isHeadingTag(tagName: string): boolean {
-	return tagName === "h2" || tagName === "h3" || tagName === "h4" || tagName === "h5" || tagName === "h6";
+	return (
+		tagName === "h2" ||
+		tagName === "h3" ||
+		tagName === "h4" ||
+		tagName === "h5" ||
+		tagName === "h6"
+	);
 }
 
 /**
@@ -471,18 +522,10 @@ function matchesFieldLabel(
 }
 
 /**
- * Checks whether link text looks like a counter page name.
+ * Normalizes an action name for duplicate detection.
  */
-function isCounterName(candidateName: string): boolean {
-	const lowerCaseName = candidateName.toLowerCase();
-	return lowerCaseName !== "counter" && lowerCaseName.endsWith(" counter");
-}
-
-/**
- * Normalizes a counter name for duplicate detection.
- */
-function normalizeForCollision(counterName: string): string {
-	return normalizeDisplayText(counterName).toLowerCase();
+function normalizeForCollision(actionName: string): string {
+	return normalizeDisplayText(actionName).toLowerCase();
 }
 
 /**
@@ -493,13 +536,13 @@ function isHttpProtocol(protocol: string): boolean {
 }
 
 /**
- * Writes generated counter details to the output JSON file.
+ * Writes generated keyword-action details to the output JSON file.
  */
 async function writeOutputJson(
-	counterDetailsByName: Record<string, CounterDetails>,
+	actionDetailsByName: Record<string, KeywordActionDetails>,
 ): Promise<void> {
 	await mkdir(dirname(OUTPUT_FILE_PATH), { recursive: true });
-	const jsonContent = `${JSON.stringify(counterDetailsByName, null, JSON_INDENT_SPACES)}\n`;
+	const jsonContent = `${JSON.stringify(actionDetailsByName, null, JSON_INDENT_SPACES)}\n`;
 	await Bun.write(OUTPUT_FILE_PATH, jsonContent);
 }
 
@@ -508,27 +551,29 @@ async function writeOutputJson(
  */
 function printSummary(discoveredCount: number, buildResult: BuildResult): void {
 	console.log(`Generated ${OUTPUT_FILE_RELATIVE_PATH}`);
-	console.log(`Discovered counter entries: ${discoveredCount}`);
+	console.log(`Discovered keyword action entries: ${discoveredCount}`);
 	console.log(`Complete records: ${buildResult.completeCount}`);
-	console.log(`Incomplete records: ${buildResult.incompleteCounterReports.length}`);
+	console.log(`Incomplete records: ${buildResult.incompleteActionReports.length}`);
 	console.log(`Duplicates skipped: ${buildResult.duplicateCount}`);
 
-	if (buildResult.incompleteCounterReports.length > 0) {
-		console.log("Incomplete counter reports:");
-		for (const incompleteCounterReport of buildResult.incompleteCounterReports) {
-			console.log(`- ${incompleteCounterReport}`);
+	if (buildResult.incompleteActionReports.length > 0) {
+		console.log("Incomplete keyword action reports:");
+		for (const incompleteActionReport of buildResult.incompleteActionReports) {
+			console.log(`- ${incompleteActionReport}`);
 		}
 	}
 }
 
 /**
- * Lists counter detail fields that are still empty.
+ * Lists keyword-action detail fields that are still empty.
  */
-function findMissingFields(counterDetails: CounterDetails): Array<keyof CounterDetails> {
-	const missingFields: Array<keyof CounterDetails> = [];
-	const fieldNames = Object.keys(counterDetails) as Array<keyof CounterDetails>;
+function findMissingFields(
+	actionDetails: KeywordActionDetails,
+): Array<keyof KeywordActionDetails> {
+	const missingFields: Array<keyof KeywordActionDetails> = [];
+	const fieldNames = Object.keys(actionDetails) as Array<keyof KeywordActionDetails>;
 	for (const fieldName of fieldNames) {
-		if (counterDetails[fieldName].length === 0) {
+		if (actionDetails[fieldName].length === 0) {
 			missingFields.push(fieldName);
 		}
 	}
@@ -537,14 +582,13 @@ function findMissingFields(counterDetails: CounterDetails): Array<keyof CounterD
 }
 
 /**
- * Creates an empty counter-details object for failed fetches.
+ * Creates an empty keyword-action details object for failed fetches.
  */
-function createEmptyCounterDetails(sourceUrl: string): CounterDetails {
+function createEmptyKeywordActionDetails(sourceUrl: string): KeywordActionDetails {
 	return {
 		intro: "",
 		description: "",
-		use: "",
-		placedOn: "",
+		reminderText: "",
 		sourceUrl,
 	};
 }
@@ -561,6 +605,6 @@ function toErrorMessage(error: unknown): string {
 }
 
 main().catch((error) => {
-	console.error(`Counter generation failed: ${toErrorMessage(error)}`);
+	console.error(`Keyword-action generation failed: ${toErrorMessage(error)}`);
 	process.exit(1);
 });
