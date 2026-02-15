@@ -9,6 +9,7 @@
     "db:migrate": "bun src/db/migrate.ts",
     "dev": "bun run --bun vite dev",
     "build": "bun run --bun vite build",
+    "generate:counter": "bun scripts/build-counters-json.ts",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
@@ -32,6 +33,7 @@
     "@vanilla-extract/css": "^1.18.0",
     "@vanilla-extract/recipes": "^0.5.7",
     "better-auth": "^1.4.17",
+    "cheerio": "^1.1.2",
     "drizzle-orm": "^0.45.1",
     "react": "^19.2.3",
     "react-aria-components": "^1.14.0",

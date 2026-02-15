@@ -37,3 +37,6 @@ scryfallCache.json
 
 # AI tool artifacts
 ai-scratchpad
+
+# local wiki scrape cache
+scripts/mtg-wiki-cache/
