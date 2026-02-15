@@ -8,9 +8,9 @@ import {
 	createCodexPageStyles,
 	formStyles,
 	headingStyles,
-} from "./CodicesPage.css";
+} from "./CodexCreateForm.css";
 
-export const CodicesPage = () => {
+export const CodexCreateForm = () => {
 	const form = useForm({
 		defaultValues: {
 			name: "",

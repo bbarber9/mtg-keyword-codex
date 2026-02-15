@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { CodicesPage } from "../components/CodicesPage/CodicesPage";
+import { CodexCreateForm } from "../components/CodexCreateForm/CodexCreateForm";
 import { protectedByLogin } from "../middleware/authMiddleware";
 
 export const Route = createFileRoute("/codices/create")({
@@ -8,5 +8,5 @@ export const Route = createFileRoute("/codices/create")({
 });
 
 function RouteComponent() {
-	return <CodicesPage />;
+	return <CodexCreateForm />;
 }
