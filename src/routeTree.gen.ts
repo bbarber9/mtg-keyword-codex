@@ -14,6 +14,7 @@ import { Route as SetUsernameRouteImport } from './routes/set-username'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as CodicesRouteImport } from './routes/codices'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CodicesCreateRouteImport } from './routes/codices.create'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
 const TestRoute = TestRouteImport.update({
@@ -41,6 +42,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CodicesCreateRoute = CodicesCreateRouteImport.update({
+  id: '/create',
+  path: '/create',
+  getParentRoute: () => CodicesRoute,
+} as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
   path: '/api/auth/$',
@@ -49,27 +55,30 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/codices': typeof CodicesRoute
+  '/codices': typeof CodicesRouteWithChildren
   '/login': typeof LoginRoute
   '/set-username': typeof SetUsernameRoute
   '/test': typeof TestRoute
+  '/codices/create': typeof CodicesCreateRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/codices': typeof CodicesRoute
+  '/codices': typeof CodicesRouteWithChildren
   '/login': typeof LoginRoute
   '/set-username': typeof SetUsernameRoute
   '/test': typeof TestRoute
+  '/codices/create': typeof CodicesCreateRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/codices': typeof CodicesRoute
+  '/codices': typeof CodicesRouteWithChildren
   '/login': typeof LoginRoute
   '/set-username': typeof SetUsernameRoute
   '/test': typeof TestRoute
+  '/codices/create': typeof CodicesCreateRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRouteTypes {
@@ -80,9 +89,17 @@ export interface FileRouteTypes {
     | '/login'
     | '/set-username'
     | '/test'
+    | '/codices/create'
     | '/api/auth/$'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/codices' | '/login' | '/set-username' | '/test' | '/api/auth/$'
+  to:
+    | '/'
+    | '/codices'
+    | '/login'
+    | '/set-username'
+    | '/test'
+    | '/codices/create'
+    | '/api/auth/$'
   id:
     | '__root__'
     | '/'
@@ -90,12 +107,13 @@ export interface FileRouteTypes {
     | '/login'
     | '/set-username'
     | '/test'
+    | '/codices/create'
     | '/api/auth/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  CodicesRoute: typeof CodicesRoute
+  CodicesRoute: typeof CodicesRouteWithChildren
   LoginRoute: typeof LoginRoute
   SetUsernameRoute: typeof SetUsernameRoute
   TestRoute: typeof TestRoute
@@ -139,6 +157,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/codices/create': {
+      id: '/codices/create'
+      path: '/create'
+      fullPath: '/codices/create'
+      preLoaderRoute: typeof CodicesCreateRouteImport
+      parentRoute: typeof CodicesRoute
+    }
     '/api/auth/$': {
       id: '/api/auth/$'
       path: '/api/auth/$'
@@ -149,9 +174,20 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface CodicesRouteChildren {
+  CodicesCreateRoute: typeof CodicesCreateRoute
+}
+
+const CodicesRouteChildren: CodicesRouteChildren = {
+  CodicesCreateRoute: CodicesCreateRoute,
+}
+
+const CodicesRouteWithChildren =
+  CodicesRoute._addFileChildren(CodicesRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  CodicesRoute: CodicesRoute,
+  CodicesRoute: CodicesRouteWithChildren,
   LoginRoute: LoginRoute,
   SetUsernameRoute: SetUsernameRoute,
   TestRoute: TestRoute,
