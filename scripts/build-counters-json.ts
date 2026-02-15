@@ -296,7 +296,7 @@ function extractSectionText(
 	const headingElements = contentRoot.find("h2, h3, h4, h5, h6");
 	for (const headingElement of headingElements.toArray()) {
 		const heading = parsedHtml(headingElement);
-		const headingText = getHeadingText(parsedHtml, heading);
+		const headingText = getHeadingText(heading);
 		if (!matchesFieldLabel(headingText, normalizedTargetLabels, true)) {
 			continue;
 		}
@@ -419,7 +419,7 @@ function normalizeFieldLabel(rawText: string): string {
 /**
  * Extracts normalized heading text, excluding edit controls when needed.
  */
-function getHeadingText(parsedHtml: CheerioAPI, heading: ReturnType<CheerioAPI>): string {
+function getHeadingText(heading: ReturnType<CheerioAPI>): string {
 	const headlineText = normalizeFieldLabel(heading.find(".mw-headline").first().text());
 	if (headlineText.length > 0) {
 		return headlineText;
