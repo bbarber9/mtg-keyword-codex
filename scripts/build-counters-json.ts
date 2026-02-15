@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 import { type CheerioAPI, load } from "cheerio";
 
 const FULL_LIST_URL = "https://mtg.wiki/page/Counter_(marker)/Full_List";
-const OUTPUT_FILE_RELATIVE_PATH = "src/data/counters.json";
+const OUTPUT_FILE_RELATIVE_PATH = "src/data/wiki/counters.json";
 const WIKI_CACHE_DIRECTORY_RELATIVE_PATH = "scripts/mtg-wiki-cache";
 const JSON_INDENT_SPACES = 2;
 const FOOTNOTE_REFERENCE_PATTERN = /\[\d+\]/g;
