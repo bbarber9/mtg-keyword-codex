@@ -15,7 +15,7 @@
   },
   "Acorn counter": {
     "intro": "Acorn counters are a type of resource counter that may be placed on either a player or a permanent depending on its usage.",
-    "description": "The silver-bordered Acornelia, Fashionable Filcher from Unsanctioned was the first card to feature Acorn counters. They have their own symbol , and may be used as a resource. They are placed on players rather than on objects. Because of this, they are similar to energy counters.\n\nChitterspitter from Modern Horizons 2 is the first black-border card and first artifact to use acorn counters. It doesn't use the acorn holofoil stamp. Unlike with the previous usage, Chitterspitter places the counters on itself. Acorn counters on a permanent cannot be used for Acornelia so the two types do not interact.\n\nWith the release of Alchemy: Bloomburrow, acorn counters returned in the form of Euru, Acorn Scrounger. Euru is tied to the Chitterspitter, allowing additional acorn counters to be placed on it.",
+    "description": "The silver-bordered Acornelia, Fashionable Filcher from Unsanctioned was the first card to feature Acorn counters. They have their own symbol [Acorn counter] , and may be used as a resource. They are placed on players rather than on objects. Because of this, they are similar to energy counters.\n\nChitterspitter from Modern Horizons 2 is the first black-border card and first artifact to use acorn counters. It doesn't use the acorn holofoil stamp. Unlike with the previous usage, Chitterspitter places the counters on itself. Acorn counters on a permanent cannot be used for Acornelia so the two types do not interact.\n\nWith the release of Alchemy: Bloomburrow, acorn counters returned in the form of Euru, Acorn Scrounger. Euru is tied to the Chitterspitter, allowing additional acorn counters to be placed on it.",
     "use": "Resource",
     "placedOn": "Players, Permanents",
     "sourceUrl": "https://mtg.wiki/page/Acorn_counter"
@@ -141,7 +141,7 @@
   },
   "Brick counter": {
     "intro": "Brick counters are a type of counter introduced in Amonkhet. They are created by and placed on a cycle of artifacts known as monuments that were made to represent the constant monument-building that went on in ancient Egypt. They act as a resource, granting the artifact a stronger ability after it builds up the counters via using its weaker ability. They were represented on punch cards in the Amonkhet block.",
-    "description": "Brick counters first appeared on a cycle of four artifacts in Amonkhet known as monuments. Each monument is an artifact with two tap abilities, one of which has a minor effect and adds brick counters, and the other is a more powerful version that requires having three brick counters to activate:\n\nEdifice of Authority can prevent a creature from attacking for a turn. The upgraded ability will prevent a creature from attacking, blocking, or using abilities for a turn. Both cost Luxa River Shrine gains one life for , while the upgraded ability gains two life for no mana. Oracle's Vault has the ability to exile the top card of the player's library for , allowing them to play it during that turn. The upgraded ability costs zero and the card can be cast without paying its mana cost. Pyramid of the Pantheon filters into any colored mana. The upgraded ability creates three mana of one color.\n\nHour of Devastation introduced Sunset Pyramid as a fifth monument that uses brick counters. Both tap abilities cost to activate. Instead of generating counters with its ability, it enters with three counters and removes them to draw a card. Once depleted, the downgraded ability is to Scry 1.",
+    "description": "Brick counters first appeared on a cycle of four artifacts in Amonkhet known as monuments. Each monument is an artifact with two tap abilities, one of which has a minor effect and adds brick counters, and the other is a more powerful version that requires having three brick counters to activate:\n\nEdifice of Authority can prevent a creature from attacking for a turn. The upgraded ability will prevent a creature from attacking, blocking, or using abilities for a turn. Both cost [1 generic mana] Luxa River Shrine gains one life for [1 generic mana] , while the upgraded ability gains two life for no mana. Oracle's Vault has the ability to exile the top card of the player's library for [2 generic mana] , allowing them to play it during that turn. The upgraded ability costs zero and the card can be cast without paying its mana cost. Pyramid of the Pantheon filters [2 generic mana] into any colored mana. The upgraded ability creates three mana of one color.\n\nHour of Devastation introduced Sunset Pyramid as a fifth monument that uses brick counters. Both tap abilities cost [2 generic mana] to activate. Instead of generating counters with its ability, it enters with three counters and removes them to draw a card. Once depleted, the downgraded ability is to Scry 1.",
     "use": "Resource",
     "placedOn": "Artifacts",
     "sourceUrl": "https://mtg.wiki/page/Brick_counter"
@@ -638,7 +638,7 @@
   },
   "Hone counter": {
     "intro": "Hone counters are a type of counter introduced in Strixhaven: School of Mages. They act as an upkeep tracker on exiled instants and sorceries that can be cast with a lesser mana cost after a few turns.",
-    "description": "Hone counters first appeared on Uvilda, Dean of Perfection in Strixhaven: School of Mages. The creature has an activated ability to exile an instant or sorcery card from the player's hand with three hone counters on it. One of the counters is then removed on each upkeep and after every counter is removed, the player may cast the spell for less mana. This represents the player taking time to hone their skill with the spell.",
+    "description": "Hone counters first appeared on Uvilda, Dean of Perfection in Strixhaven: School of Mages. The creature has an activated ability to exile an instant or sorcery card from the player's hand with three hone counters on it. One of the counters is then removed on each upkeep and after every counter is removed, the player may cast the spell for [4 generic mana] less mana. This represents the player taking time to hone their skill with the spell.",
     "use": "Upkeep tracking for casting exiled instant or sorcery with less mana cost",
     "placedOn": "Exiled Instant or Sorcery",
     "sourceUrl": "https://mtg.wiki/page/Hone_counter"
@@ -673,7 +673,7 @@
   },
   "Ice counter": {
     "intro": "Ice counters are a type of counter introduced in Ice Age. They are usually related to ice or snow-themed effects.",
-    "description": "Ice counters first appeared on Iceberg in Ice Age. It would enter the battlefield with X on it for however much extra mana is paid to cast it. could be paid to add additional ones while 1 counter could be removed in exchange for .\n\nColdsnap saw the return of the counter on several cards with varying effects. Rimefeather Owl could add snow counters to a target permanent which causes them to gain the Snow attribute. Dark Depths enters the battlefield with 10 ice counters on it and then could remove a counter for . Once all are removed, it is sacrificed causing a 20/20 black Avatar creature token with flying and indestructible to be created. Rimescale Dragon can tap a creature and add an ice counter to it which freezes it causing it to not untap as long as the counter is on it. The final usage in Coldsnap was on Woolly Razorback which enters the battlefield with 3 of the counters on it. While on it, the creature cannot deal damage and has defender with one being removed every time it blocks.\n\nThe counters re-appeared on Thing in the Ice in Shadows over Innistrad as a counter for transforming. It enters the battlefield with 4 ice counters on it and transforms into Awoken Horror when they are removed with one being removed for each instant or sorcery being cast.\n\nIn Kaldheim they appeared on Draugr Necromancer which exiles an opponent's creatures that die with a ice counter on it. The player can then cast exiled cards an opponent owns with ice counters on them with mana from snow sources available to be used as the mana of any color.",
+    "description": "Ice counters first appeared on Iceberg in Ice Age. It would enter the battlefield with X on it for however much extra mana is paid to cast it. [3 generic mana] could be paid to add additional ones while 1 counter could be removed in exchange for [Colorless mana] .\n\nColdsnap saw the return of the counter on several cards with varying effects. Rimefeather Owl could add snow counters to a target permanent which causes them to gain the Snow attribute. Dark Depths enters the battlefield with 10 ice counters on it and then could remove a counter for [3 generic mana] . Once all are removed, it is sacrificed causing a 20/20 black Avatar creature token with flying and indestructible to be created. Rimescale Dragon can tap a creature and add an ice counter to it which freezes it causing it to not untap as long as the counter is on it. The final usage in Coldsnap was on Woolly Razorback which enters the battlefield with 3 of the counters on it. While on it, the creature cannot deal damage and has defender with one being removed every time it blocks.\n\nThe counters re-appeared on Thing in the Ice in Shadows over Innistrad as a counter for transforming. It enters the battlefield with 4 ice counters on it and transforms into Awoken Horror when they are removed with one being removed for each instant or sorcery being cast.\n\nIn Kaldheim they appeared on Draugr Necromancer which exiles an opponent's creatures that die with a ice counter on it. The player can then cast exiled cards an opponent owns with ice counters on them with mana from snow sources available to be used as the mana of any color.",
     "use": "Ice or snow-themed effects",
     "placedOn": "Permanents, Exiled cards",
     "sourceUrl": "https://mtg.wiki/page/Ice_counter"
@@ -764,7 +764,7 @@
   },
   "Ki counter": {
     "intro": "Ki counters (KEE) are placed on permanents, whenever you cast a spirit or arcane spell. Ki counters belong to the unofficially named spiritcraft ability word used during the Kamigawa block. According to Chinese and Japanese lore, Ki is the vital force that forms part of any living thing.",
-    "description": "There is a common cycle (the Bakus), an uncommon cycle (the flip card legends), and one rare (Baku Altar) that uses this counter. The Bakus use them with a payment of and remove any number for a scaling effect. The uncommon cycle is all 1CC 2/2 creatures that set their flip condition at having two ki counters at the end of the turn, flip into a Legendary Spirit who has an ability that removes one ki counter - this notably prevents them from \"recharging\" ki counters.",
+    "description": "There is a common cycle (the Bakus), an uncommon cycle (the flip card legends), and one rare (Baku Altar) that uses this counter. The Bakus use them with a payment of [1 generic mana] and remove any number for a scaling effect. The uncommon cycle is all 1CC 2/2 creatures that set their flip condition at having two ki counters at the end of the turn, flip into a Legendary Spirit who has an ability that removes one ki counter - this notably prevents them from \"recharging\" ki counters.",
     "use": "Spiritcraft",
     "placedOn": "Permanents",
     "sourceUrl": "https://mtg.wiki/page/Ki_counter"
@@ -988,7 +988,7 @@
   },
   "Paralyzation counter": {
     "intro": "Paralyzation counters are a type of counter introduced in Ice Age. They freeze a creature for as long as they are on one.",
-    "description": "Paralyzation counters first appeared on Dread Wight in Ice Age. It was a creature that would put a Paralyzation counter on any creature that blocked or was blocked by it. These counters caused the creatures to be tapped and freezes them. Each of the creatures also gains an ability to pay to remove the counter from it. The freezing represents the creature being paralyzed by the Wight.",
+    "description": "Paralyzation counters first appeared on Dread Wight in Ice Age. It was a creature that would put a Paralyzation counter on any creature that blocked or was blocked by it. These counters caused the creatures to be tapped and freezes them. Each of the creatures also gains an ability to pay [4 generic mana] to remove the counter from it. The freezing represents the creature being paralyzed by the Wight.",
     "use": "Freeze creature",
     "placedOn": "Creatures",
     "sourceUrl": "https://mtg.wiki/page/Paralyzation_counter"
@@ -1163,7 +1163,7 @@
   },
   "Rope counter": {
     "intro": "Rope counters are a type of counter introduced in Commander Legends: Battle for Baldur's Gate. They act as a protection from a card's exile effect.",
-    "description": "Rope counters first appeared on the Fraying Line in Commander Legends: Battle for Baldur's Gate. A rope counter is added to a creature under the player's control when it enters the battlefield. During each player's upkeep, they can pay mana to add a rope counter on a creature they control. If they do not then Fraying Line and each creature without a rope counter on it is exiled and all rope counters from all creatures. This represents the creatures with the counters are saved by being attached via the rope while those without rope fall and are destroyed when a player does not continue the line.",
+    "description": "Rope counters first appeared on the Fraying Line in Commander Legends: Battle for Baldur's Gate. A rope counter is added to a creature under the player's control when it enters the battlefield. During each player's upkeep, they can pay [2 generic mana] mana to add a rope counter on a creature they control. If they do not then Fraying Line and each creature without a rope counter on it is exiled and all rope counters from all creatures. This represents the creatures with the counters are saved by being attached via the rope while those without rope fall and are destroyed when a player does not continue the line.",
     "use": "Protects creature from exile effect",
     "placedOn": "Creatures",
     "sourceUrl": "https://mtg.wiki/page/Rope_counter"
@@ -1177,7 +1177,7 @@
   },
   "Scream counter": {
     "intro": "Scream counters are a type of counter introduced in Tempest. They have acted as a suspend like effect and as a +1/+0 counter.",
-    "description": "Scream counters first appeared on All Hallow's Eve in Legends as an unnamed counter before it was given errata to be Scream counters. It is a sorcery that is exiled with two Scream counters on it with one being removed each upkeep. Once it has no counters on it, it activates and each player returns all creatures from the graveyard to the battlefield. In this case, the counters act similarly to the Suspend mechanic and time counters.\n\nThey appeared again in Tempest on Endless Scream with a different effect. It is an Aura that can be cast with mana which makes it enter the battlefield with that many Scream counters on it granting +1/+0 for each counter on it.",
+    "description": "Scream counters first appeared on All Hallow's Eve in Legends as an unnamed counter before it was given errata to be Scream counters. It is a sorcery that is exiled with two Scream counters on it with one being removed each upkeep. Once it has no counters on it, it activates and each player returns all creatures from the graveyard to the battlefield. In this case, the counters act similarly to the Suspend mechanic and time counters.\n\nThey appeared again in Tempest on Endless Scream with a different effect. It is an Aura that can be cast with [X generic mana] mana which makes it enter the battlefield with that many Scream counters on it granting +1/+0 for each counter on it.",
     "use": "Suspend-like effect; +1/+0 to enchanted creature",
     "placedOn": "Exiled Sorcery; Aura",
     "sourceUrl": "https://mtg.wiki/page/Scream_counter"
@@ -1289,7 +1289,7 @@
   },
   "Stash counter": {
     "intro": "Stash counters are a type of counter introduced in Streets of New Capenna.",
-    "description": "Stash counters are used to track a player's use of resources and are then used to convert that stash into another resource.\n\nStash counters first appeared on the Glittering Stockpile in Streets of New Capenna. It is a treasure artifact with an activated ability to give along with adding a stash counter to it. It has a second ability to sacrifice the treasure to gain mana of any color equal to the number of counters on it. This represents stashing the mana for later.\n\nBloomburrow saw a return of stash counters on Hoarder's Overflow, which function similarly to Glittering Stockpile.\n\nMagic: The Gathering Foundations combined stash counters with Tinybones habit of stealing things to allow players to steal their opponents cards as they discard them.",
+    "description": "Stash counters are used to track a player's use of resources and are then used to convert that stash into another resource.\n\nStash counters first appeared on the Glittering Stockpile in Streets of New Capenna. It is a treasure artifact with an activated ability to give [Red mana] along with adding a stash counter to it. It has a second ability to sacrifice the treasure to gain mana of any color equal to the number of counters on it. This represents stashing the mana for later.\n\nBloomburrow saw a return of stash counters on Hoarder's Overflow, which function similarly to Glittering Stockpile.\n\nMagic: The Gathering Foundations combined stash counters with Tinybones habit of stealing things to allow players to steal their opponents cards as they discard them.",
     "use": "Measuring stored resources",
     "placedOn": "Enchantments, Artifacts, cards in exile",
     "sourceUrl": "https://mtg.wiki/page/Stash_counter"
@@ -1303,7 +1303,7 @@
   },
   "Story counter": {
     "intro": "Story counters are a type of counter introduced in the Phyrexia: All Will Be One commander decks.",
-    "description": "Story counters first appeared on the Staff of the Storyteller in the Phyrexia: All Will Be One commander decks. It is an artifact that gains a story counter anytime one or more creature Tokens are created. The artifact also creates a Spirit token when it first enters the battlefield so it starts with one counter on it. It then has an activated ability to pay and remove a story counter to draw a card.",
+    "description": "Story counters first appeared on the Staff of the Storyteller in the Phyrexia: All Will Be One commander decks. It is an artifact that gains a story counter anytime one or more creature Tokens are created. The artifact also creates a Spirit token when it first enters the battlefield so it starts with one counter on it. It then has an activated ability to pay [White mana] and remove a story counter to draw a card.",
     "use": "Resource for activated ability",
     "placedOn": "Artifacts",
     "sourceUrl": "https://mtg.wiki/page/Story_counter"
@@ -1471,8 +1471,8 @@
   },
   "Vortex counter": {
     "intro": "Vortex counters are a type of counter introduced in Alliances.",
-    "description": "Vortex counters first appeared on Energy Vortex in Mirage. It is an enchantment with an ability to add vortex counters on it for mana. At the beginning of a chosen opponent's upkeep, they take 3 damage for each Vortex counter until they pay for each. All of the counters are then removed from the enchantment on the player's next upkeep forcing them to pay to add more.",
-    "use": "Deals 3 damage unless player pays",
+    "description": "Vortex counters first appeared on Energy Vortex in Mirage. It is an enchantment with an ability to add vortex counters on it for [X generic mana] mana. At the beginning of a chosen opponent's upkeep, they take 3 damage for each Vortex counter until they pay [1 generic mana] for each. All of the counters are then removed from the enchantment on the player's next upkeep forcing them to pay to add more.",
+    "use": "Deals 3 damage unless player pays [1 generic mana]",
     "placedOn": "Enchantments",
     "sourceUrl": "https://mtg.wiki/page/Vortex_counter"
   },
@@ -1506,7 +1506,7 @@
   },
   "Wind counter": {
     "intro": "Wind counters are a type of counter introduced in Arabian Nights. They are used for effects on cards with a wind theme.",
-    "description": "Wind counters first appeared on Cyclone in Arabian Nights where they were originally known as \"chips\" before being given errata to be Wind counters. It is an enchantment that gets a Wind counter for each upkeep and forces the player to pay per counter on it or else it will be sacrificed. If the player pays, then the Cyclone deals damage equal to the number of Wind counters to the opponent player.\n\nThe counters appeared once again on Freyalise's Winds in Ice Age. It was an enchantment that would add a Wind counter to any permanent that became tapped. It acts as a replacement for untapping with all the counters being removed instead of untapping the permanent.",
+    "description": "Wind counters first appeared on Cyclone in Arabian Nights where they were originally known as \"chips\" before being given errata to be Wind counters. It is an enchantment that gets a Wind counter for each upkeep and forces the player to pay [Green mana] per counter on it or else it will be sacrificed. If the player pays, then the Cyclone deals damage equal to the number of Wind counters to the opponent player.\n\nThe counters appeared once again on Freyalise's Winds in Ice Age. It was an enchantment that would add a Wind counter to any permanent that became tapped. It acts as a replacement for untapping with all the counters being removed instead of untapping the permanent.",
     "use": "Upkeep tracking; replacement for untap",
     "placedOn": "Permanents",
     "sourceUrl": "https://mtg.wiki/page/Wind_counter"

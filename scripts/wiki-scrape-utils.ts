@@ -72,7 +72,9 @@ export function extractSectionTextByHeadingId(
 		}
 
 		if (isTextContentTag(currentTagName)) {
-			const textChunk = normalizeText(currentElement.text());
+			const textChunk = normalizeText(
+				extractTextIncludingImageAlt($, currentElement),
+			);
 			if (textChunk.length > 0) {
 				sectionTextChunks.push(textChunk);
 			}
@@ -106,12 +108,39 @@ export function loadInfoBoxData(
 			infoBoxRowElement.find("th").first().text().toLowerCase(),
 		);
 		const valueText = normalizeValueText(
-			infoBoxRowElement.find("td").first().text(),
+			extractTextIncludingImageAlt($, infoBoxRowElement.find("td").first()),
 		);
 		infoBoxData[headerText] = valueText;
 	}
 
 	return infoBoxData;
+}
+
+/**
+ * Extracts element text while substituting image tags with their alt text.
+ */
+export function extractTextIncludingImageAlt(
+	$: CheerioAPI,
+	contentElement: ReturnType<CheerioAPI>,
+): string {
+	const contentElementClone = contentElement.clone();
+	const imageElements = contentElementClone.find("img").addBack("img");
+
+	for (const imageElement of imageElements.toArray()) {
+		const imageElementSelection = $(imageElement);
+		const imageAltText = normalizeWhiteSpace(
+			imageElementSelection.attr("alt") ?? "",
+		);
+		if (imageAltText.length === 0) {
+			continue;
+		}
+
+		const imageAltTextWrapper = $(`<span></span>`);
+		imageAltTextWrapper.text(` [${imageAltText}] `);
+		imageElementSelection.replaceWith(imageAltTextWrapper);
+	}
+
+	return contentElementClone.text();
 }
 
 /**

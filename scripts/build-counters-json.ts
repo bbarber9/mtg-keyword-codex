@@ -3,6 +3,7 @@ import { fileURLToPath } from "node:url";
 import { type CheerioAPI, load } from "cheerio";
 import { createWikiHtmlPageFetcher } from "./wiki-html-fetcher";
 import {
+	extractTextIncludingImageAlt,
 	extractSectionTextByHeadingId,
 	findMissingFields,
 	loadInfoBoxData,
@@ -181,7 +182,9 @@ function extractCounterDetails(
 ): CounterDetails {
 	const $ = load(counterPageHtml);
 	const introParagraphElement = $("#mw-content-text p:first-of-type");
-	const intro = normalizeScrapedText(introParagraphElement.text());
+	const intro = normalizeScrapedText(
+		extractTextIncludingImageAlt($, introParagraphElement),
+	);
 	const infoBoxData = loadInfoBoxData($, normalizeScrapedText);
 	return {
 		intro,
