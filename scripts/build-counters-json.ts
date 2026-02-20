@@ -2,7 +2,6 @@ import { mkdir } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { type CheerioAPI, load } from "cheerio";
-import type { Element } from "domhandler";
 import { createWikiHtmlPageFetcher } from "./wiki-html-fetcher";
 
 const FULL_LIST_OF_COUNTERS_URL =
@@ -136,9 +135,7 @@ async function buildCounterDescriptions(
  */
 function collectCounterLinks(fullListHtml: string): CounterLink[] {
 	const $ = load(fullListHtml);
-	const anchorElements = $(
-		`#mw-content-text div.hatnote a[title$="counter"]`,
-	);
+	const anchorElements = $(`#mw-content-text div.hatnote a[title$="counter"]`);
 	if (anchorElements.length === 0) {
 		throw new Error("failed to find links!");
 	}
@@ -150,13 +147,11 @@ function collectCounterLinks(fullListHtml: string): CounterLink[] {
 			throw new Error(`attempted to read the wrong link: ${counterName}`);
 		}
 		const counterUrl = resolveCounterUrl(cheerioAnchor.attr("href"));
-		counterLinks.push({ counterName, counterUrl })
+		counterLinks.push({ counterName, counterUrl });
 	}
 
 	return counterLinks;
 }
-
-
 
 /**
  * Resolves and validates a wiki URL target from a link href.
@@ -178,175 +173,87 @@ function extractCounterDetails(
 	counterPageHtml: string,
 	sourceUrl: string,
 ): CounterDetails {
-	const parsedHtml = load(counterPageHtml);
+	const $ = load(counterPageHtml);
+	const introParagraphElement = $("#mw-content-text p:first-of-type");
+	const intro = removeFootnotesAndNormalizeWhitespace(
+		introParagraphElement.text(),
+	);
+	const infoBoxData = loadInfoBoxData($);
 	return {
-		intro: extractIntro(parsedHtml),
-		description: extractDescription(parsedHtml),
-		use: extractInfoboxFieldValue(parsedHtml, {
-			rowLabels: ["use"],
-			dataSources: ["use"],
-		}),
-		placedOn: extractInfoboxFieldValue(parsedHtml, {
-			rowLabels: ["placed on"],
-			dataSources: ["placed_on", "placed-on", "placedon"],
-		}),
+		intro,
+		description: extractDescription($),
+		use: infoBoxData.use ?? "",
+		placedOn: infoBoxData["placed on"] ?? "",
 		sourceUrl,
 	};
 }
 
 /**
- * Finds the introductory paragraph for a counter page.
- */
-function extractIntro(parsedHtml: CheerioAPI): string {
-	const para = parsedHtml("#mw-content-text p:first-of-type");
-	return normalizeFieldText(para.text());
-}
-
-/**
  * Extracts the Description section content from the page body.
  */
-function extractDescription(parsedHtml: CheerioAPI): string {
-	return extractSectionText(parsedHtml, ["description"]);
+function extractDescription($: CheerioAPI): string {
+	// return extractSectionText($, ["description"]);
+	// find a h2 that has a child span with id "Description", then extract text until the next heading of any kind
+	const descriptionSpan = $("h2 span#Description").first();
+	if (descriptionSpan.length === 0) {
+		return "";
+	}
+	const descriptionHeading = descriptionSpan.parent("h2").first();
+	if (descriptionHeading.length === 0) {
+		return "";
+	}
+	let currentElement = descriptionHeading.next();
+	const descriptionChunks: string[] = [];
+	while (currentElement.length > 0) {
+		const tagName = getElementTagName(currentElement);
+		if (isHeadingTag(tagName)) {
+			break;
+		}
+
+		if (isTextContentTag(tagName)) {
+			const textChunk = removeFootnotesAndNormalizeWhitespace(
+				currentElement.text(),
+			);
+			if (textChunk.length > 0) {
+				descriptionChunks.push(textChunk);
+			}
+		}
+
+		currentElement = currentElement.next();
+	}
+
+	return descriptionChunks.join("\n\n");
 }
 
-type InfoboxFieldOptions = {
-	rowLabels: string[];
-	dataSources: string[];
-	allowContainsMatch?: boolean;
-};
-
-/**
- * Collects text content under the first matching section heading.
- */
-function extractSectionText(
-	parsedHtml: CheerioAPI,
-	targetSectionLabels: string[],
-): string {
-	const normalizedTargetLabels = targetSectionLabels.map(normalizeFieldLabel);
-	let contentRoot = parsedHtml("#mw-content-text .mw-parser-output").first();
-	if (contentRoot.length === 0) {
-		contentRoot = parsedHtml(".mw-parser-output").first();
-	}
-	if (contentRoot.length === 0) {
-		contentRoot = parsedHtml("body").first();
-	}
-
-	const headingElements = contentRoot.find("h2, h3, h4, h5, h6");
-	for (const headingElement of headingElements.toArray()) {
-		const heading = parsedHtml(headingElement);
-		const headingText = getHeadingText(heading);
-		if (!matchesFieldLabel(headingText, normalizedTargetLabels, true)) {
-			continue;
-		}
-
-		const sectionChunks: string[] = [];
-		let currentElement = heading.next();
-		while (currentElement.length > 0) {
-			const tagName = getElementTagName(currentElement);
-			if (isHeadingTag(tagName)) {
-				break;
-			}
-
-			if (isTextContentTag(tagName)) {
-				const textChunk = normalizeFieldText(currentElement.text());
-				if (textChunk.length > 0) {
-					sectionChunks.push(textChunk);
-				}
-			}
-
-			currentElement = currentElement.next();
-		}
-
-		if (sectionChunks.length > 0) {
-			return sectionChunks.join("\n\n");
-		}
-	}
-
-	return "";
-}
-
-/**
- * Reads a named value from infobox rows or portable infobox data fields.
- */
-function extractInfoboxFieldValue(
-	parsedHtml: CheerioAPI,
-	options: InfoboxFieldOptions,
-): string {
-	const normalizedRowLabels = options.rowLabels.map(normalizeFieldLabel);
-
-	const rowElements = parsedHtml(
-		"table.infobox tr, table[class*='infobox'] tr",
-	);
-	for (const rowElement of rowElements.toArray()) {
-		const row = parsedHtml(rowElement);
-		const headerText = normalizeFieldLabel(row.find("th").first().text());
+function loadInfoBoxData($: CheerioAPI) {
+	const infoBoxObj: Record<string, string> = {};
+	const infoBoxRows = $("table.infobox tr");
+	//if the row contains a th and a td, then we can assume it's a valid row
+	for (const row of infoBoxRows.toArray()) {
+		const rowElement = $(row);
 		if (
-			!matchesFieldLabel(
-				headerText,
-				normalizedRowLabels,
-				options.allowContainsMatch,
-			)
+			rowElement.find("th").length === 0 ||
+			rowElement.find("td").length === 0
 		) {
 			continue;
 		}
 
-		const valueText = normalizeFieldText(row.find("td").first().text());
-		if (valueText.length > 0) {
-			return valueText;
-		}
-	}
-
-	for (const dataSourceName of options.dataSources) {
-		const selectors = [
-			`[data-source='${dataSourceName}'] .pi-data-value`,
-			`[data-source='${dataSourceName}'] .value`,
-			`[data-source='${dataSourceName}']`,
-			`[data-source*='${dataSourceName}'] .pi-data-value`,
-			`[data-source*='${dataSourceName}'] .value`,
-			`[data-source*='${dataSourceName}']`,
-		];
-
-		for (const selector of selectors) {
-			const valueText = normalizeFieldText(parsedHtml(selector).first().text());
-			if (valueText.length > 0) {
-				return valueText;
-			}
-		}
-	}
-
-	const portableInfoboxItems = parsedHtml(
-		".portable-infobox .pi-item.pi-data, .portable-infobox .pi-data, .pi-item.pi-data",
-	);
-	for (const portableItem of portableInfoboxItems.toArray()) {
-		const item = parsedHtml(portableItem);
-		const labelText = normalizeFieldLabel(
-			item.find(".pi-data-label, .pi-data-label > *").first().text(),
+		const headerText = normalizeWhiteSpace(
+			rowElement.find("th").first().text().toLowerCase(),
 		);
-		if (
-			!matchesFieldLabel(
-				labelText,
-				normalizedRowLabels,
-				options.allowContainsMatch,
-			)
-		) {
-			continue;
-		}
-
-		const valueText = normalizeFieldText(
-			item.find(".pi-data-value, .pi-data-value > *, .value").first().text(),
+		const valueText = removeFootnotesAndNormalizeWhitespace(
+			rowElement.find("td").first().text(),
 		);
-		if (valueText.length > 0) {
-			return valueText;
-		}
+		infoBoxObj[headerText] = valueText;
 	}
 
-	return "";
+	return infoBoxObj;
 }
 
 /**
  * Normalizes scraped field text and removes bracketed footnote references.
  */
-function normalizeFieldText(rawText: string): string {
+function removeFootnotesAndNormalizeWhitespace(rawText: string): string {
 	return normalizeWhiteSpace(
 		rawText.replaceAll(FOOTNOTE_REFERENCE_PATTERN, ""),
 	);
@@ -361,33 +268,6 @@ function normalizeWhiteSpace(rawText: string): string {
 		.replaceAll(NBSP_UNICODE, " ")
 		.replaceAll(WHITESPACE_PATTERN, " ")
 		.trim();
-}
-
-/**
- * Normalizes label text for case-insensitive matching.
- */
-function normalizeFieldLabel(rawText: string): string {
-	const normalizedLabel = normalizeWhiteSpace(rawText).toLowerCase();
-	return normalizedLabel
-		.replaceAll(":", "")
-		.replaceAll("(", "")
-		.replaceAll(")", "");
-}
-
-/**
- * Extracts normalized heading text, excluding edit controls when needed.
- */
-function getHeadingText(heading: ReturnType<CheerioAPI>): string {
-	const headlineText = normalizeFieldLabel(
-		heading.find(".mw-headline").first().text(),
-	);
-	if (headlineText.length > 0) {
-		return headlineText;
-	}
-
-	const headingClone = heading.clone();
-	headingClone.find(".mw-editsection").remove();
-	return normalizeFieldLabel(headingClone.text());
 }
 
 /**
@@ -425,38 +305,6 @@ function isTextContentTag(tagName: string): boolean {
 }
 
 /**
- * Determines whether a candidate label matches expected labels.
- */
-function matchesFieldLabel(
-	candidateLabel: string,
-	targetLabels: string[],
-	allowContainsMatch = false,
-): boolean {
-	if (candidateLabel.length === 0) {
-		return false;
-	}
-
-	if (targetLabels.includes(candidateLabel)) {
-		return true;
-	}
-
-	if (!allowContainsMatch) {
-		return false;
-	}
-
-	for (const targetLabel of targetLabels) {
-		if (
-			candidateLabel.includes(targetLabel) ||
-			targetLabel.includes(candidateLabel)
-		) {
-			return true;
-		}
-	}
-
-	return false;
-}
-
-/**
  * Checks whether link text looks like a counter page name.
  */
 function isCounterName(candidateName: string): boolean {
@@ -470,7 +318,6 @@ function isCounterName(candidateName: string): boolean {
 function normalizeForCollision(counterName: string): string {
 	return normalizeWhiteSpace(counterName).toLowerCase();
 }
-
 
 /**
  * Writes generated counter details to the output JSON file.
