@@ -2,9 +2,11 @@ import { mkdir } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { type CheerioAPI, load } from "cheerio";
+import type { Element } from "domhandler";
 import { createWikiHtmlPageFetcher } from "./wiki-html-fetcher";
 
-const FULL_LIST_URL = "https://mtg.wiki/page/Counter_(marker)/Full_List";
+const FULL_LIST_OF_COUNTERS_URL =
+	"https://mtg.wiki/page/Counter_(marker)/Full_List";
 const OUTPUT_FILE_RELATIVE_PATH = "src/data/wiki/counters.json";
 const WIKI_CACHE_DIRECTORY_RELATIVE_PATH = "scripts/mtg-wiki-cache";
 const COUNTER_IMPORTER_USER_AGENT = "mtg-keyword-codex/0.1 (counter-importer)";
@@ -51,7 +53,7 @@ const fetchHtmlPage = createWikiHtmlPageFetcher({
  * Runs the end-to-end counter import workflow and writes the output JSON.
  */
 async function main(): Promise<void> {
-	const fullListHtml = await fetchHtmlPage(FULL_LIST_URL);
+	const fullListHtml = await fetchHtmlPage(FULL_LIST_OF_COUNTERS_URL);
 	const counterLinks = collectCounterLinks(fullListHtml);
 
 	if (counterLinks.length === 0) {
@@ -76,7 +78,9 @@ async function buildCounterDescriptions(
 	let completeCount = 0;
 
 	for (const counterLink of counterLinks) {
-		const normalizedCounterName = normalizeForCollision(counterLink.counterName);
+		const normalizedCounterName = normalizeForCollision(
+			counterLink.counterName,
+		);
 		const existingCounterName = seenCounterNames.get(normalizedCounterName);
 		if (existingCounterName) {
 			duplicateCount += 1;
@@ -131,71 +135,40 @@ async function buildCounterDescriptions(
  * Parses the full list page and returns candidate counter names and URLs.
  */
 function collectCounterLinks(fullListHtml: string): CounterLink[] {
-	const parsedHtml = load(fullListHtml);
-	const inContentAnchors = parsedHtml("#mw-content-text a[href]");
-	const anchorElements = inContentAnchors.length > 0
-		? inContentAnchors
-		: parsedHtml("a[href]");
+	const $ = load(fullListHtml);
+	const anchorElements = $(
+		`#mw-content-text div.hatnote a[title$="counter"]`,
+	);
+	if (anchorElements.length === 0) {
+		throw new Error("failed to find links!");
+	}
 	const counterLinks: CounterLink[] = [];
 	for (const anchorElement of anchorElements.toArray()) {
-		const counterLink = extractCounterLink(parsedHtml, anchorElement);
-		if (counterLink) {
-			counterLinks.push(counterLink);
+		const cheerioAnchor = $(anchorElement);
+		const counterName = normalizeWhiteSpace(cheerioAnchor.text());
+		if (!isCounterName(counterName)) {
+			throw new Error(`attempted to read the wrong link: ${counterName}`);
 		}
+		const counterUrl = resolveCounterUrl(cheerioAnchor.attr("href"));
+		counterLinks.push({ counterName, counterUrl })
 	}
 
 	return counterLinks;
 }
 
-/**
- * Builds a counter link record from an anchor element when it looks valid.
- */
-function extractCounterLink(
-	parsedHtml: CheerioAPI,
-	anchorElement: Parameters<CheerioAPI>[0],
-): CounterLink | null {
-	const anchor = parsedHtml(anchorElement);
-	const counterName = normalizeDisplayText(anchor.text());
-	if (!isCounterName(counterName)) {
-		return null;
-	}
 
-	const counterUrl = resolveCounterUrl(anchor.attr("href") ?? null);
-	if (!counterUrl) {
-		return null;
-	}
-
-	return { counterName, counterUrl };
-}
 
 /**
  * Resolves and validates a wiki URL target from a link href.
  */
-function resolveCounterUrl(hrefValue: string | null): string | null {
+function resolveCounterUrl(hrefValue: string | undefined): string {
 	if (!hrefValue || hrefValue.startsWith("#")) {
-		return null;
+		throw new Error(`wrong link url! ${hrefValue}`);
 	}
 
-	try {
-		const resolvedUrl = new URL(hrefValue, FULL_LIST_URL);
-		resolvedUrl.hash = "";
-		if (!isHttpProtocol(resolvedUrl.protocol)) {
-			return null;
-		}
-
-		const actionParam = resolvedUrl.searchParams.get("action");
-		if (actionParam === "edit" || actionParam === "history") {
-			return null;
-		}
-
-		if (resolvedUrl.toString() === FULL_LIST_URL) {
-			return null;
-		}
-
-		return resolvedUrl.toString();
-	} catch {
-		return null;
-	}
+	const resolvedUrl = new URL(hrefValue, FULL_LIST_OF_COUNTERS_URL);
+	resolvedUrl.hash = "";
+	return resolvedUrl.toString();
 }
 
 /**
@@ -222,36 +195,18 @@ function extractCounterDetails(
 }
 
 /**
- * Finds the first non-empty introductory paragraph for a counter page.
+ * Finds the introductory paragraph for a counter page.
  */
 function extractIntro(parsedHtml: CheerioAPI): string {
-	const introSelectors = [
-		"#mw-content-text .mw-parser-output > p",
-		"#mw-content-text p",
-		".mw-parser-output > p",
-		"p",
-	];
-
-	for (const selector of introSelectors) {
-		const paragraphElements = parsedHtml(selector);
-		for (const paragraphElement of paragraphElements.toArray()) {
-			const paragraphText = normalizeFieldText(parsedHtml(paragraphElement).text());
-			if (paragraphText.length > 0) {
-				return paragraphText;
-			}
-		}
-	}
-
-	return "";
+	const para = parsedHtml("#mw-content-text p:first-of-type");
+	return normalizeFieldText(para.text());
 }
 
 /**
  * Extracts the Description section content from the page body.
  */
 function extractDescription(parsedHtml: CheerioAPI): string {
-	return extractSectionText(parsedHtml, [
-		"description",
-	]);
+	return extractSectionText(parsedHtml, ["description"]);
 }
 
 type InfoboxFieldOptions = {
@@ -319,11 +274,19 @@ function extractInfoboxFieldValue(
 ): string {
 	const normalizedRowLabels = options.rowLabels.map(normalizeFieldLabel);
 
-	const rowElements = parsedHtml("table.infobox tr, table[class*='infobox'] tr");
+	const rowElements = parsedHtml(
+		"table.infobox tr, table[class*='infobox'] tr",
+	);
 	for (const rowElement of rowElements.toArray()) {
 		const row = parsedHtml(rowElement);
 		const headerText = normalizeFieldLabel(row.find("th").first().text());
-		if (!matchesFieldLabel(headerText, normalizedRowLabels, options.allowContainsMatch)) {
+		if (
+			!matchesFieldLabel(
+				headerText,
+				normalizedRowLabels,
+				options.allowContainsMatch,
+			)
+		) {
 			continue;
 		}
 
@@ -359,7 +322,13 @@ function extractInfoboxFieldValue(
 		const labelText = normalizeFieldLabel(
 			item.find(".pi-data-label, .pi-data-label > *").first().text(),
 		);
-		if (!matchesFieldLabel(labelText, normalizedRowLabels, options.allowContainsMatch)) {
+		if (
+			!matchesFieldLabel(
+				labelText,
+				normalizedRowLabels,
+				options.allowContainsMatch,
+			)
+		) {
 			continue;
 		}
 
@@ -378,21 +347,27 @@ function extractInfoboxFieldValue(
  * Normalizes scraped field text and removes bracketed footnote references.
  */
 function normalizeFieldText(rawText: string): string {
-	return normalizeDisplayText(rawText.replaceAll(FOOTNOTE_REFERENCE_PATTERN, ""));
+	return normalizeWhiteSpace(
+		rawText.replaceAll(FOOTNOTE_REFERENCE_PATTERN, ""),
+	);
 }
 
 /**
  * Collapses whitespace and trims display text.
  */
-function normalizeDisplayText(rawText: string): string {
-	return rawText.replaceAll("\u00a0", " ").replaceAll(WHITESPACE_PATTERN, " ").trim();
+function normalizeWhiteSpace(rawText: string): string {
+	const NBSP_UNICODE = "\u00a0";
+	return rawText
+		.replaceAll(NBSP_UNICODE, " ")
+		.replaceAll(WHITESPACE_PATTERN, " ")
+		.trim();
 }
 
 /**
  * Normalizes label text for case-insensitive matching.
  */
 function normalizeFieldLabel(rawText: string): string {
-	const normalizedLabel = normalizeDisplayText(rawText).toLowerCase();
+	const normalizedLabel = normalizeWhiteSpace(rawText).toLowerCase();
 	return normalizedLabel
 		.replaceAll(":", "")
 		.replaceAll("(", "")
@@ -403,7 +378,9 @@ function normalizeFieldLabel(rawText: string): string {
  * Extracts normalized heading text, excluding edit controls when needed.
  */
 function getHeadingText(heading: ReturnType<CheerioAPI>): string {
-	const headlineText = normalizeFieldLabel(heading.find(".mw-headline").first().text());
+	const headlineText = normalizeFieldLabel(
+		heading.find(".mw-headline").first().text(),
+	);
 	if (headlineText.length > 0) {
 		return headlineText;
 	}
@@ -425,7 +402,13 @@ function getElementTagName(element: ReturnType<CheerioAPI>): string {
  * Checks whether a tag name is an h2-h6 heading.
  */
 function isHeadingTag(tagName: string): boolean {
-	return tagName === "h2" || tagName === "h3" || tagName === "h4" || tagName === "h5" || tagName === "h6";
+	return (
+		tagName === "h2" ||
+		tagName === "h3" ||
+		tagName === "h4" ||
+		tagName === "h5" ||
+		tagName === "h6"
+	);
 }
 
 /**
@@ -462,7 +445,10 @@ function matchesFieldLabel(
 	}
 
 	for (const targetLabel of targetLabels) {
-		if (candidateLabel.includes(targetLabel) || targetLabel.includes(candidateLabel)) {
+		if (
+			candidateLabel.includes(targetLabel) ||
+			targetLabel.includes(candidateLabel)
+		) {
 			return true;
 		}
 	}
@@ -482,15 +468,9 @@ function isCounterName(candidateName: string): boolean {
  * Normalizes a counter name for duplicate detection.
  */
 function normalizeForCollision(counterName: string): string {
-	return normalizeDisplayText(counterName).toLowerCase();
+	return normalizeWhiteSpace(counterName).toLowerCase();
 }
 
-/**
- * Checks whether a URL protocol is HTTP or HTTPS.
- */
-function isHttpProtocol(protocol: string): boolean {
-	return protocol === "http:" || protocol === "https:";
-}
 
 /**
  * Writes generated counter details to the output JSON file.
@@ -510,7 +490,9 @@ function printSummary(discoveredCount: number, buildResult: BuildResult): void {
 	console.log(`Generated ${OUTPUT_FILE_RELATIVE_PATH}`);
 	console.log(`Discovered counter entries: ${discoveredCount}`);
 	console.log(`Complete records: ${buildResult.completeCount}`);
-	console.log(`Incomplete records: ${buildResult.incompleteCounterReports.length}`);
+	console.log(
+		`Incomplete records: ${buildResult.incompleteCounterReports.length}`,
+	);
 	console.log(`Duplicates skipped: ${buildResult.duplicateCount}`);
 
 	if (buildResult.incompleteCounterReports.length > 0) {
@@ -524,7 +506,9 @@ function printSummary(discoveredCount: number, buildResult: BuildResult): void {
 /**
  * Lists counter detail fields that are still empty.
  */
-function findMissingFields(counterDetails: CounterDetails): Array<keyof CounterDetails> {
+function findMissingFields(
+	counterDetails: CounterDetails,
+): Array<keyof CounterDetails> {
 	const missingFields: Array<keyof CounterDetails> = [];
 	const fieldNames = Object.keys(counterDetails) as Array<keyof CounterDetails>;
 	for (const fieldName of fieldNames) {

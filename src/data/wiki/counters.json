@@ -1,13 +1,13 @@
 {
   "+1/+1 counter": {
-    "intro": "+1/+1 counters are the most common type of counter in Magic, with 2,964 cards that use them. +1/+1 counters were introduced in Alpha.",
+    "intro": "+1/+1 counters are the most common type of counter in Magic, with 2,964 cards that use them. +1/+1 counters were introduced in Alpha. From the Comprehensive Rules (January 16, 2026—Lorwyn Eclipsed)From the Release Notes for Lorwyn Eclipsed (January 9, 2026)",
     "description": "A +1/+1 counter on a creature adds one to its power and toughness. Creatures using +1/+1 counters were among the most popular in the early history of the game.\n\nCharge counters serve as the equivalent default counter for noncreature permanents.\n\nAny color can put +1/+1 counters on themselves, but white and green are best overall at doing it including putting them on other creatures. The creations of, and caring about, +1/+1 counters are secondary in black, and tertiary in blue and red.",
     "use": "Power and toughness alteration",
     "placedOn": "Creatures",
     "sourceUrl": "https://mtg.wiki/page/%2B1/%2B1_counter"
   },
   "−1/−1 counter": {
-    "intro": "−1/−1 counters are the third most common counter type in Magic, with 243 cards, following loyalty counters at 340 cards. They were introduced on the Arabian Nights card Unstable Mutation, and were used as major set themes in Shadowmoor and Eventide, Scars of Mirrodin block, Amonkhet block, and Lorwyn Eclipsed.",
+    "intro": "−1/−1 counters are the third most common counter type in Magic, with 243 cards, following loyalty counters at 340 cards. They were introduced on the Arabian Nights card Unstable Mutation, and were used as major set themes in Shadowmoor and Eventide, Scars of Mirrodin block, Amonkhet block, and Lorwyn Eclipsed. From the Comprehensive Rules (January 16, 2026—Lorwyn Eclipsed)From the Release Notes for Lorwyn Eclipsed (January 9, 2026)",
     "description": "−1/−1 counters appear in all five colors but are primarily in black. Flavorwise, putting −1/−1 counters on a creature usually indicates a character being scarred or infected. Shadowmoor's design used replacement effects to signify \"damaged\" creatures, with a few ways to remove counters flavored as \"healing\" effects. Scars of Mirrodin used them aggressively on opponent's creatures as \"infection\", which grew worse with the effect of proliferate.\n\nFor ease of comprehension, blocks tend to focus on only a single type of counter on creatures. −1/−1 counters are used less often than +1/+1 counters because they have less available design space, due to their similarity to +1/+1 counters and their capacity to kill creatures and hence a finite number of counters can be present on any given board state. R&D considers them not conducive to making dynamic play environments. −1/−1 counters are currently ranked at a 5 on the Storm Scale for individual cards, and a 7 for use as one of the main mechanics of a set.\n\nAs a further concession to mitigate complexity, +1/+1 counters and −1/−1 counters are the only power/toughness altering counters used in new products. Additionally, they are never used as a major component in the same set, to minimize confusion in limited play, unless the product is for more experienced players, such as for the Modern Horizons series. This was relaxed by proxy for Massacre Girl, Known Killer in Murders at Karlov Manor, which uses wither, and more directly for Duskmourn: House of Horror on Patched Plaything. A small handful of cards from the earliest sets still use other, obsolete counters, which may have partial negative numbers.",
     "use": "Power and toughness alteration",
     "placedOn": "Creatures",
@@ -273,7 +273,7 @@
     "sourceUrl": "https://mtg.wiki/page/Death_counter"
   },
   "Defense counter": {
-    "intro": "Defense counters are counters that are used to track the defense of battles. They were introduced in March of the Machine.",
+    "intro": "Defense counters are counters that are used to track the defense of battles. They were introduced in March of the Machine. From the Comprehensive Rules (January 16, 2026—Lorwyn Eclipsed)",
     "description": "Defense counters are exclusively connected to battle cards and represent how much damage attacking players need to win the battle. Battles enter play with the number of defense counters printed on their card. They lose defense counters corresponding to damage dealt to them.",
     "use": "",
     "placedOn": "Battle",
@@ -378,7 +378,7 @@
     "sourceUrl": "https://mtg.wiki/page/Ember_counter"
   },
   "Energy counter": {
-    "intro": "Energy is a resource and mechanic that was introduced in the Kaladesh block (Kaladesh and Aether Revolt). The mechanic enables the production of energy counters, which may be used to pay the costs of activated and triggered abilities.",
+    "intro": "Energy is a resource and mechanic that was introduced in the Kaladesh block (Kaladesh and Aether Revolt). The mechanic enables the production of energy counters, which may be used to pay the costs of activated and triggered abilities. From the glossary of the Comprehensive Rules (January 16, 2026—Lorwyn Eclipsed)From the Comprehensive Rules (January 16, 2026—Lorwyn Eclipsed)From the Release Notes for Kaladesh (September 16, 2016)Example",
     "description": "An energy counter is a counter that, unlike most other counters, is placed on players rather than objects. Most cards that grant energy counters also provide a way to spend them. However, because they are placed on the player rather than a specific object, energy counters from one card can be saved up and spent on the abilities of other cards. Energy counters don't go away as phases or steps end, or as the turn ends, and no cards printed in the Kaladesh block remove energy counters from other players. They could only be removed when the player chose to spend them. However, Core Set 2019 featured Suncleanser which could remove energy counters.",
     "use": "Resource",
     "placedOn": "Players",
@@ -413,7 +413,7 @@
     "sourceUrl": "https://mtg.wiki/page/Everything_counter"
   },
   "Experience counter": {
-    "intro": "Experience counters are used to track a commander's growth in power throughout the game. They are only used on cards designed for multiplayer formats.",
+    "intro": "Experience counters are used to track a commander's growth in power throughout the game. They are only used on cards designed for multiplayer formats. From the Release Notes for Commander 2015 (November 11, 2015)Example",
     "description": "Unlike most other counters, experience counters are placed on players, rather than on permanents. Experience counters first appeared through a cycle of commander in Commander 2015. Each legendary creature in the cycle has a triggered ability that grants its controller an experience counter, and a second ability that benefits from experience counters.\n\nBecause experience counters are put on players, they stay on you even if a commander dies, and said commander will reap the benefits the next time it's cast. Additionally, multiple cards in this cycle could accumulate counters in tandem, though naturally only one will benefit from the commander designation.",
     "use": "Tracking",
     "placedOn": "Players",
@@ -497,7 +497,7 @@
     "sourceUrl": "https://mtg.wiki/page/Film_counter"
   },
   "Finality counter": {
-    "intro": "Finality counters are a type of deciduous counter introduced in The Lost Caverns of Ixalan. They were designed to minimize memory issues for cards that return something from the graveyard with \"if it would die, it's exiled instead\" rules.",
+    "intro": "Finality counters are a type of deciduous counter introduced in The Lost Caverns of Ixalan. They were designed to minimize memory issues for cards that return something from the graveyard with \"if it would die, it's exiled instead\" rules. From the glossary of the Comprehensive Rules (January 16, 2026—Lorwyn Eclipsed)From the Comprehensive Rules (January 16, 2026—Lorwyn Eclipsed)From the Release Notes for The Lost Caverns of Ixalan (November 7, 2023)",
     "description": "If a permanent with a finality counter on it would die, it is exiled instead. This is a replacement effect. The use of counters makes for better memory tracking, as permanents can be on the battlefield for long periods before their exiling is relevant. Having multiple finality counters on a permanent produces no additional effects.\n\nThis effect is usually used for creatures that have been returned from the graveyard to the battlefield at a reduced rate. Similar text was first seen as far back as Dreams of the Dead (Ice Age); later cards like Isareth, the Awakener or From the Catacombs sometimes used corpse counters to mark affected creatures. Unlike corpse counters, however, where the counter is merely a reminder and the ability remains regardless of the counter's presence, the rules for finality counters are included as part of the counter itself. Thus, if a finality counter is removed, upon destruction the creature returns to the graveyard as normal.\n\nAll colors have access to finality counters. Colors that bring things back from the graveyard are most likely to use it, with red, king of temporary effects, probably number one. In practice, however, black and its styles of reanimation has been first by a wide margin, followed by green, with red having only one representative of a {U}{B}{R} card.",
     "use": "Exiling permanents when they die",
     "placedOn": "Permanents",
@@ -756,7 +756,7 @@
     "sourceUrl": "https://mtg.wiki/page/Judgment_counter"
   },
   "Keyword counter": {
-    "intro": "A Keyword counter is a counter that gives a keyword ability to a permanent they're on. The game mechanic was featured in Ikoria: Lair of Behemoths.",
+    "intro": "A Keyword counter is a counter that gives a keyword ability to a permanent they're on. The game mechanic was featured in Ikoria: Lair of Behemoths. From the glossary of the Comprehensive Rules (January 16, 2026—Lorwyn Eclipsed)From the Comprehensive Rules (January 16, 2026—Lorwyn Eclipsed)From the Release Notes for Ikoria (April 6, 2020)",
     "description": "A permanent with a keyword counter on it gains that keyword. Use the counter's timestamp to determine how this interacts with continuous effects. The timestamp of a counter is the most recent time that any counter was put onto the permanent.\n\nFor this group of counters, having more than one of the same counter provides no additional benefit. Note that if these counters end up on a noncreature permanent, it won't necessarily apply immediately, but it will if the permanent becomes a creature. The exceptions here are exalted, hexproof, and indestructible, which work even if they end up on a noncreature permanent. Deathtouch and lifelink counters could also matter if the noncreature permanent can deal damage.\n\nDuring its introduction in Ikoria: Lair of Behemoths, several spells rewarded creatures with particular keywords (keyword \"lords\"), as well as multiple creatures and spells that granted the choice of several keywords.",
     "use": "Keyword ability gain",
     "placedOn": "Creatures",
@@ -819,7 +819,7 @@
     "sourceUrl": "https://mtg.wiki/page/Lore_counter"
   },
   "Loyalty counter": {
-    "intro": "Loyalty counters are counters that are used to track the loyalty of planeswalkers. With 317 planeswalker cards and 23 more cards that interact with loyalty counters, they are the second most common counter type in Magic, behind +1/+1 counters at 2,964 cards.",
+    "intro": "Loyalty counters are counters that are used to track the loyalty of planeswalkers. With 317 planeswalker cards and 23 more cards that interact with loyalty counters, they are the second most common counter type in Magic, behind +1/+1 counters at 2,964 cards. From the Comprehensive Rules (January 16, 2026—Lorwyn Eclipsed)",
     "description": "Loyalty counters are almost exclusively connected to planeswalker cards and are usually added or removed to activate loyalty abilities. Other abilities can cause them to gain or lose loyalty as well. Planeswalkers enter play with the number of loyalty counters printed on their card due to an intrinsic ability, lose loyalty counters corresponding to damage dealt to them, and go to the graveyard when they have no loyalty counters on them as a state-based action.\n\nGatewatch Beacon from Commander Masters is the first non-planeswalker card to enter the battlefield with loyalty counters on it.",
     "use": "Loyalty",
     "placedOn": "Planeswalkers",
@@ -840,7 +840,7 @@
     "sourceUrl": "https://mtg.wiki/page/Magnet_counter"
   },
   "Manabond counter": {
-    "intro": "Several mechanics are unique to playtest cards from Mystery Booster, Mystery Booster 2, and Unknown Events. This list includes all such mechanics alphabetically from L–Q. Many of them appear on only one card.",
+    "intro": "Several mechanics are unique to playtest cards from Mystery Booster, Mystery Booster 2, and Unknown Events. This list includes all such mechanics alphabetically from L–Q. Many of them appear on only one card. RulingsRulingsExampleRulingsExample 1RulingsRulingsRulingsRulingsRulingsExampleRulingsRulingsRulingsExampleExampleRulingsExampleRulingsExampleExampleRulingsExampleRulingsExampleRulings",
     "description": "",
     "use": "",
     "placedOn": "",
@@ -1057,7 +1057,7 @@
     "sourceUrl": "https://mtg.wiki/page/Point_counter"
   },
   "Poison counter": {
-    "intro": "A poison counter is a counter that, unlike most other counters, is placed on players rather than objects. When a player has ten or more poison counters, that player loses the game. A player with at least one poison counter is considered poisoned. Interacting with poison counters is seen mostly in black and green.",
+    "intro": "A poison counter is a counter that, unlike most other counters, is placed on players rather than objects. When a player has ten or more poison counters, that player loses the game. A player with at least one poison counter is considered poisoned. Interacting with poison counters is seen mostly in black and green. From the glossary of the Comprehensive Rules (January 16, 2026—Lorwyn Eclipsed)From the Comprehensive Rules (January 16, 2026—Lorwyn Eclipsed)From the Comprehensive Rules (January 16, 2026—Lorwyn Eclipsed)From the Comprehensive Rules (January 16, 2026—Lorwyn Eclipsed)From the Comprehensive Rules (January 16, 2026—Lorwyn Eclipsed)From the Comprehensive Rules (January 16, 2026—Lorwyn Eclipsed)From the Comprehensive Rules (January 16, 2026—Lorwyn Eclipsed)From the glossary of the Comprehensive Rules (January 16, 2026—Lorwyn Eclipsed)",
     "description": "",
     "use": "A player with ten or more poison counters loses the game.",
     "placedOn": "Players",
@@ -1079,7 +1079,7 @@
   },
   "Pressure counter": {
     "intro": "Pressure counters are a type of counter introduced in Visions. They acted as an increasing resource for a sacrificial ability.",
-    "description": "Pressure counters first appeared on Magma Mine in Visions. It was an artifact that could add Pressure counters to itself. It could also be sacrificed at any time dealing +1 damage for each counter on it. The counters represented the magma pressure building up until it exploded with the sacrifice ability.\n\nThey reappeared again in Magic 2013 with Hellion Crucible which was a land that also could add Pressure counters to itself. It only needed to build up 2 before it could be sacrificed to create a 4/4 red Hellion creature token with Haste. In this case, the counters represented the pressure building up until a Hellion is born.",
+    "description": "Pressure counters first appeared on Magma Mine in Visions. It was an artifact that could add Pressure counters to itself. It could also be sacrificed at any time dealing +1 damage for each counter on it. The counters represented the magma pressure building up until it exploded with the sacrifice ability.\n\nThey reappeared again in Magic 2013 with Hellion Crucible which was a land that also could add pressure counters to itself. It only needed to build up two before it could be sacrificed to create a 4/4 red Hellion creature token with Haste. In this case, the counters represented the pressure building up until a Hellion is born.\n\nPressure counters returned on Exploding Barrel in the Teenage Mutant Ninja Turtles Commander deck Turtle Power!, which represented the video game trope of the same name. As the Barrel deals a fixed amount of damage, the pressure counters represent the volatility of the barrel.",
     "use": "Resource for sacrificial ability",
     "placedOn": "Artifacts, Lands",
     "sourceUrl": "https://mtg.wiki/page/Pressure_counter"
@@ -1099,14 +1099,14 @@
     "sourceUrl": "https://mtg.wiki/page/Pupa_counter"
   },
   "Quest counter": {
-    "intro": "Quest counters are used for multiple cycles of enchantments from Zendikar block and returned in Universes Beyond: Fallout, Avatar: The Last Airbender, and Modern Horizons 3. They mark the progress of the informally named \"quest\" enchantments.",
+    "intro": "Quest counters are used for multiple cycles of enchantments from Zendikar block and returned in Universes Beyond: Fallout, Avatar: The Last Airbender, and Modern Horizons 3. They mark the progress of the informally named \"quest\" enchantments. From the Zendikar FAQ (September 24, 2009)",
     "description": "",
     "use": "Quests, Ascensions, Expeditions, Legendary Creatures",
     "placedOn": "Enchantments, Artifacts, Creatures",
     "sourceUrl": "https://mtg.wiki/page/Quest_counter"
   },
   "Rad counter": {
-    "intro": "A rad counter is a counter that is placed on players rather than objects. A card that refers to life loss “from radiation” refers to life lost as a result of the triggered ability associated with rad counters. Rad counters were introduced as part of Universes Beyond: Fallout.",
+    "intro": "A rad counter is a counter that is placed on players rather than objects. A card that refers to life loss “from radiation” refers to life lost as a result of the triggered ability associated with rad counters. Rad counters were introduced as part of Universes Beyond: Fallout. From the glossary of the Comprehensive Rules (January 16, 2026—Lorwyn Eclipsed)From the Comprehensive Rules (January 16, 2026—Lorwyn Eclipsed)From the Release Notes for Fallout (January 8, 2024)",
     "description": "Rad counters represent your current radiation levels, and the higher that is, the more serious the impact. Rad counters, unlike most other counters, have an inherent ability: At the beginning of the precombat main phase of a player with rad counters, that player mills cards equal to the number of rad counters they have. For each nonland card milled this way, that player loses 1 life and removes one rad counter from themselves. This process is referred to as \"radiation\". In the long term, each rad counter is a point of damage, but reflecting the phenomenon of radioactive half-lives, the decay is probabilistic rather than guaranteed. This ability is represented by the Radiation helper card.\n\nRad counters may strengthen cards but come with the risk of death. To avoid being overly parasitic, most cards that are strengthened by rad counters use a trigger based off milling nonland cards.\n\nThe mechanical execution of rad counters may be reused in future sets, but possibly not under the same name.",
     "use": "At the beginning of your precombat main phase, if you have any rad counters, mill that many cards. For each nonland card milled this way, you lose 1 life and a rad counter.",
     "placedOn": "Players",
@@ -1197,7 +1197,7 @@
     "sourceUrl": "https://mtg.wiki/page/Shell_counter"
   },
   "Shield counter": {
-    "intro": "Shield counters were introduced in Streets of New Capenna as the signature Brokers mechanic.",
+    "intro": "Shield counters were introduced in Streets of New Capenna as the signature Brokers mechanic. From the glossary of the Comprehensive Rules (January 16, 2026—Lorwyn Eclipsed)From the Comprehensive Rules (January 16, 2026—Lorwyn Eclipsed)From the Release Notes for Streets of New Capenna (March 31, 2022)Example",
     "description": "Shield counters provide two benefits. First, if a permanent with a shield counter on it would be destroyed by an effect, a shield counter is removed from the permanent instead of it being destroyed. Much like how it bypasses regenerate and indestructible, reducing its toughness to 0 or less will bypass the shield counter.\n\nThe second benefit works against damage. If a permanent with a shield counter on it would be dealt damage, that damage is prevented, and a shield counter is removed from the permanent.\n\nThis prevention effect works to stop any form of damage—combat damage, damage dealt by spells like Strangle, or damage dealt because of activated or triggered abilities. However, this means that damage of any sort will remove the shield regardless of its creature's toughness, which means 1-damage effects are efficient ways of removing them. If damage can't be prevented, the shield counter is still removed, and damage is still done.",
     "use": "Prevent destruction and damage",
     "placedOn": "Permanents",
@@ -1260,7 +1260,7 @@
     "sourceUrl": "https://mtg.wiki/page/Soul_counter"
   },
   "Spark counter": {
-    "intro": "Several mechanics are unique to playtest cards from Mystery Booster, Mystery Booster 2, and Unknown Events. This list includes all such mechanics alphabetically from R–Z. Many of them appear on only one card.",
+    "intro": "Several mechanics are unique to playtest cards from Mystery Booster, Mystery Booster 2, and Unknown Events. This list includes all such mechanics alphabetically from R–Z. Many of them appear on only one card. RulingsExampleRulingsExampleRulingsExampleRulingsRulingsExampleRulingsExampleRulingsExampleRulingsExampleRulingsExampleRulingsExampleFrom the Release Notes for Mystery Booster (November 11, 2019)ExampleRulingsRulingsExampleRulingsExampleRulingsExampleRulingsExampleRulingsExampleRulingsExampleRulingsExampleRulingsExample",
     "description": "",
     "use": "",
     "placedOn": "",
@@ -1323,7 +1323,7 @@
     "sourceUrl": "https://mtg.wiki/page/Study_counter"
   },
   "Stun counter": {
-    "intro": "Stun counters are counters that prevent tapped permanents from untapping. They were introduced in Dominaria United. Stun counters are an evolution of the freeze mechanic and are currently considered evergreen.",
+    "intro": "Stun counters are counters that prevent tapped permanents from untapping. They were introduced in Dominaria United. Stun counters are an evolution of the freeze mechanic and are currently considered evergreen. From the glossary of the Comprehensive Rules (January 16, 2026—Lorwyn Eclipsed)From the Comprehensive Rules (January 16, 2026—Lorwyn Eclipsed)From the Release Notes for Dominaria United (July 21, 2022)From the Dominaria United mechanics article (August 18, 2022)",
     "description": "Stun counters act similar to a Freeze mechanic. They keep permanents out of the action for an extended period. Freeze effects restrain themselves to prevent the next untap during the untap step, but using stun counters lets the freeze persist beyond the first turn of effect. This is most pertinent for instants and sorceries as opposed to Auras. Additionally, multiple stun counters could be put on a target. This gave another development tweak for tempo tap spells, as \"draw a card\" as a rider (such as Crippling Chill) meant all blue decks would have a reason to take it, but a spell like Freeze in Place would usually be a liability for decks aiming to win through card advantage.\n\nThe use of counters makes for better memory tracking, if the source that \"froze\" is no longer apparent. It also allows for compounding, whereas multiple freeze effects will overlap on itself.\n\nStun counters are considered to be evergreen. Applying stun counters to other permanents is considered primarily in blue and secondary in white. They are not expected to be used by other colors. By the beginning of 2025, Mark Rosewater had noted that on the Storm Scale stun counters fall somewhere between evergreen and deciduous.",
     "use": "Prevent untapping",
     "placedOn": "Permanents",
@@ -1365,7 +1365,7 @@
     "sourceUrl": "https://mtg.wiki/page/Theft_counter"
   },
   "Ticket counter": {
-    "intro": "Ticket counters are a type of resource counter that may be placed on a player. They were introduced in Unfinity.",
+    "intro": "Ticket counters are a type of resource counter that may be placed on a player. They were introduced in Unfinity. From the glossary of the Comprehensive Rules (January 16, 2026—Lorwyn Eclipsed)From the Comprehensive Rules (January 16, 2026—Lorwyn Eclipsed)",
     "description": "Most cards that let you sticker give you tickets. Players are not forced to spend them, but you can’t play any ability or power/toughness stickers without them. The cheapest ticket cost for stickers is 2. Some cards tell you to use a specific sticker while others are general.\n\nA ticket marker will become available to keep track of your tickets. The plain text symbol for tickets is {TK}.",
     "use": "Resource",
     "placedOn": "Players",
