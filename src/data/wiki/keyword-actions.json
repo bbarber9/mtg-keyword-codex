@@ -1,6 +1,6 @@
 {
   "Activate": {
-    "intro": "Activate is the keyword action for using activated abilities. Activated abilities can be identified by the use of a colon, :, separating a cost and an effect. To activate that ability, the ability is moved to the stack and its cost is paid.",
+    "intro": "Activate is the keyword action for using activated abilities. Activated abilities can be identified by the use of a colon,:, separating a cost and an effect. To activate that ability, the ability is moved to the stack and its cost is paid.",
     "description": "",
     "reminderText": "No official reminder text",
     "sourceUrl": "https://mtg.wiki/page/Activate"
@@ -145,7 +145,7 @@
   },
   "Tap and Untap": {
     "intro": "Tap is a keyword action that is usually represented on cards with symbol.",
-    "description": "To tap a permanent, turn it 90 degrees from an upright position. For example, one of the first things that any player learns about Magic is that you tap your lands to cast your spells. As it is integral to the game and TCGs in general, Wizards of the Coast has the concept of tapping patented.\n\nActions that cause a card to tap include:\n\nUsing its activated ability if that ability requires it to tap (for example, \": Add .\") Declaring a creature as an attacker (see Declare Attackers Step) Regenerating a creature that would be destroyed and is not already tapped (see Regeneration) Paying a cost of a spell or ability (see Additional cost, Alternative cost, and Activation cost)",
+    "description": "To tap a permanent, turn it 90 degrees from an upright position. For example, one of the first things that any player learns about Magic is that you tap your lands to cast your spells. As it is integral to the game and TCGs in general, Wizards of the Coast has the concept of tapping patented.\n\nActions that cause a card to tap include:\n\nUsing its activated ability if that ability requires it to tap (for example, \": Add.\") Declaring a creature as an attacker (see Declare Attackers Step) Regenerating a creature that would be destroyed and is not already tapped (see Regeneration) Paying a cost of a spell or ability (see Additional cost, Alternative cost, and Activation cost)",
     "reminderText": "No official reminder text",
     "sourceUrl": "https://mtg.wiki/page/Tap_and_untap"
   },
@@ -271,7 +271,7 @@
   },
   "Amass": {
     "intro": "Amass is a keyword action introduced in War of the Spark that creates and grows an Army.",
-    "description": "If the amass action's controller does not control an Army creature, that player first creates a 0/0 black Army creature token. Then, the player puts a number of +1/+1 counters equal to the number specified by amass to one of their Armies they control, and the amassed Army becomes the creature type after specified by amass in addition to its other types.\n\nAmass was designed to prevent creating more than one Army tokens by itself. However, a player can use other means to control multiple armies, including copying an Army, controlling a creature with Changeling, and modify a creature's type using Artificial Evolution.\n\nConversely, removal and disabling effects in sets featuring amass tend to have limited impact on Army tokens in Limited formats. Examples include:\n\nLaw-Rune Enforcer (cannot target Army tokens, which have mana value 0) Kasmina's Transmutation (Armies do not have abilities to lose and they receive +1/+1 when having their base size 0/0 changed to 1/1) Bewitching Leechcraft (prioritizes removing +1/+1 counters over untap prevention) Fog on the Barrow-Downs (removes the Army subtype, allowing its controller to create a new Army token later) Soothing of Sméagol (cannot target tokens)\n\nAmass has only appeared on , , and cards in sets that feature large-scale conflicts with a numerous, but mostly faceless, antagonist force.",
+    "description": "If the amass action's controller does not control an Army creature, that player first creates a 0/0 black Army creature token. Then, the player puts a number of +1/+1 counters equal to the number specified by amass to one of their Armies they control, and the amassed Army becomes the creature type after specified by amass in addition to its other types.\n\nAmass was designed to prevent creating more than one Army tokens by itself. However, a player can use other means to control multiple armies, including copying an Army, controlling a creature with Changeling, and modify a creature's type using Artificial Evolution.\n\nConversely, removal and disabling effects in sets featuring amass tend to have limited impact on Army tokens in Limited formats. Examples include:\n\nLaw-Rune Enforcer (cannot target Army tokens, which have mana value 0) Kasmina's Transmutation (Armies do not have abilities to lose and they receive +1/+1 when having their base size 0/0 changed to 1/1) Bewitching Leechcraft (prioritizes removing +1/+1 counters over untap prevention) Fog on the Barrow-Downs (removes the Army subtype, allowing its controller to create a new Army token later) Soothing of Sméagol (cannot target tokens)\n\nAmass has only appeared on,, and cards in sets that feature large-scale conflicts with a numerous, but mostly faceless, antagonist force.",
     "reminderText": "Amass [subtype] N (Put N +1/+1 counters on an Army you control. It’s also a [subtype]. If you don’t control an Army, create a 0/0 black [subtype] Army creature token first.)",
     "sourceUrl": "https://mtg.wiki/page/Amass"
   },
@@ -307,7 +307,7 @@
   },
   "Incubate": {
     "intro": "Incubate is a keyword action introduced in March of the Machine related to the Incubator type. The instruction to incubate includes a number which indicates how many +1/+1 counters to put on the Incubator token.",
-    "description": "Incubate creates an artifact token with N +1/+1 counters on it, which can be transformed into a 0/0 Phyrexian creature for . It is a creature equivalent to Investigate, with the payoff being a variably sized creature instead of the card the Clue provides. The token it creates is unique amongst tokens in that it is inherently double-faced and transforms; while there are other forms of \"disabling\" the creature before the payment that keep it a single-faced creature, it is likely that there are tracking issues and too many exploits regarding \"inactive\" creatures.",
+    "description": "Incubate creates an artifact token with N +1/+1 counters on it, which can be transformed into a 0/0 Phyrexian creature for. It is a creature equivalent to Investigate, with the payoff being a variably sized creature instead of the card the Clue provides. The token it creates is unique amongst tokens in that it is inherently double-faced and transforms; while there are other forms of \"disabling\" the creature before the payment that keep it a single-faced creature, it is likely that there are tracking issues and too many exploits regarding \"inactive\" creatures.",
     "reminderText": "Incubate N (Create an Incubator token with N +1/+1 counters on it and “: Transform this artifact.” It transforms into a 0/0 Phyrexian artifact creature.)",
     "sourceUrl": "https://mtg.wiki/page/Incubate"
   },
@@ -337,8 +337,8 @@
   },
   "Cloak": {
     "intro": "Cloak is a keyword action introduced in Murders at Karlov Manor as an upgraded version of Manifest. When you cloak a card, you put it onto the battlefield face down.",
-    "description": "While face down, a cloaked card is a 2/2 colorless creature with no name, no creature types and ward .\n\nUnlike Disguise, which is usually cast from your hand, cloaked cards are usually played from other zones.\n\nMost of the rules for Manifest are the same for Cloak. A cloaked creature card may be turned face up for its mana cost. If the creature had morph or disguise, the morph, megamorph or disguise cost can be paid instead. A cloaked noncreature card can't be turned face up this way unless it already had morph or disguise.",
-    "reminderText": "Cloak card (Put it onto the battlefield face down as a 2/2 creature with ward . Turn it face up any time for its mana cost if it's a creature card.)",
+    "description": "While face down, a cloaked card is a 2/2 colorless creature with no name, no creature types and ward.\n\nUnlike Disguise, which is usually cast from your hand, cloaked cards are usually played from other zones.\n\nMost of the rules for Manifest are the same for Cloak. A cloaked creature card may be turned face up for its mana cost. If the creature had morph or disguise, the morph, megamorph or disguise cost can be paid instead. A cloaked noncreature card can't be turned face up this way unless it already had morph or disguise.",
+    "reminderText": "Cloak card (Put it onto the battlefield face down as a 2/2 creature with ward. Turn it face up any time for its mana cost if it's a creature card.)",
     "sourceUrl": "https://mtg.wiki/page/Cloak"
   },
   "Collect Evidence": {
@@ -390,9 +390,9 @@
     "sourceUrl": "https://mtg.wiki/page/Earthbend"
   },
   "Waterbend": {
-    "intro": "Waterbend is a keyword action introduced in Avatar: The Last Airbender. While paying a waterbend cost, a player can tap an untapped creature or artifact they control to pay for . It represents the art of waterbending in the Avatar universe.",
+    "intro": "Waterbend is a keyword action introduced in Avatar: The Last Airbender. While paying a waterbend cost, a player can tap an untapped creature or artifact they control to pay for. It represents the art of waterbending in the Avatar universe.",
     "description": "",
-    "reminderText": "Waterbend [cost] (While paying a waterbend cost, you can tap your artifacts and creatures to help. Each one pays for .)",
+    "reminderText": "Waterbend [cost] (While paying a waterbend cost, you can tap your artifacts and creatures to help. Each one pays for.)",
     "sourceUrl": "https://mtg.wiki/page/Waterbend"
   },
   "Blight": {

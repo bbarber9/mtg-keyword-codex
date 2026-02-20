@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 import { type CheerioAPI, load } from "cheerio";
 import { createWikiHtmlPageFetcher } from "./wiki-html-fetcher";
 
-const KEYWORD_ACTION_ROOT_URL = "https://mtg.wiki/page/Keyword_action";
+const KEYWORD_ACTIONS_PAGE_URL = "https://mtg.wiki/page/Keyword_action";
 const OUTPUT_FILE_RELATIVE_PATH = "src/data/wiki/keyword-actions.json";
 const WIKI_CACHE_DIRECTORY_RELATIVE_PATH = "scripts/mtg-wiki-cache";
 const KEYWORD_ACTION_IMPORTER_USER_AGENT =
@@ -12,13 +12,14 @@ const KEYWORD_ACTION_IMPORTER_USER_AGENT =
 const NETWORK_REQUEST_DELAY_MS = 150;
 const JSON_INDENT_SPACES = 2;
 const FOOTNOTE_REFERENCE_PATTERN = /\[\d+\]/g;
-const RULES_SECTION_HEADING_LABEL = "rules";
-const RULE_ENTRY_PREFIX_PATTERN = /^701\.\d+\.\s+/;
 const WHITESPACE_PATTERN = /\s+/g;
+const SPACE_BEFORE_PUNCTUATION_PATTERN = /\s+([,.;:!?])/g;
+const RULE_NUMBER_PATTERN = /^701\.(\d+)\./;
+const MINIMUM_KEYWORD_ACTION_RULE_NUMBER = 2;
 
 type KeywordActionLink = {
-	actionName: string;
-	actionUrl: string;
+	keywordActionName: string;
+	keywordActionUrl: string;
 };
 
 type KeywordActionDetails = {
@@ -29,16 +30,11 @@ type KeywordActionDetails = {
 };
 
 type BuildResult = {
-	actionDetailsByName: Record<string, KeywordActionDetails>;
+	keywordActionDetailsByName: Record<string, KeywordActionDetails>;
 	completeCount: number;
-	incompleteActionReports: string[];
+	incompleteKeywordActionReports: string[];
 	duplicateCount: number;
-};
-
-type InfoboxFieldOptions = {
-	rowLabels: string[];
-	dataSources: string[];
-	allowContainsMatch?: boolean;
+	fetchFailureCount: number;
 };
 
 const SCRIPT_FILE_PATH = fileURLToPath(import.meta.url);
@@ -49,6 +45,7 @@ const WIKI_CACHE_DIRECTORY_PATH = resolve(
 	PROJECT_ROOT_PATH,
 	WIKI_CACHE_DIRECTORY_RELATIVE_PATH,
 );
+
 const fetchHtmlPage = createWikiHtmlPageFetcher({
 	cacheDirectoryPath: WIKI_CACHE_DIRECTORY_PATH,
 	userAgent: KEYWORD_ACTION_IMPORTER_USER_AGENT,
@@ -56,19 +53,144 @@ const fetchHtmlPage = createWikiHtmlPageFetcher({
 });
 
 /**
- * Runs the end-to-end keyword-action import workflow and writes output JSON.
+ * Runs the end-to-end keyword action import workflow and writes the output JSON.
  */
 async function main(): Promise<void> {
-	const keywordActionRootHtml = await fetchHtmlPage(KEYWORD_ACTION_ROOT_URL);
-	const keywordActionLinks = collectKeywordActionLinks(keywordActionRootHtml);
-
+	const keywordActionsPageHtml = await fetchHtmlPage(KEYWORD_ACTIONS_PAGE_URL);
+	const keywordActionLinks = collectKeywordActionLinks(keywordActionsPageHtml);
 	if (keywordActionLinks.length === 0) {
-		throw new Error("Could not parse any keyword actions from the root page.");
+		throw new Error(
+			"Could not parse any keyword actions from the keyword action page.",
+		);
 	}
 
 	const buildResult = await buildKeywordActionDetails(keywordActionLinks);
-	await writeOutputJson(buildResult.actionDetailsByName);
+	await writeOutputJson(buildResult.keywordActionDetailsByName);
 	printSummary(keywordActionLinks.length, buildResult);
+}
+
+/**
+ * Parses the keyword action rules section and returns keyword-action names/URLs.
+ */
+export function collectKeywordActionLinks(
+	keywordActionsPageHtml: string,
+): KeywordActionLink[] {
+	const $ = load(keywordActionsPageHtml);
+	const rulesSectionHeadingElement = $("#Rules").closest("h2");
+	if (rulesSectionHeadingElement.length === 0) {
+		throw new Error("Could not locate the Rules section heading.");
+	}
+
+	const rulesSectionElements = rulesSectionHeadingElement.nextUntil("h2");
+	if (rulesSectionElements.length === 0) {
+		throw new Error("Could not locate content inside the Rules section.");
+	}
+
+	const comprehensiveRulesContainerElement = selectComprehensiveRulesContainer(
+		$,
+		rulesSectionElements,
+	);
+	const candidateRuleListItems = collectCandidateRuleListItems(
+		comprehensiveRulesContainerElement,
+	);
+
+	const keywordActionLinks: KeywordActionLink[] = [];
+	for (const candidateRuleListItem of candidateRuleListItems.toArray()) {
+		const candidateRuleListItemElement = $(candidateRuleListItem);
+		const candidateRuleText = normalizeWhiteSpace(
+			candidateRuleListItemElement.text(),
+		);
+		if (!isKeywordActionRuleListItem(candidateRuleText)) {
+			continue;
+		}
+
+		const firstRuleLinkElement = candidateRuleListItemElement
+			.find("a[href]")
+			.first();
+		if (firstRuleLinkElement.length === 0) {
+			continue;
+		}
+
+		const keywordActionName = normalizeWhiteSpace(firstRuleLinkElement.text());
+		if (keywordActionName.length === 0) {
+			continue;
+		}
+
+		const keywordActionUrl = resolveKeywordActionUrl(
+			firstRuleLinkElement.attr("href"),
+		);
+		keywordActionLinks.push({
+			keywordActionName,
+			keywordActionUrl,
+		});
+	}
+
+	if (keywordActionLinks.length === 0) {
+		throw new Error("No keyword-action links were found under rules section.");
+	}
+
+	return keywordActionLinks;
+}
+
+/**
+ * Picks the CR block used on the keyword action page.
+ */
+function selectComprehensiveRulesContainer(
+	$: CheerioAPI,
+	rulesSectionElements: ReturnType<CheerioAPI>,
+): ReturnType<CheerioAPI> {
+	const comprehensiveRulesContainerElement = rulesSectionElements
+		.filter((_, element) => $(element).hasClass("crDiv"))
+		.first();
+	if (comprehensiveRulesContainerElement.length > 0) {
+		return comprehensiveRulesContainerElement;
+	}
+
+	return rulesSectionElements;
+}
+
+/**
+ * Collects candidate list items that may contain 701.x rule entries.
+ */
+function collectCandidateRuleListItems(
+	comprehensiveRulesContainerElement: ReturnType<CheerioAPI>,
+): ReturnType<CheerioAPI> {
+	const nestedRuleListItems =
+		comprehensiveRulesContainerElement.find("ul > li > ul > li");
+	if (nestedRuleListItems.length > 0) {
+		return nestedRuleListItems;
+	}
+
+	return comprehensiveRulesContainerElement.find("li");
+}
+
+/**
+ * Checks whether a list item text represents a 701.x keyword action rule.
+ */
+function isKeywordActionRuleListItem(candidateRuleText: string): boolean {
+	const ruleNumberMatch = RULE_NUMBER_PATTERN.exec(candidateRuleText);
+	if (!ruleNumberMatch) {
+		return false;
+	}
+
+	const parsedRuleNumber = Number.parseInt(ruleNumberMatch[1], 10);
+	return (
+		!Number.isNaN(parsedRuleNumber) &&
+		parsedRuleNumber >= MINIMUM_KEYWORD_ACTION_RULE_NUMBER
+	);
+}
+
+/**
+ * Resolves and validates a keyword action URL from a link href.
+ */
+function resolveKeywordActionUrl(hrefValue: string | undefined): string {
+	if (!hrefValue || hrefValue.startsWith("#")) {
+		throw new Error(`Invalid keyword action link href: ${hrefValue}`);
+	}
+
+	const resolvedUrl = new URL(hrefValue, KEYWORD_ACTIONS_PAGE_URL);
+	resolvedUrl.hash = "";
+	return resolvedUrl.toString();
 }
 
 /**
@@ -77,385 +199,200 @@ async function main(): Promise<void> {
 async function buildKeywordActionDetails(
 	keywordActionLinks: KeywordActionLink[],
 ): Promise<BuildResult> {
-	const actionDetailsByName: Record<string, KeywordActionDetails> = {};
-	const incompleteActionReports: string[] = [];
-	const seenActionNames = new Map<string, string>();
+	const keywordActionDetailsByName: Record<string, KeywordActionDetails> = {};
+	const incompleteKeywordActionReports: string[] = [];
+	const seenKeywordActionNames = new Map<string, string>();
 	let duplicateCount = 0;
 	let completeCount = 0;
+	let fetchFailureCount = 0;
 
 	for (const keywordActionLink of keywordActionLinks) {
-		const normalizedActionName = normalizeForCollision(keywordActionLink.actionName);
-		const existingActionName = seenActionNames.get(normalizedActionName);
-		if (existingActionName) {
+		const normalizedKeywordActionName = normalizeForCollision(
+			keywordActionLink.keywordActionName,
+		);
+		const existingKeywordActionName = seenKeywordActionNames.get(
+			normalizedKeywordActionName,
+		);
+		if (existingKeywordActionName) {
 			duplicateCount += 1;
 			console.warn(
-				`[duplicate] Skipping "${keywordActionLink.actionName}" because "${existingActionName}" was already processed.`,
+				`[duplicate] Skipping "${keywordActionLink.keywordActionName}" because "${existingKeywordActionName}" was already processed.`,
 			);
 			continue;
 		}
 
-		seenActionNames.set(normalizedActionName, keywordActionLink.actionName);
+		seenKeywordActionNames.set(
+			normalizedKeywordActionName,
+			keywordActionLink.keywordActionName,
+		);
 
 		try {
-			const actionPageHtml = await fetchHtmlPage(keywordActionLink.actionUrl);
-			const actionDetails = extractKeywordActionDetails(
-				actionPageHtml,
-				keywordActionLink.actionUrl,
+			const keywordActionPageHtml = await fetchHtmlPage(
+				keywordActionLink.keywordActionUrl,
 			);
-			actionDetailsByName[keywordActionLink.actionName] = actionDetails;
+			const keywordActionDetails = extractKeywordActionDetails(
+				keywordActionPageHtml,
+				keywordActionLink.keywordActionUrl,
+			);
+			keywordActionDetailsByName[keywordActionLink.keywordActionName] =
+				keywordActionDetails;
 
-			const missingFields = findMissingFields(actionDetails);
+			const missingFields = findMissingFields(keywordActionDetails);
 			if (missingFields.length === 0) {
 				completeCount += 1;
 				continue;
 			}
 
 			console.warn(
-				`[missing-fields] "${keywordActionLink.actionName}" missing: ${missingFields.join(", ")} (${keywordActionLink.actionUrl})`,
+				`[missing-fields] "${keywordActionLink.keywordActionName}" missing: ${missingFields.join(", ")} (${keywordActionLink.keywordActionUrl})`,
 			);
-			incompleteActionReports.push(
-				`${keywordActionLink.actionName}: ${missingFields.join(", ")}`,
+			incompleteKeywordActionReports.push(
+				`${keywordActionLink.keywordActionName}: ${missingFields.join(", ")}`,
 			);
 		} catch (error) {
+			fetchFailureCount += 1;
 			console.warn(
-				`[fetch-failed] Could not process "${keywordActionLink.actionName}" (${keywordActionLink.actionUrl}): ${toErrorMessage(error)}`,
+				`[fetch-failed] Could not process "${keywordActionLink.keywordActionName}" (${keywordActionLink.keywordActionUrl}): ${toErrorMessage(error)}`,
 			);
-			actionDetailsByName[keywordActionLink.actionName] =
-				createEmptyKeywordActionDetails(keywordActionLink.actionUrl);
-			incompleteActionReports.push(`${keywordActionLink.actionName}: fetch failed`);
+			keywordActionDetailsByName[keywordActionLink.keywordActionName] =
+				createEmptyKeywordActionDetails(keywordActionLink.keywordActionUrl);
+			incompleteKeywordActionReports.push(
+				`${keywordActionLink.keywordActionName}: fetch failed`,
+			);
 		}
 	}
 
 	return {
-		actionDetailsByName,
+		keywordActionDetailsByName,
 		completeCount,
-		incompleteActionReports,
+		incompleteKeywordActionReports,
 		duplicateCount,
+		fetchFailureCount,
 	};
 }
 
 /**
- * Parses the keyword-action root page and returns candidate action names and URLs.
+ * Extracts all supported fields for a keyword action from a page HTML document.
  */
-function collectKeywordActionLinks(keywordActionRootHtml: string): KeywordActionLink[] {
-	const parsedHtml = load(keywordActionRootHtml);
-	const rulesListItems = collectRulesSectionListItems(parsedHtml);
-	const keywordActionLinks: KeywordActionLink[] = [];
-
-	for (const rulesListItem of rulesListItems) {
-		const listItem = parsedHtml(rulesListItem);
-		const listItemText = normalizeDisplayText(listItem.text());
-		if (!RULE_ENTRY_PREFIX_PATTERN.test(listItemText)) {
-			continue;
-		}
-
-		const linkAnchor = listItem.find("a[href]").first();
-		if (linkAnchor.length === 0) {
-			continue;
-		}
-
-		const actionName = normalizeDisplayText(linkAnchor.text());
-		if (actionName.length === 0) {
-			continue;
-		}
-
-		const actionUrl = resolveKeywordActionUrl(linkAnchor.attr("href") ?? null);
-		if (!actionUrl) {
-			continue;
-		}
-
-		keywordActionLinks.push({
-			actionName,
-			actionUrl,
-		});
-	}
-
-	return keywordActionLinks;
-}
-
-/**
- * Collects list items that appear in the Rules section on the root page.
- */
-function collectRulesSectionListItems(
-	parsedHtml: CheerioAPI,
-): Parameters<CheerioAPI>[0][] {
-	let contentRoot = parsedHtml("#mw-content-text .mw-parser-output").first();
-	if (contentRoot.length === 0) {
-		contentRoot = parsedHtml(".mw-parser-output").first();
-	}
-	if (contentRoot.length === 0) {
-		contentRoot = parsedHtml("body").first();
-	}
-
-	const headingElements = contentRoot.find("h2, h3, h4, h5, h6");
-	for (const headingElement of headingElements.toArray()) {
-		const heading = parsedHtml(headingElement);
-		if (getHeadingText(heading) !== RULES_SECTION_HEADING_LABEL) {
-			continue;
-		}
-
-		const listItems: Parameters<CheerioAPI>[0][] = [];
-		let currentElement = heading.next();
-		while (currentElement.length > 0) {
-			const tagName = getElementTagName(currentElement);
-			if (isHeadingTag(tagName)) {
-				break;
-			}
-
-			if (tagName === "li") {
-				listItems.push(currentElement.get(0));
-			}
-
-			for (const listItem of currentElement.find("li").toArray()) {
-				listItems.push(listItem);
-			}
-
-			currentElement = currentElement.next();
-		}
-
-		if (listItems.length > 0) {
-			return listItems;
-		}
-	}
-
-	return [];
-}
-
-/**
- * Resolves and validates a wiki URL target from a link href.
- */
-function resolveKeywordActionUrl(hrefValue: string | null): string | null {
-	if (!hrefValue || hrefValue.startsWith("#")) {
-		return null;
-	}
-
-	try {
-		const resolvedUrl = new URL(hrefValue, KEYWORD_ACTION_ROOT_URL);
-		resolvedUrl.hash = "";
-		if (!isHttpProtocol(resolvedUrl.protocol)) {
-			return null;
-		}
-
-		const actionParam = resolvedUrl.searchParams.get("action");
-		if (actionParam === "edit" || actionParam === "history") {
-			return null;
-		}
-
-		if (resolvedUrl.toString() === KEYWORD_ACTION_ROOT_URL) {
-			return null;
-		}
-
-		return resolvedUrl.toString();
-	} catch {
-		return null;
-	}
-}
-
-/**
- * Extracts all supported fields for a keyword action from its page HTML.
- */
-function extractKeywordActionDetails(
-	actionPageHtml: string,
+export function extractKeywordActionDetails(
+	keywordActionPageHtml: string,
 	sourceUrl: string,
 ): KeywordActionDetails {
-	const parsedHtml = load(actionPageHtml);
+	const $ = load(keywordActionPageHtml);
+	const infoBoxData = loadInfoBoxData($);
+
 	return {
-		intro: extractIntro(parsedHtml),
-		description: extractDescription(parsedHtml),
-		reminderText: extractInfoboxFieldValue(parsedHtml, {
-			rowLabels: ["reminder text"],
-			dataSources: [
-				"reminder_text",
-				"reminder-text",
-				"remindertext",
-			],
-		}),
+		intro: extractIntro($),
+		description: extractDescription($),
+		reminderText: infoBoxData["reminder text"] ?? "",
 		sourceUrl,
 	};
 }
 
 /**
- * Finds the first non-empty introductory paragraph for a keyword-action page.
+ * Extracts the first non-empty intro paragraph in the page body.
  */
-function extractIntro(parsedHtml: CheerioAPI): string {
-	const introSelectors = [
-		"#mw-content-text .mw-parser-output > p",
-		"#mw-content-text p",
-		".mw-parser-output > p",
-		"p",
-	];
+function extractIntro($: CheerioAPI): string {
+	const introParagraphElement = $(
+		"#mw-content-text .mw-parser-output p",
+	).first();
+	if (introParagraphElement.length !== 0) {
+		const intro = removeFootnotesAndNormalizeWhitespace(
+			introParagraphElement.text(),
+		);
 
-	for (const selector of introSelectors) {
-		const paragraphElements = parsedHtml(selector);
-		for (const paragraphElement of paragraphElements.toArray()) {
-			const paragraphText = normalizeFieldText(parsedHtml(paragraphElement).text());
-			if (paragraphText.length > 0) {
-				return paragraphText;
-			}
-		}
+		return intro;
 	}
-
 	return "";
 }
 
 /**
  * Extracts the Description section content from the page body.
  */
-function extractDescription(parsedHtml: CheerioAPI): string {
-	return extractSectionText(parsedHtml, ["description"]);
+function extractDescription($: CheerioAPI): string {
+	const descriptionSpan = $("h2 span#Description").first();
+	if (descriptionSpan.length === 0) {
+		return "";
+	}
+
+	const descriptionHeading = descriptionSpan.parent("h2").first();
+	if (descriptionHeading.length === 0) {
+		return "";
+	}
+
+	let currentElement = descriptionHeading.next();
+	const descriptionChunks: string[] = [];
+	while (currentElement.length > 0) {
+		const tagName = getElementTagName(currentElement);
+		if (isHeadingTag(tagName)) {
+			break;
+		}
+
+		if (isTextContentTag(tagName)) {
+			const textChunk = removeFootnotesAndNormalizeWhitespace(
+				currentElement.text(),
+			);
+			if (textChunk.length > 0) {
+				descriptionChunks.push(textChunk);
+			}
+		}
+
+		currentElement = currentElement.next();
+	}
+
+	return descriptionChunks.join("\n\n");
 }
 
 /**
- * Collects text content under the first matching section heading.
+ * Reads infobox key-value rows into a normalized lookup object.
  */
-function extractSectionText(
-	parsedHtml: CheerioAPI,
-	targetSectionLabels: string[],
-): string {
-	const normalizedTargetLabels = targetSectionLabels.map(normalizeFieldLabel);
-	let contentRoot = parsedHtml("#mw-content-text .mw-parser-output").first();
-	if (contentRoot.length === 0) {
-		contentRoot = parsedHtml(".mw-parser-output").first();
-	}
-	if (contentRoot.length === 0) {
-		contentRoot = parsedHtml("body").first();
-	}
-
-	const headingElements = contentRoot.find("h2, h3, h4, h5, h6");
-	for (const headingElement of headingElements.toArray()) {
-		const heading = parsedHtml(headingElement);
-		const headingText = getHeadingText(heading);
-		if (!matchesFieldLabel(headingText, normalizedTargetLabels, true)) {
+function loadInfoBoxData($: CheerioAPI): Record<string, string> {
+	const infoBoxData: Record<string, string> = {};
+	const infoBoxRows = $("table.infobox tr");
+	for (const infoBoxRow of infoBoxRows.toArray()) {
+		const infoBoxRowElement = $(infoBoxRow);
+		if (
+			infoBoxRowElement.find("th").length === 0 ||
+			infoBoxRowElement.find("td").length === 0
+		) {
 			continue;
 		}
 
-		const sectionChunks: string[] = [];
-		let currentElement = heading.next();
-		while (currentElement.length > 0) {
-			const tagName = getElementTagName(currentElement);
-			if (isHeadingTag(tagName)) {
-				break;
-			}
-
-			if (isTextContentTag(tagName)) {
-				const textChunk = normalizeFieldText(currentElement.text());
-				if (textChunk.length > 0) {
-					sectionChunks.push(textChunk);
-				}
-			}
-
-			currentElement = currentElement.next();
-		}
-
-		if (sectionChunks.length > 0) {
-			return sectionChunks.join("\n\n");
-		}
-	}
-
-	return "";
-}
-
-/**
- * Reads a named value from infobox rows or portable infobox data fields.
- */
-function extractInfoboxFieldValue(
-	parsedHtml: CheerioAPI,
-	options: InfoboxFieldOptions,
-): string {
-	const normalizedRowLabels = options.rowLabels.map(normalizeFieldLabel);
-
-	const rowElements = parsedHtml("table.infobox tr, table[class*='infobox'] tr");
-	for (const rowElement of rowElements.toArray()) {
-		const row = parsedHtml(rowElement);
-		const headerText = normalizeFieldLabel(row.find("th").first().text());
-		if (!matchesFieldLabel(headerText, normalizedRowLabels, options.allowContainsMatch)) {
-			continue;
-		}
-
-		const valueText = normalizeFieldText(row.find("td").first().text());
-		if (valueText.length > 0) {
-			return valueText;
-		}
-	}
-
-	for (const dataSourceName of options.dataSources) {
-		const selectors = [
-			`[data-source='${dataSourceName}'] .pi-data-value`,
-			`[data-source='${dataSourceName}'] .value`,
-			`[data-source='${dataSourceName}']`,
-			`[data-source*='${dataSourceName}'] .pi-data-value`,
-			`[data-source*='${dataSourceName}'] .value`,
-			`[data-source*='${dataSourceName}']`,
-		];
-
-		for (const selector of selectors) {
-			const valueText = normalizeFieldText(parsedHtml(selector).first().text());
-			if (valueText.length > 0) {
-				return valueText;
-			}
-		}
-	}
-
-	const portableInfoboxItems = parsedHtml(
-		".portable-infobox .pi-item.pi-data, .portable-infobox .pi-data, .pi-item.pi-data",
-	);
-	for (const portableItem of portableInfoboxItems.toArray()) {
-		const item = parsedHtml(portableItem);
-		const labelText = normalizeFieldLabel(
-			item.find(".pi-data-label, .pi-data-label > *").first().text(),
+		const headerText = normalizeWhiteSpace(
+			infoBoxRowElement.find("th").first().text().toLowerCase(),
 		);
-		if (!matchesFieldLabel(labelText, normalizedRowLabels, options.allowContainsMatch)) {
-			continue;
-		}
-
-		const valueText = normalizeFieldText(
-			item.find(".pi-data-value, .pi-data-value > *, .value").first().text(),
+		const valueText = removeFootnotesAndNormalizeWhitespace(
+			infoBoxRowElement.find("td").first().text(),
 		);
-		if (valueText.length > 0) {
-			return valueText;
-		}
+		infoBoxData[headerText] = valueText;
 	}
 
-	return "";
+	return infoBoxData;
 }
 
 /**
  * Normalizes scraped field text and removes bracketed footnote references.
  */
-function normalizeFieldText(rawText: string): string {
-	return normalizeDisplayText(rawText.replaceAll(FOOTNOTE_REFERENCE_PATTERN, ""));
+function removeFootnotesAndNormalizeWhitespace(rawText: string): string {
+	const textWithoutFootnotes = rawText.replaceAll(
+		FOOTNOTE_REFERENCE_PATTERN,
+		"",
+	);
+	return normalizeWhiteSpace(textWithoutFootnotes).replaceAll(
+		SPACE_BEFORE_PUNCTUATION_PATTERN,
+		"$1",
+	);
 }
 
 /**
  * Collapses whitespace and trims display text.
  */
-function normalizeDisplayText(rawText: string): string {
-	return rawText.replaceAll("\u00a0", " ").replaceAll(WHITESPACE_PATTERN, " ").trim();
-}
-
-/**
- * Normalizes label text for case-insensitive matching.
- */
-function normalizeFieldLabel(rawText: string): string {
-	const normalizedLabel = normalizeDisplayText(rawText).toLowerCase();
-	return normalizedLabel
-		.replaceAll(":", "")
-		.replaceAll("(", "")
-		.replaceAll(")", "");
-}
-
-/**
- * Extracts normalized heading text, excluding edit controls when needed.
- */
-function getHeadingText(heading: ReturnType<CheerioAPI>): string {
-	const headlineText = normalizeFieldLabel(heading.find(".mw-headline").first().text());
-	if (headlineText.length > 0) {
-		return headlineText;
-	}
-
-	const headingClone = heading.clone();
-	headingClone.find(".mw-editsection").remove();
-	return normalizeFieldLabel(headingClone.text());
+function normalizeWhiteSpace(rawText: string): string {
+	const nonBreakingSpaceUnicode = "\u00a0";
+	return rawText
+		.replaceAll(nonBreakingSpaceUnicode, " ")
+		.replaceAll(WHITESPACE_PATTERN, " ")
+		.trim();
 }
 
 /**
@@ -493,56 +430,20 @@ function isTextContentTag(tagName: string): boolean {
 }
 
 /**
- * Determines whether a candidate label matches expected labels.
+ * Normalizes a keyword-action name for duplicate detection.
  */
-function matchesFieldLabel(
-	candidateLabel: string,
-	targetLabels: string[],
-	allowContainsMatch = false,
-): boolean {
-	if (candidateLabel.length === 0) {
-		return false;
-	}
-
-	if (targetLabels.includes(candidateLabel)) {
-		return true;
-	}
-
-	if (!allowContainsMatch) {
-		return false;
-	}
-
-	for (const targetLabel of targetLabels) {
-		if (candidateLabel.includes(targetLabel) || targetLabel.includes(candidateLabel)) {
-			return true;
-		}
-	}
-
-	return false;
-}
-
-/**
- * Normalizes an action name for duplicate detection.
- */
-function normalizeForCollision(actionName: string): string {
-	return normalizeDisplayText(actionName).toLowerCase();
-}
-
-/**
- * Checks whether a URL protocol is HTTP or HTTPS.
- */
-function isHttpProtocol(protocol: string): boolean {
-	return protocol === "http:" || protocol === "https:";
+export function normalizeForCollision(keywordActionName: string): string {
+	return normalizeWhiteSpace(keywordActionName).toLowerCase();
 }
 
 /**
  * Writes generated keyword-action details to the output JSON file.
  */
 async function writeOutputJson(
-	actionDetailsByName: Record<string, KeywordActionDetails>,
+	keywordActionDetailsByName: Record<string, KeywordActionDetails>,
 ): Promise<void> {
 	await mkdir(dirname(OUTPUT_FILE_PATH), { recursive: true });
-	const jsonContent = `${JSON.stringify(actionDetailsByName, null, JSON_INDENT_SPACES)}\n`;
+	const jsonContent = `${JSON.stringify(keywordActionDetailsByName, null, JSON_INDENT_SPACES)}\n`;
 	await Bun.write(OUTPUT_FILE_PATH, jsonContent);
 }
 
@@ -553,13 +454,16 @@ function printSummary(discoveredCount: number, buildResult: BuildResult): void {
 	console.log(`Generated ${OUTPUT_FILE_RELATIVE_PATH}`);
 	console.log(`Discovered keyword action entries: ${discoveredCount}`);
 	console.log(`Complete records: ${buildResult.completeCount}`);
-	console.log(`Incomplete records: ${buildResult.incompleteActionReports.length}`);
+	console.log(
+		`Incomplete records: ${buildResult.incompleteKeywordActionReports.length}`,
+	);
 	console.log(`Duplicates skipped: ${buildResult.duplicateCount}`);
+	console.log(`Fetch failures: ${buildResult.fetchFailureCount}`);
 
-	if (buildResult.incompleteActionReports.length > 0) {
+	if (buildResult.incompleteKeywordActionReports.length > 0) {
 		console.log("Incomplete keyword action reports:");
-		for (const incompleteActionReport of buildResult.incompleteActionReports) {
-			console.log(`- ${incompleteActionReport}`);
+		for (const incompleteKeywordActionReport of buildResult.incompleteKeywordActionReports) {
+			console.log(`- ${incompleteKeywordActionReport}`);
 		}
 	}
 }
@@ -568,12 +472,14 @@ function printSummary(discoveredCount: number, buildResult: BuildResult): void {
  * Lists keyword-action detail fields that are still empty.
  */
 function findMissingFields(
-	actionDetails: KeywordActionDetails,
+	keywordActionDetails: KeywordActionDetails,
 ): Array<keyof KeywordActionDetails> {
 	const missingFields: Array<keyof KeywordActionDetails> = [];
-	const fieldNames = Object.keys(actionDetails) as Array<keyof KeywordActionDetails>;
+	const fieldNames = Object.keys(keywordActionDetails) as Array<
+		keyof KeywordActionDetails
+	>;
 	for (const fieldName of fieldNames) {
-		if (actionDetails[fieldName].length === 0) {
+		if (keywordActionDetails[fieldName].length === 0) {
 			missingFields.push(fieldName);
 		}
 	}
@@ -584,7 +490,9 @@ function findMissingFields(
 /**
  * Creates an empty keyword-action details object for failed fetches.
  */
-function createEmptyKeywordActionDetails(sourceUrl: string): KeywordActionDetails {
+function createEmptyKeywordActionDetails(
+	sourceUrl: string,
+): KeywordActionDetails {
 	return {
 		intro: "",
 		description: "",
@@ -604,7 +512,9 @@ function toErrorMessage(error: unknown): string {
 	return String(error);
 }
 
-main().catch((error) => {
-	console.error(`Keyword-action generation failed: ${toErrorMessage(error)}`);
-	process.exit(1);
-});
+if (import.meta.main) {
+	main().catch((error) => {
+		console.error(`Keyword action generation failed: ${toErrorMessage(error)}`);
+		process.exit(1);
+	});
+}
