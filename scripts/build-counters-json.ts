@@ -1,8 +1,17 @@
-import { mkdir } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { type CheerioAPI, load } from "cheerio";
 import { createWikiHtmlPageFetcher } from "./wiki-html-fetcher";
+import {
+	extractSectionTextByHeadingId,
+	findMissingFields,
+	loadInfoBoxData,
+	normalizeForCollision,
+	normalizeWhiteSpace,
+	removeFootnotesAndNormalizeWhitespace,
+	toErrorMessage,
+	writeJsonFile,
+} from "./wiki-scrape-utils";
 
 const FULL_LIST_OF_COUNTERS_URL =
 	"https://mtg.wiki/page/Counter_(marker)/Full_List";
@@ -10,9 +19,6 @@ const OUTPUT_FILE_RELATIVE_PATH = "src/data/wiki/counters.json";
 const WIKI_CACHE_DIRECTORY_RELATIVE_PATH = "scripts/mtg-wiki-cache";
 const COUNTER_IMPORTER_USER_AGENT = "mtg-keyword-codex/0.1 (counter-importer)";
 const NETWORK_REQUEST_DELAY_MS = 150;
-const JSON_INDENT_SPACES = 2;
-const FOOTNOTE_REFERENCE_PATTERN = /\[\d+\]/g;
-const WHITESPACE_PATTERN = /\s+/g;
 
 type CounterLink = {
 	counterName: string;
@@ -60,7 +66,7 @@ async function main(): Promise<void> {
 	}
 
 	const buildResult = await buildCounterDescriptions(counterLinks);
-	await writeOutputJson(buildResult.counterDetailsByName);
+	await writeJsonFile(OUTPUT_FILE_PATH, buildResult.counterDetailsByName);
 	printSummary(counterLinks.length, buildResult);
 }
 
@@ -175,10 +181,8 @@ function extractCounterDetails(
 ): CounterDetails {
 	const $ = load(counterPageHtml);
 	const introParagraphElement = $("#mw-content-text p:first-of-type");
-	const intro = removeFootnotesAndNormalizeWhitespace(
-		introParagraphElement.text(),
-	);
-	const infoBoxData = loadInfoBoxData($);
+	const intro = normalizeScrapedText(introParagraphElement.text());
+	const infoBoxData = loadInfoBoxData($, normalizeScrapedText);
 	return {
 		intro,
 		description: extractDescription($),
@@ -192,116 +196,11 @@ function extractCounterDetails(
  * Extracts the Description section content from the page body.
  */
 function extractDescription($: CheerioAPI): string {
-	// return extractSectionText($, ["description"]);
-	// find a h2 that has a child span with id "Description", then extract text until the next heading of any kind
-	const descriptionSpan = $("h2 span#Description").first();
-	if (descriptionSpan.length === 0) {
-		return "";
-	}
-	const descriptionHeading = descriptionSpan.parent("h2").first();
-	if (descriptionHeading.length === 0) {
-		return "";
-	}
-	let currentElement = descriptionHeading.next();
-	const descriptionChunks: string[] = [];
-	while (currentElement.length > 0) {
-		const tagName = getElementTagName(currentElement);
-		if (isHeadingTag(tagName)) {
-			break;
-		}
-
-		if (isTextContentTag(tagName)) {
-			const textChunk = removeFootnotesAndNormalizeWhitespace(
-				currentElement.text(),
-			);
-			if (textChunk.length > 0) {
-				descriptionChunks.push(textChunk);
-			}
-		}
-
-		currentElement = currentElement.next();
-	}
-
-	return descriptionChunks.join("\n\n");
+	return extractSectionTextByHeadingId($, "Description", normalizeScrapedText);
 }
 
-function loadInfoBoxData($: CheerioAPI) {
-	const infoBoxObj: Record<string, string> = {};
-	const infoBoxRows = $("table.infobox tr");
-	//if the row contains a th and a td, then we can assume it's a valid row
-	for (const row of infoBoxRows.toArray()) {
-		const rowElement = $(row);
-		if (
-			rowElement.find("th").length === 0 ||
-			rowElement.find("td").length === 0
-		) {
-			continue;
-		}
-
-		const headerText = normalizeWhiteSpace(
-			rowElement.find("th").first().text().toLowerCase(),
-		);
-		const valueText = removeFootnotesAndNormalizeWhitespace(
-			rowElement.find("td").first().text(),
-		);
-		infoBoxObj[headerText] = valueText;
-	}
-
-	return infoBoxObj;
-}
-
-/**
- * Normalizes scraped field text and removes bracketed footnote references.
- */
-function removeFootnotesAndNormalizeWhitespace(rawText: string): string {
-	return normalizeWhiteSpace(
-		rawText.replaceAll(FOOTNOTE_REFERENCE_PATTERN, ""),
-	);
-}
-
-/**
- * Collapses whitespace and trims display text.
- */
-function normalizeWhiteSpace(rawText: string): string {
-	const NBSP_UNICODE = "\u00a0";
-	return rawText
-		.replaceAll(NBSP_UNICODE, " ")
-		.replaceAll(WHITESPACE_PATTERN, " ")
-		.trim();
-}
-
-/**
- * Returns a lowercase tag name for a Cheerio element.
- */
-function getElementTagName(element: ReturnType<CheerioAPI>): string {
-	const tagName = element.prop("tagName");
-	return typeof tagName === "string" ? tagName.toLowerCase() : "";
-}
-
-/**
- * Checks whether a tag name is an h2-h6 heading.
- */
-function isHeadingTag(tagName: string): boolean {
-	return (
-		tagName === "h2" ||
-		tagName === "h3" ||
-		tagName === "h4" ||
-		tagName === "h5" ||
-		tagName === "h6"
-	);
-}
-
-/**
- * Checks whether an element tag should be included in section text.
- */
-function isTextContentTag(tagName: string): boolean {
-	return (
-		tagName === "p" ||
-		tagName === "ul" ||
-		tagName === "ol" ||
-		tagName === "dl" ||
-		tagName === "blockquote"
-	);
+function normalizeScrapedText(rawText: string): string {
+	return removeFootnotesAndNormalizeWhitespace(rawText);
 }
 
 /**
@@ -310,24 +209,6 @@ function isTextContentTag(tagName: string): boolean {
 function isCounterName(candidateName: string): boolean {
 	const lowerCaseName = candidateName.toLowerCase();
 	return lowerCaseName !== "counter" && lowerCaseName.endsWith(" counter");
-}
-
-/**
- * Normalizes a counter name for duplicate detection.
- */
-function normalizeForCollision(counterName: string): string {
-	return normalizeWhiteSpace(counterName).toLowerCase();
-}
-
-/**
- * Writes generated counter details to the output JSON file.
- */
-async function writeOutputJson(
-	counterDetailsByName: Record<string, CounterDetails>,
-): Promise<void> {
-	await mkdir(dirname(OUTPUT_FILE_PATH), { recursive: true });
-	const jsonContent = `${JSON.stringify(counterDetailsByName, null, JSON_INDENT_SPACES)}\n`;
-	await Bun.write(OUTPUT_FILE_PATH, jsonContent);
 }
 
 /**
@@ -351,23 +232,6 @@ function printSummary(discoveredCount: number, buildResult: BuildResult): void {
 }
 
 /**
- * Lists counter detail fields that are still empty.
- */
-function findMissingFields(
-	counterDetails: CounterDetails,
-): Array<keyof CounterDetails> {
-	const missingFields: Array<keyof CounterDetails> = [];
-	const fieldNames = Object.keys(counterDetails) as Array<keyof CounterDetails>;
-	for (const fieldName of fieldNames) {
-		if (counterDetails[fieldName].length === 0) {
-			missingFields.push(fieldName);
-		}
-	}
-
-	return missingFields;
-}
-
-/**
  * Creates an empty counter-details object for failed fetches.
  */
 function createEmptyCounterDetails(sourceUrl: string): CounterDetails {
@@ -378,17 +242,6 @@ function createEmptyCounterDetails(sourceUrl: string): CounterDetails {
 		placedOn: "",
 		sourceUrl,
 	};
-}
-
-/**
- * Converts unknown thrown values into readable error text.
- */
-function toErrorMessage(error: unknown): string {
-	if (error instanceof Error) {
-		return error.message;
-	}
-
-	return String(error);
 }
 
 main().catch((error) => {

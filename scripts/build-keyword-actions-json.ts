@@ -1,8 +1,17 @@
-import { mkdir } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { type CheerioAPI, load } from "cheerio";
 import { createWikiHtmlPageFetcher } from "./wiki-html-fetcher";
+import {
+	extractSectionTextByHeadingId,
+	findMissingFields,
+	loadInfoBoxData,
+	normalizeForCollision as normalizeNameForCollision,
+	normalizeWhiteSpace,
+	removeFootnotesAndNormalizeWhitespace,
+	toErrorMessage,
+	writeJsonFile,
+} from "./wiki-scrape-utils";
 
 const KEYWORD_ACTIONS_PAGE_URL = "https://mtg.wiki/page/Keyword_action";
 const OUTPUT_FILE_RELATIVE_PATH = "src/data/wiki/keyword-actions.json";
@@ -10,10 +19,6 @@ const WIKI_CACHE_DIRECTORY_RELATIVE_PATH = "scripts/mtg-wiki-cache";
 const KEYWORD_ACTION_IMPORTER_USER_AGENT =
 	"mtg-keyword-codex/0.1 (keyword-action-importer)";
 const NETWORK_REQUEST_DELAY_MS = 150;
-const JSON_INDENT_SPACES = 2;
-const FOOTNOTE_REFERENCE_PATTERN = /\[\d+\]/g;
-const WHITESPACE_PATTERN = /\s+/g;
-const SPACE_BEFORE_PUNCTUATION_PATTERN = /\s+([,.;:!?])/g;
 const RULE_NUMBER_PATTERN = /^701\.(\d+)\./;
 const MINIMUM_KEYWORD_ACTION_RULE_NUMBER = 2;
 
@@ -65,7 +70,7 @@ async function main(): Promise<void> {
 	}
 
 	const buildResult = await buildKeywordActionDetails(keywordActionLinks);
-	await writeOutputJson(buildResult.keywordActionDetailsByName);
+	await writeJsonFile(OUTPUT_FILE_PATH, buildResult.keywordActionDetailsByName);
 	printSummary(keywordActionLinks.length, buildResult);
 }
 
@@ -279,7 +284,7 @@ export function extractKeywordActionDetails(
 	sourceUrl: string,
 ): KeywordActionDetails {
 	const $ = load(keywordActionPageHtml);
-	const infoBoxData = loadInfoBoxData($);
+	const infoBoxData = loadInfoBoxData($, normalizeScrapedText);
 
 	return {
 		intro: extractIntro($),
@@ -297,9 +302,7 @@ function extractIntro($: CheerioAPI): string {
 		"#mw-content-text .mw-parser-output p",
 	).first();
 	if (introParagraphElement.length !== 0) {
-		const intro = removeFootnotesAndNormalizeWhitespace(
-			introParagraphElement.text(),
-		);
+		const intro = normalizeScrapedText(introParagraphElement.text());
 
 		return intro;
 	}
@@ -310,141 +313,20 @@ function extractIntro($: CheerioAPI): string {
  * Extracts the Description section content from the page body.
  */
 function extractDescription($: CheerioAPI): string {
-	const descriptionSpan = $("h2 span#Description").first();
-	if (descriptionSpan.length === 0) {
-		return "";
-	}
-
-	const descriptionHeading = descriptionSpan.parent("h2").first();
-	if (descriptionHeading.length === 0) {
-		return "";
-	}
-
-	let currentElement = descriptionHeading.next();
-	const descriptionChunks: string[] = [];
-	while (currentElement.length > 0) {
-		const tagName = getElementTagName(currentElement);
-		if (isHeadingTag(tagName)) {
-			break;
-		}
-
-		if (isTextContentTag(tagName)) {
-			const textChunk = removeFootnotesAndNormalizeWhitespace(
-				currentElement.text(),
-			);
-			if (textChunk.length > 0) {
-				descriptionChunks.push(textChunk);
-			}
-		}
-
-		currentElement = currentElement.next();
-	}
-
-	return descriptionChunks.join("\n\n");
+	return extractSectionTextByHeadingId($, "Description", normalizeScrapedText);
 }
 
-/**
- * Reads infobox key-value rows into a normalized lookup object.
- */
-function loadInfoBoxData($: CheerioAPI): Record<string, string> {
-	const infoBoxData: Record<string, string> = {};
-	const infoBoxRows = $("table.infobox tr");
-	for (const infoBoxRow of infoBoxRows.toArray()) {
-		const infoBoxRowElement = $(infoBoxRow);
-		if (
-			infoBoxRowElement.find("th").length === 0 ||
-			infoBoxRowElement.find("td").length === 0
-		) {
-			continue;
-		}
-
-		const headerText = normalizeWhiteSpace(
-			infoBoxRowElement.find("th").first().text().toLowerCase(),
-		);
-		const valueText = removeFootnotesAndNormalizeWhitespace(
-			infoBoxRowElement.find("td").first().text(),
-		);
-		infoBoxData[headerText] = valueText;
-	}
-
-	return infoBoxData;
-}
-
-/**
- * Normalizes scraped field text and removes bracketed footnote references.
- */
-function removeFootnotesAndNormalizeWhitespace(rawText: string): string {
-	const textWithoutFootnotes = rawText.replaceAll(
-		FOOTNOTE_REFERENCE_PATTERN,
-		"",
-	);
-	return normalizeWhiteSpace(textWithoutFootnotes).replaceAll(
-		SPACE_BEFORE_PUNCTUATION_PATTERN,
-		"$1",
-	);
-}
-
-/**
- * Collapses whitespace and trims display text.
- */
-function normalizeWhiteSpace(rawText: string): string {
-	const nonBreakingSpaceUnicode = "\u00a0";
-	return rawText
-		.replaceAll(nonBreakingSpaceUnicode, " ")
-		.replaceAll(WHITESPACE_PATTERN, " ")
-		.trim();
-}
-
-/**
- * Returns a lowercase tag name for a Cheerio element.
- */
-function getElementTagName(element: ReturnType<CheerioAPI>): string {
-	const tagName = element.prop("tagName");
-	return typeof tagName === "string" ? tagName.toLowerCase() : "";
-}
-
-/**
- * Checks whether a tag name is an h2-h6 heading.
- */
-function isHeadingTag(tagName: string): boolean {
-	return (
-		tagName === "h2" ||
-		tagName === "h3" ||
-		tagName === "h4" ||
-		tagName === "h5" ||
-		tagName === "h6"
-	);
-}
-
-/**
- * Checks whether an element tag should be included in section text.
- */
-function isTextContentTag(tagName: string): boolean {
-	return (
-		tagName === "p" ||
-		tagName === "ul" ||
-		tagName === "ol" ||
-		tagName === "dl" ||
-		tagName === "blockquote"
-	);
+function normalizeScrapedText(rawText: string): string {
+	return removeFootnotesAndNormalizeWhitespace(rawText, {
+		normalizeSpaceBeforePunctuation: true,
+	});
 }
 
 /**
  * Normalizes a keyword-action name for duplicate detection.
  */
 export function normalizeForCollision(keywordActionName: string): string {
-	return normalizeWhiteSpace(keywordActionName).toLowerCase();
-}
-
-/**
- * Writes generated keyword-action details to the output JSON file.
- */
-async function writeOutputJson(
-	keywordActionDetailsByName: Record<string, KeywordActionDetails>,
-): Promise<void> {
-	await mkdir(dirname(OUTPUT_FILE_PATH), { recursive: true });
-	const jsonContent = `${JSON.stringify(keywordActionDetailsByName, null, JSON_INDENT_SPACES)}\n`;
-	await Bun.write(OUTPUT_FILE_PATH, jsonContent);
+	return normalizeNameForCollision(keywordActionName);
 }
 
 /**
@@ -469,25 +351,6 @@ function printSummary(discoveredCount: number, buildResult: BuildResult): void {
 }
 
 /**
- * Lists keyword-action detail fields that are still empty.
- */
-function findMissingFields(
-	keywordActionDetails: KeywordActionDetails,
-): Array<keyof KeywordActionDetails> {
-	const missingFields: Array<keyof KeywordActionDetails> = [];
-	const fieldNames = Object.keys(keywordActionDetails) as Array<
-		keyof KeywordActionDetails
-	>;
-	for (const fieldName of fieldNames) {
-		if (keywordActionDetails[fieldName].length === 0) {
-			missingFields.push(fieldName);
-		}
-	}
-
-	return missingFields;
-}
-
-/**
  * Creates an empty keyword-action details object for failed fetches.
  */
 function createEmptyKeywordActionDetails(
@@ -499,17 +362,6 @@ function createEmptyKeywordActionDetails(
 		reminderText: "",
 		sourceUrl,
 	};
-}
-
-/**
- * Converts unknown thrown values into readable error text.
- */
-function toErrorMessage(error: unknown): string {
-	if (error instanceof Error) {
-		return error.message;
-	}
-
-	return String(error);
 }
 
 if (import.meta.main) {
