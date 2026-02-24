@@ -1,41 +1,18 @@
-import { Database } from "bun:sqlite";
-import { DEFAULT_SCRYFALL_DB_PATH, ENV } from "./config";
+import { inArray, sql } from "drizzle-orm";
+import { db } from "../db/db";
+import { cards as cardsTable } from "../db/schema/codex-schema";
 import {
   normalizeCardName,
   type ScryfallCache,
   type ScryfallCard,
 } from "./scryfall";
 
-export const SCRYFALL_DB_PATH_ENV = ENV.SCRYFALL_DB_PATH;
-export { DEFAULT_SCRYFALL_DB_PATH };
-
-const TABLE_CARDS = "cards";
-const COLUMN_ID = "id";
-const COLUMN_NAME = "name";
-const COLUMN_DATA_JSON = "data_json";
-const COLUMN_UPDATED_AT = "updated_at";
-
-const UPSERT_CARD_SQL = `
-  insert into ${TABLE_CARDS} (${COLUMN_ID}, ${COLUMN_NAME}, ${COLUMN_DATA_JSON}, ${COLUMN_UPDATED_AT})
-  values ($id, $name, $data_json, $updated_at)
-  on conflict(${COLUMN_NAME}) do update set
-    ${COLUMN_ID} = excluded.${COLUMN_ID},
-    ${COLUMN_DATA_JSON} = excluded.${COLUMN_DATA_JSON},
-    ${COLUMN_UPDATED_AT} = excluded.${COLUMN_UPDATED_AT};
-`;
-
-type CardRow = {
+type CardCacheRow = {
   name: string;
   data_json: string;
 };
 
 export class ScryfallSqliteCache implements ScryfallCache {
-  private database: Database;
-
-  constructor(databasePath: string = DEFAULT_SCRYFALL_DB_PATH) {
-    this.database = new Database(databasePath);
-  }
-
   async getByNames(
     names: string[],
   ): Promise<{ cards: ScryfallCard[]; missingNames: string[] }> {
@@ -44,24 +21,28 @@ export class ScryfallSqliteCache implements ScryfallCache {
       return { cards: [], missingNames: [] };
     }
 
-    const placeholders = normalizedNames.map(() => "?").join(", ");
-    const query = `
-      select ${COLUMN_NAME}, ${COLUMN_DATA_JSON}
-      from ${TABLE_CARDS}
-      where ${COLUMN_NAME} in (${placeholders});
-    `;
+    const cachedRows = (await db
+      .select({
+        name: cardsTable.name,
+        data_json: cardsTable.data_json,
+      })
+      .from(cardsTable)
+      .where(inArray(cardsTable.name, normalizedNames))) as CardCacheRow[];
 
-    const rows = this.database
-      .query(query)
-      .all(...normalizedNames) as CardRow[];
+    const cachedCards: ScryfallCard[] = [];
+    for (const row of cachedRows) {
+      try {
+        const parsedCard = JSON.parse(row.data_json) as ScryfallCard;
+        cachedCards.push(parsedCard);
+      } catch {
+        console.warn("Skipping invalid cached card JSON", row.name);
+      }
+    }
 
-    const cards = rows.map((row) => JSON.parse(row.data_json) as ScryfallCard);
-    const foundNames = new Set(rows.map((row) => row.name));
-    const missingNames = normalizedNames.filter(
-      (name) => !foundNames.has(name),
-    );
+    const foundNames = new Set(cachedRows.map((row) => row.name));
+    const missingNames = normalizedNames.filter((name) => !foundNames.has(name));
 
-    return { cards, missingNames };
+    return { cards: cachedCards, missingNames };
   }
 
   async set(cards: ScryfallCard[]): Promise<void> {
@@ -69,39 +50,43 @@ export class ScryfallSqliteCache implements ScryfallCache {
       return;
     }
 
-    const statement = this.database.prepare(UPSERT_CARD_SQL);
     const updatedAt = new Date().toISOString();
-    const transaction = this.database.transaction(
-      (cardsToStore: ScryfallCard[]) => {
-        for (const card of cardsToStore) {
-          if (typeof card?.id !== "string" || typeof card?.name !== "string") {
-            console.warn("Skipping card with invalid id/name", card);
-            continue;
-          }
+    const valuesToStore = cards.flatMap((card) => {
+      if (typeof card?.id !== "string" || typeof card?.name !== "string") {
+        console.warn("Skipping card with invalid id/name", card);
+        return [];
+      }
 
-          const normalizedName = normalizeCardName(card.name);
-          if (!normalizedName) {
-            console.warn("Skipping card with empty normalized name", card.name);
-            continue;
-          }
+      const normalizedName = normalizeCardName(card.name);
+      if (!normalizedName) {
+        console.warn("Skipping card with empty normalized name", card.name);
+        return [];
+      }
 
-          const dataJson = JSON.stringify(card);
-          if (typeof dataJson !== "string") {
-            console.warn("Skipping card with unserializable payload", card.name);
-            continue;
-          }
+      return [
+        {
+          id: card.id,
+          name: normalizedName,
+          data_json: JSON.stringify(card),
+          updated_at: updatedAt,
+        },
+      ];
+    });
 
-          statement.run({
-            $id: card.id,
-            $name: normalizedName,
-            $data_json: dataJson,
-            $updated_at: updatedAt,
-          });
-        }
-      },
-    );
+    if (valuesToStore.length === 0) {
+      return;
+    }
 
-    transaction(cards);
+    await db
+      .insert(cardsTable)
+      .values(valuesToStore)
+      .onConflictDoUpdate({
+        target: cardsTable.name,
+        set: {
+          id: sql`excluded.id`,
+          data_json: sql`excluded.data_json`,
+          updated_at: sql`excluded.updated_at`,
+        },
+      });
   }
-
 }
