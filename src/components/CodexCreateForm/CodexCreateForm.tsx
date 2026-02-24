@@ -1,5 +1,6 @@
 import { useForm } from "@tanstack/react-form";
 import { Form, Heading } from "react-aria-components";
+import { processDeckList } from "../../actions/processDeckList";
 import { Button } from "../Button/Button";
 import { TextArea } from "../TextArea/TextArea";
 import { TextField } from "../TextField/TextField";
@@ -20,6 +21,7 @@ export const CodexCreateForm = () => {
 		},
 		onSubmit: async (formData) => {
 			console.info(formData);
+			await processDeckList({ data: formData.value });
 		},
 	});
 	return (
@@ -42,6 +44,9 @@ export const CodexCreateForm = () => {
 								id={field.name}
 								name={field.name}
 								isRequired={true}
+								value={field.state.value}
+								onChange={field.handleChange}
+								onBlur={field.handleBlur}
 								autoComplete="off"
 								placeholder="Super Awesome Combo Deck"
 							/>
@@ -57,6 +62,9 @@ export const CodexCreateForm = () => {
 								id={field.name}
 								name={field.name}
 								isRequired={false}
+								value={field.state.value}
+								onChange={field.handleChange}
+								onBlur={field.handleBlur}
 								autoComplete="off"
 								placeholder="Link to your deck here!"
 							/>
@@ -71,6 +79,11 @@ export const CodexCreateForm = () => {
 								label="Primer"
 								id={field.name}
 								name={field.name}
+								value={field.state.value}
+								onChange={(event) => {
+									field.handleChange(event.target.value);
+								}}
+								onBlur={field.handleBlur}
 								autoComplete="off"
 								rows={5}
 								placeholder="Tell someone how to play your deck, tips and tricks welcome!"
@@ -86,6 +99,11 @@ export const CodexCreateForm = () => {
 								label="Deck List"
 								id={field.name}
 								name={field.name}
+								value={field.state.value}
+								onChange={(event) => {
+									field.handleChange(event.target.value);
+								}}
+								onBlur={field.handleBlur}
 								autoComplete="off"
 								rows={8}
 								placeholder={"Decklist format:\n\n15 Island\n1 Rhystic Study"}
