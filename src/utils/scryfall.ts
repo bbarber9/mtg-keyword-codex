@@ -1,6 +1,7 @@
 export type ScryfallCard = {
   id: string;
   name: string;
+  oracle_text: string;
   keywords?: string[];
   [key: string]: unknown;
 };
