@@ -10,12 +10,20 @@ interface ButtonProps extends RACButtonProps {
 	 * The visual style of the button.
 	 * @default 'primary'
 	 */
-	variant?: "primary" | "secondary";
+	variant?: "primary" | "secondary" | "toolbar";
 }
 
+const getButtonClass = (variant: ButtonProps["variant"]) => {
+	const mapping: Record<string, string> = {
+		primary: styles.primary,
+		secondary: styles.secondary,
+		toolbar: styles.toolbar,
+	};
+	return variant ? mapping[variant] : mapping.primary;
+};
+
 export function Button(props: ButtonProps) {
-	const variantClassName =
-		props.variant === "secondary" ? styles.secondary : styles.primary;
+	const variantClassName = getButtonClass(props.variant);
 	const buttonClassName = composeRenderProps(
 		props.className,
 		(previousClassName) =>

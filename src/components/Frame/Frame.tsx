@@ -1,3 +1,5 @@
+import { Link } from "@tanstack/react-router";
+import { Button } from "../Button/Button";
 import styles from "./Frame.module.css";
 
 interface FrameProps {
@@ -6,7 +8,12 @@ interface FrameProps {
 export const Frame = ({ children }: FrameProps) => {
 	return (
 		<>
-			<nav className={styles.nav}>📔 MTG Cheatsheet Codex</nav>
+			<nav className={styles.nav}>
+				<Link className={styles.logo} to="/test">
+					📔 MTG Cheatsheet Codex
+				</Link>
+				<Button variant="toolbar">Logout</Button>
+			</nav>
 			<div className={styles.content}>{children}</div>
 		</>
 	);

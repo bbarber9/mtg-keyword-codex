@@ -3,7 +3,6 @@
 	font-weight: bold;
 	padding: 10px 10px;
 	color: var(--color-base-light);
-
 }
 
 .button:hover {
@@ -13,17 +12,27 @@
 .primary {
 	border: 2px solid var(--color-primary-l2);
 	background-color: var(--color-surface-l2);
-}
-
-.primary:hover {
-	background-color: var(--color-surface-l3);
+	
+	&:hover {
+		background-color: var(--color-surface-l3);
+	}
 }
 
 .secondary {
 	border: 2px solid var(--color-secondary-l2);
 	background-color: var(--color-surface-l2);
+
+	&:hover {
+		background-color: var(--color-surface-l3);
+	}
 }
 
-.secondary:hover {
-	background-color: var(--color-surface-l3);
+
+.toolbar {
+
+	&:hover {
+		background-color: var(--color-surface-l3);
+	}
 }
+
+
