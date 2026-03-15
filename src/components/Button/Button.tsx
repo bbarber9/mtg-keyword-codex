@@ -1,6 +1,6 @@
 import {
-	Button as RACButton,
 	composeRenderProps,
+	Button as RACButton,
 	type ButtonProps as RACButtonProps,
 } from "react-aria-components";
 import styles from "./Button.module.css";
