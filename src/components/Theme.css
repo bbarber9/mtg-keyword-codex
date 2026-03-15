@@ -2,13 +2,19 @@
 	--color-base-dark: #000000;
 	--color-base-light: #ffffff;
 	/* primary */
-	--color-primary-l1: #0f6b3c;
-	--color-primary-l2: #198451;
-	--color-primary-l3: #249d66;
-	--color-primary-l4: #3db47d;
-	--color-primary-l5: #62c595;
-	--color-primary-l6: #89d7af;
-	--color-primary-l7: #b2e8cb;
+	--color-primary-l1: oklch(0.632 0.149 338.93);
+	--color-primary-l2: oklch(0.7 0.149 338.93);
+	--color-primary-l3: oklch(0.75 0.149 338.93);
+	--color-primary-l4: oklch(0.8 0.149 338.93);
+	--color-primary-l5: oklch(0.85 0.149 338.93);
+	--color-primary-l6: oklch(0.9 0.149 338.93);
+	--color-primary-l7: oklch(0.95 0.149 338.93);
+	/* secondary */
+	--color-secondary-l1: oklch(0.6825 0.1342 59.28);
+	--color-secondary-l2: oklch(0.75 0.1342 59.28);
+	--color-secondary-l3: oklch(0.85 0.1342 59.28);
+	--color-secondary-l4: oklch(0.9 0.1342 59.28);
+	--color-secondary-l5: oklch(0.95 0.1342 59.28);
 	/* surface */
 	--color-surface-l1: oklch(0.2200 0.0523 275.15);
 	--color-surface-l2: oklch(0.3200 0.0523 275.15);

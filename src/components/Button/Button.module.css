@@ -1,8 +1,9 @@
 .button {
-	border: 2px solid var(--color-primary-l2);
 	border-radius: var(--radius-md);
 	font-weight: bold;
 	padding: 10px 10px;
+	color: var(--color-base-light);
+
 }
 
 .button:hover {
@@ -10,17 +11,17 @@
 }
 
 .primary {
-	background-color: var(--color-primary-l2);
-	color: var(--color-base-dark);
+	border: 2px solid var(--color-primary-l2);
+	background-color: var(--color-surface-l2);
 }
 
 .primary:hover {
-	background-color: var(--color-primary-l3);
+	background-color: var(--color-surface-l3);
 }
 
 .secondary {
+	border: 2px solid var(--color-secondary-l2);
 	background-color: var(--color-surface-l2);
-	color: var(--color-base-light);
 }
 
 .secondary:hover {

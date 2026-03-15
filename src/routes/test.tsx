@@ -17,6 +17,7 @@ function RouteComponent() {
 				<pre>{JSON.stringify(session, null, 2)}</pre>
 				<Button
 					type="button"
+					variant="secondary"
 					onClick={() => {
 						authClient.signOut().then(() => {
 							// reload to update the session state
