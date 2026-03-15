@@ -1,24 +1,28 @@
 import {
 	Button as RACButton,
+	composeRenderProps,
 	type ButtonProps as RACButtonProps,
 } from "react-aria-components";
-import { buttonRecipe } from "./Button.css";
+import styles from "./Button.module.css";
 
 interface ButtonProps extends RACButtonProps {
 	/**
-	 * The visual style of the button (Vanilla CSS implementation specific).
+	 * The visual style of the button.
 	 * @default 'primary'
 	 */
 	variant?: "primary" | "secondary";
 }
 
 export function Button(props: ButtonProps) {
-	const buttonClassName = [
-		buttonRecipe({ variant: props.variant }),
+	const variantClassName =
+		props.variant === "secondary" ? styles.secondary : styles.primary;
+	const buttonClassName = composeRenderProps(
 		props.className,
-	]
-		.filter(Boolean)
-		.join(" ");
+		(previousClassName) =>
+			[styles.button, variantClassName, previousClassName]
+				.filter(Boolean)
+				.join(" "),
+	);
 
 	return (
 		<RACButton {...props} className={buttonClassName}>

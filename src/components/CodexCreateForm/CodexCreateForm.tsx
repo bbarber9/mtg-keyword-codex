@@ -4,12 +4,7 @@ import { processDeckList } from "../../actions/processDeckList";
 import { Button } from "../Button/Button";
 import { TextArea } from "../TextArea/TextArea";
 import { TextField } from "../TextField/TextField";
-import {
-	buttonBarStyles,
-	createCodexPageStyles,
-	formStyles,
-	headingStyles,
-} from "./CodexCreateForm.css";
+import styles from "./CodexCreateForm.module.css";
 
 export const CodexCreateForm = () => {
 	const form = useForm({
@@ -25,10 +20,10 @@ export const CodexCreateForm = () => {
 		},
 	});
 	return (
-		<div className={createCodexPageStyles}>
-			<Heading className={headingStyles}>Create a new codex</Heading>
+		<div className={styles.page}>
+			<Heading className={styles.heading}>Create a new codex</Heading>
 			<Form
-				className={formStyles}
+				className={styles.form}
 				onSubmit={(e) => {
 					e.preventDefault();
 					e.stopPropagation();
@@ -111,7 +106,7 @@ export const CodexCreateForm = () => {
 						);
 					}}
 				/>
-				<div className={buttonBarStyles}>
+				<div className={styles.buttonBar}>
 					<Button type="submit">Create</Button>
 				</div>
 			</Form>

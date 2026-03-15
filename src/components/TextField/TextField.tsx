@@ -7,7 +7,7 @@ import {
 	Text,
 	type ValidationResult,
 } from "react-aria-components";
-import { containerStyles, inputStyles } from "./TextField.css";
+import styles from "./TextField.module.css";
 
 export interface TextFieldProps extends AriaTextFieldProps {
 	label?: string;
@@ -25,10 +25,10 @@ export function TextField({
 	...props
 }: TextFieldProps) {
 	return (
-		<AriaTextField {...props} className={containerStyles}>
+		<AriaTextField {...props} className={styles.container}>
 			<Label>{label}</Label>
 			<Input
-				className={inputStyles}
+				className={styles.input}
 				placeholder={placeholder}
 				autoComplete={props.autoComplete}
 			/>

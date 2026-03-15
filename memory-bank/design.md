@@ -138,7 +138,7 @@ Codex response shape
 
 ## Frontend Guidelines
 - React for UI components and pages.
-- Styling via vanilla-extract, which is a no-runtime CSS-in-JS library (https://vanilla-extract.style/).
+- Styling via CSS Modules for component-local styles, with shared theme tokens exposed as CSS custom properties.
 - Component base behavior/accessibility via react-aria, which is a headless component library (https://react-aria.adobe.com/llms.txt).
 - Establish a design system with shared tokens (typography, color, spacing, radii, shadows, motion).
 - Support mobile browsers; define breakpoints once initial screens inform them.

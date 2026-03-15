@@ -1,4 +1,4 @@
-import { frameContentStyle, navStyle } from "./Frame.css";
+import styles from "./Frame.module.css";
 
 interface FrameProps {
 	children: React.ReactNode;
@@ -6,8 +6,8 @@ interface FrameProps {
 export const Frame = ({ children }: FrameProps) => {
 	return (
 		<>
-			<nav className={navStyle}>📔 MTG Cheatsheet Codex</nav>
-			<div className={frameContentStyle}>{children}</div>
+			<nav className={styles.nav}>📔 MTG Cheatsheet Codex</nav>
+			<div className={styles.content}>{children}</div>
 		</>
 	);
 };

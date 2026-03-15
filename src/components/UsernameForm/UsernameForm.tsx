@@ -4,7 +4,7 @@ import { authClient } from "../../utils/client-auth";
 import { Alert } from "../Alert/Alert";
 import { Button } from "../Button/Button";
 import { TextField } from "../TextField/TextField";
-import { formContainer, formStyles, formTitle } from "./UsernameForm.css";
+import styles from "./UsernameForm.module.css";
 
 export const UsernameForm = () => {
 	const form = useForm({
@@ -21,16 +21,16 @@ export const UsernameForm = () => {
 		},
 	});
 	return (
-		<div className={formContainer}>
+		<div className={styles.container}>
 			<Form
-				className={formStyles}
+				className={styles.form}
 				onSubmit={(e) => {
 					e.preventDefault();
 					e.stopPropagation();
 					form.handleSubmit();
 				}}
 			>
-				<h1 className={formTitle}>Set Your Username</h1>
+				<h1 className={styles.title}>Set Your Username</h1>
 				<form.Field
 					name="username"
 					validators={{

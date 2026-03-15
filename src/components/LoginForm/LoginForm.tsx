@@ -1,16 +1,12 @@
 import { authClient } from "../../utils/client-auth";
 import { Button } from "../Button/Button";
-import {
-	loginFormBox,
-	loginFormContainer,
-	loginFormTitle,
-} from "./LoginForm.css";
+import styles from "./LoginForm.module.css";
 
 export const LoginForm = () => {
 	return (
-		<div className={loginFormContainer}>
-			<div className={loginFormBox}>
-				<h1 className={loginFormTitle}>Login</h1>
+		<div className={styles.container}>
+			<div className={styles.box}>
+				<h1 className={styles.title}>Login</h1>
 				<Button
 					variant="primary"
 					onPress={() => {
