@@ -14,7 +14,9 @@ import { Route as SetUsernameRouteImport } from './routes/set-username'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as CodicesRouteImport } from './routes/codices'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CodicesIndexRouteImport } from './routes/codices.index'
 import { Route as CodicesCreateRouteImport } from './routes/codices.create'
+import { Route as CodicesIdRouteImport } from './routes/codices.$id'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
 const TestRoute = TestRouteImport.update({
@@ -42,9 +44,19 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CodicesIndexRoute = CodicesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CodicesRoute,
+} as any)
 const CodicesCreateRoute = CodicesCreateRouteImport.update({
   id: '/create',
   path: '/create',
+  getParentRoute: () => CodicesRoute,
+} as any)
+const CodicesIdRoute = CodicesIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
   getParentRoute: () => CodicesRoute,
 } as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
@@ -59,16 +71,19 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/set-username': typeof SetUsernameRoute
   '/test': typeof TestRoute
+  '/codices/$id': typeof CodicesIdRoute
   '/codices/create': typeof CodicesCreateRoute
+  '/codices/': typeof CodicesIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/codices': typeof CodicesRouteWithChildren
   '/login': typeof LoginRoute
   '/set-username': typeof SetUsernameRoute
   '/test': typeof TestRoute
+  '/codices/$id': typeof CodicesIdRoute
   '/codices/create': typeof CodicesCreateRoute
+  '/codices': typeof CodicesIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesById {
@@ -78,7 +93,9 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/set-username': typeof SetUsernameRoute
   '/test': typeof TestRoute
+  '/codices/$id': typeof CodicesIdRoute
   '/codices/create': typeof CodicesCreateRoute
+  '/codices/': typeof CodicesIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRouteTypes {
@@ -89,16 +106,19 @@ export interface FileRouteTypes {
     | '/login'
     | '/set-username'
     | '/test'
+    | '/codices/$id'
     | '/codices/create'
+    | '/codices/'
     | '/api/auth/$'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/codices'
     | '/login'
     | '/set-username'
     | '/test'
+    | '/codices/$id'
     | '/codices/create'
+    | '/codices'
     | '/api/auth/$'
   id:
     | '__root__'
@@ -107,7 +127,9 @@ export interface FileRouteTypes {
     | '/login'
     | '/set-username'
     | '/test'
+    | '/codices/$id'
     | '/codices/create'
+    | '/codices/'
     | '/api/auth/$'
   fileRoutesById: FileRoutesById
 }
@@ -157,11 +179,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/codices/': {
+      id: '/codices/'
+      path: '/'
+      fullPath: '/codices/'
+      preLoaderRoute: typeof CodicesIndexRouteImport
+      parentRoute: typeof CodicesRoute
+    }
     '/codices/create': {
       id: '/codices/create'
       path: '/create'
       fullPath: '/codices/create'
       preLoaderRoute: typeof CodicesCreateRouteImport
+      parentRoute: typeof CodicesRoute
+    }
+    '/codices/$id': {
+      id: '/codices/$id'
+      path: '/$id'
+      fullPath: '/codices/$id'
+      preLoaderRoute: typeof CodicesIdRouteImport
       parentRoute: typeof CodicesRoute
     }
     '/api/auth/$': {
@@ -175,11 +211,15 @@ declare module '@tanstack/react-router' {
 }
 
 interface CodicesRouteChildren {
+  CodicesIdRoute: typeof CodicesIdRoute
   CodicesCreateRoute: typeof CodicesCreateRoute
+  CodicesIndexRoute: typeof CodicesIndexRoute
 }
 
 const CodicesRouteChildren: CodicesRouteChildren = {
+  CodicesIdRoute: CodicesIdRoute,
   CodicesCreateRoute: CodicesCreateRoute,
+  CodicesIndexRoute: CodicesIndexRoute,
 }
 
 const CodicesRouteWithChildren =

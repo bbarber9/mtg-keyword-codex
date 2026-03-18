@@ -1,5 +1,4 @@
-import { relations } from "drizzle-orm/relations";
-import { index, integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import { index, integer, primaryKey, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 export const cards = sqliteTable(
   "cards",
@@ -18,8 +17,9 @@ export const codices = sqliteTable(
     id: text("id").primaryKey(),
     owner_id: text("owner_id").notNull(),
     title: text("title").notNull(),
-    canonical_list: text("canonical_list").notNull(),
-    summary_json: text("summary_json").notNull(),
+    link: text("link"),
+    primer: text("primer"),
+    normalized_decklist: text("normalized_decklist").notNull(),
     created_at: text("created_at").notNull(),
     last_accessed_at: text("last_accessed_at").notNull(),
     expires_at: text("expires_at").notNull(),
@@ -27,5 +27,20 @@ export const codices = sqliteTable(
   (table) => ([
     index("codices_owner_id_idx").on(table.owner_id),
     index("codices_expires_at_idx").on(table.expires_at),
+  ]),
+);
+
+export const codexKeywords = sqliteTable(
+  "codex_keywords",
+  {
+    codex_id: text("codex_id")
+      .notNull()
+      .references(() => codices.id, { onDelete: "cascade" }),
+    keyword: text("keyword").notNull(),
+    count: integer("count").notNull(),
+  },
+  (table) => ([
+    primaryKey({ columns: [table.codex_id, table.keyword] }),
+    index("codex_keywords_codex_id_idx").on(table.codex_id),
   ]),
 );

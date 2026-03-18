@@ -1,12 +1,14 @@
 import { useForm } from "@tanstack/react-form";
+import { useNavigate } from "@tanstack/react-router";
 import { Form, Heading } from "react-aria-components";
-import { processDeckList } from "../../actions/processDeckList";
+import { createCodex } from "../../actions/createCodex";
 import { Button } from "../Button/Button";
 import { TextArea } from "../TextArea/TextArea";
 import { TextField } from "../TextField/TextField";
 import styles from "./CodexCreateForm.module.css";
 
 export const CodexCreateForm = () => {
+	const navigate = useNavigate();
 	const { handleSubmit, Field } = useForm({
 		defaultValues: {
 			name: "",
@@ -15,8 +17,11 @@ export const CodexCreateForm = () => {
 			decklist: "",
 		},
 		onSubmit: async (formData) => {
-			console.info(formData.value);
-			await processDeckList({ data: formData.value });
+			const createdCodex = await createCodex({ data: formData.value });
+			await navigate({
+				to: "/codices/$id",
+				params: { id: createdCodex.id },
+			});
 		},
 	});
 	return (

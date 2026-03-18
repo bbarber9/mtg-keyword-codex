@@ -1,0 +1,115 @@
+.page {
+	display: grid;
+	gap: var(--space-5);
+}
+
+.header {
+	display: grid;
+	gap: var(--space-2);
+	padding: var(--space-5);
+	border-radius: var(--radius-lg);
+	background: linear-gradient(
+		135deg,
+		var(--color-surface-l2),
+		color-mix(in oklab, var(--color-primary-l1) 25%, var(--color-surface-l1))
+	);
+	border: 1px solid color-mix(in oklab, var(--color-primary-l4) 30%, transparent);
+}
+
+.eyebrow {
+	font-size: 0.75rem;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	color: var(--color-secondary-l4);
+}
+
+.title {
+	font-size: clamp(2rem, 5vw, 3.25rem);
+	line-height: 1;
+}
+
+.metaRow {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-2);
+	color: var(--color-surface-l8);
+}
+
+.metaLabel {
+	font-weight: 700;
+	color: var(--color-base-light);
+}
+
+.link {
+	color: var(--color-secondary-l3);
+}
+
+.card {
+	display: grid;
+	gap: var(--space-3);
+	padding: var(--space-5);
+	border-radius: var(--radius-lg);
+	background-color: var(--color-surface-l2);
+	border: 1px solid color-mix(in oklab, var(--color-surface-l6) 30%, transparent);
+}
+
+.sectionHeader {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--space-3);
+}
+
+.sectionTitle {
+	font-size: 1.125rem;
+}
+
+.badge {
+	min-width: 2rem;
+	padding: var(--space-1) var(--space-2);
+	border-radius: 999px;
+	background-color: var(--color-primary-l1);
+	text-align: center;
+	font-weight: 700;
+}
+
+.primer {
+	white-space: pre-wrap;
+	line-height: 1.6;
+}
+
+.keywordList {
+	display: grid;
+	gap: var(--space-2);
+	list-style: none;
+	padding: 0;
+}
+
+.keywordListItem {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--space-3);
+	padding: var(--space-3);
+	border-radius: var(--radius-md);
+	background-color: color-mix(in oklab, var(--color-surface-l3) 65%, transparent);
+}
+
+.keywordCount {
+	font-variant-numeric: tabular-nums;
+	font-weight: 700;
+	color: var(--color-secondary-l3);
+}
+
+.decklist {
+	overflow-x: auto;
+	padding: var(--space-4);
+	border-radius: var(--radius-md);
+	background-color: var(--color-surface-l1);
+	font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+	white-space: pre-wrap;
+}
+
+.emptyState {
+	color: var(--color-surface-l7);
+}

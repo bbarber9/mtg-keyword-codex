@@ -43,7 +43,9 @@ This project provides a web app that generates shareable "codex" pages from a pa
 - id (PK, text, short id)
 - owner_id (FK users.id)
 - title (text)
-- normalized_decklist (text) - normalized list JSON
+- link (text, nullable)
+- primer (text, nullable)
+- normalized_decklist (text) - normalized newline decklist text
 - created_at (datetime)
 - last_accessed_at (datetime)
 - expires_at (datetime)
@@ -51,7 +53,7 @@ This project provides a web app that generates shareable "codex" pages from a pa
 ### codex_keywords
 - codex_id (FK codices.id)
 - keyword (text) - normalized keyword name or ID
-- count (integer)
+- count (integer) - number of card copies in the normalized decklist that reference the keyword
 
 Indexes
 - cards(name)
@@ -95,7 +97,8 @@ Codex response shape
 
 ## Keyword Extraction
 - Use Scryfall `keywords` array.
-- Build a keyword index with counts.
+- Detect counter names from oracle text in a case-insensitive pass using the generated counter data.
+- Build a keyword index with counts based on deck quantity, not just unique card names.
 
 ## Keyword data
 - This static file maps keywords to their descriptions to be used in the codex: keywords/keyword-descriptions.json 
@@ -132,8 +135,8 @@ Codex response shape
 
 ## Frontend UX
 - TanStack Start default route: "My Codices" list.
-- "New Codex" button opens modal form (title + decklist).
-- After creation, close modal and add codex to list; user can navigate to public codex page.
+- "New Codex" button navigates to `/codices/create`.
+- After creation, redirect to the public codex page at `/codices/:id`.
 - Login screen available at `/login` and used for the current landing route; includes Google sign-in CTA.
 
 ## Frontend Guidelines
