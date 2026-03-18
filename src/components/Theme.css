@@ -24,15 +24,6 @@
 	--color-surface-l6: oklch(0.7000 0.0523 275.15);
 	--color-surface-l7: oklch(0.8000 0.0523 275.15);
 	--color-surface-l8: oklch(0.9000 0.0523 275.15);
-	/* tonal surface */
-	--color-tonal-surface-l1: #152119;
-	--color-tonal-surface-l2: #29362d;
-	--color-tonal-surface-l3: #3f4d44;
-	--color-tonal-surface-l4: #58655c;
-	--color-tonal-surface-l5: #717d75;
-	--color-tonal-surface-l6: #8b9690;
-	--color-tonal-surface-l7: #a8b1ac;
-	--color-tonal-surface-l8: #c6cbc8;
 	/* success */
 	--color-success-l1: #5f1f8f;
 	--color-success-l2: #9f4adf;
