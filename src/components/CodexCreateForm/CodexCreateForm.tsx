@@ -7,7 +7,7 @@ import { TextField } from "../TextField/TextField";
 import styles from "./CodexCreateForm.module.css";
 
 export const CodexCreateForm = () => {
-	const form = useForm({
+	const { handleSubmit, Field } = useForm({
 		defaultValues: {
 			name: "",
 			link: "",
@@ -15,7 +15,7 @@ export const CodexCreateForm = () => {
 			decklist: "",
 		},
 		onSubmit: async (formData) => {
-			console.info(formData);
+			console.info(formData.value);
 			await processDeckList({ data: formData.value });
 		},
 	});
@@ -27,12 +27,11 @@ export const CodexCreateForm = () => {
 				onSubmit={(e) => {
 					e.preventDefault();
 					e.stopPropagation();
-					form.handleSubmit();
+					handleSubmit();
 				}}
 			>
-				<form.Field
-					name="name"
-					children={(field) => {
+				<Field name="name">
+					{(field) => {
 						return (
 							<TextField
 								label="Codex Name"
@@ -47,10 +46,9 @@ export const CodexCreateForm = () => {
 							/>
 						);
 					}}
-				/>
-				<form.Field
-					name="link"
-					children={(field) => {
+				</Field>
+				<Field name="link">
+					{(field) => {
 						return (
 							<TextField
 								label="Link to Decklist"
@@ -65,10 +63,9 @@ export const CodexCreateForm = () => {
 							/>
 						);
 					}}
-				/>
-				<form.Field
-					name="primer"
-					children={(field) => {
+				</Field>
+				<Field name="primer">
+					{(field) => {
 						return (
 							<TextArea
 								label="Primer"
@@ -85,10 +82,9 @@ export const CodexCreateForm = () => {
 							/>
 						);
 					}}
-				/>
-				<form.Field
-					name="decklist"
-					children={(field) => {
+				</Field>
+				<Field name="decklist">
+					{(field) => {
 						return (
 							<TextArea
 								label="Deck List"
@@ -105,7 +101,7 @@ export const CodexCreateForm = () => {
 							/>
 						);
 					}}
-				/>
+				</Field>
 				<div className={styles.buttonBar}>
 					<Button type="submit">Create</Button>
 				</div>
