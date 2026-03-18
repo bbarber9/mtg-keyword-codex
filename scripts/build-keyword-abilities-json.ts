@@ -1,6 +1,12 @@
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { type CheerioAPI, load } from "cheerio";
+import {
+	applyKeywordAliases,
+	type KeywordAliasMap,
+	loadKeywordAliasesFromFile,
+	SHARED_KEYWORD_ALIAS_FILE_RELATIVE_PATH,
+} from "./keyword-alias-utils";
 import { createWikiHtmlPageFetcher } from "./wiki-html-fetcher";
 import {
 	extractTextIncludingImageAlt,
@@ -41,12 +47,17 @@ type BuildResult = {
 	incompleteKeywordAbilityReports: string[];
 	duplicateCount: number;
 	fetchFailureCount: number;
+	aliasCount: number;
 };
 
 const SCRIPT_FILE_PATH = fileURLToPath(import.meta.url);
 const SCRIPT_DIRECTORY_PATH = dirname(SCRIPT_FILE_PATH);
 const PROJECT_ROOT_PATH = resolve(SCRIPT_DIRECTORY_PATH, "..");
 const OUTPUT_FILE_PATH = resolve(PROJECT_ROOT_PATH, OUTPUT_FILE_RELATIVE_PATH);
+const ALIAS_MAP_FILE_PATH = resolve(
+	PROJECT_ROOT_PATH,
+	SHARED_KEYWORD_ALIAS_FILE_RELATIVE_PATH,
+);
 const WIKI_CACHE_DIRECTORY_PATH = resolve(
 	PROJECT_ROOT_PATH,
 	WIKI_CACHE_DIRECTORY_RELATIVE_PATH,
@@ -62,6 +73,7 @@ const fetchHtmlPage = createWikiHtmlPageFetcher({
  * Runs the end-to-end keyword ability import workflow and writes the output JSON.
  */
 async function main(): Promise<void> {
+	const keywordAbilityAliases = await loadKeywordAbilityAliases();
 	const keywordAbilitiesPageHtml = await fetchHtmlPage(KEYWORD_ABILITIES_PAGE_URL);
 	const keywordAbilityLinks = collectKeywordAbilityLinks(keywordAbilitiesPageHtml);
 	if (keywordAbilityLinks.length === 0) {
@@ -70,7 +82,10 @@ async function main(): Promise<void> {
 		);
 	}
 
-	const buildResult = await buildKeywordAbilityDetails(keywordAbilityLinks);
+	const buildResult = await buildKeywordAbilityDetails(
+		keywordAbilityLinks,
+		keywordAbilityAliases,
+	);
 	await writeJsonFile(OUTPUT_FILE_PATH, buildResult.keywordAbilityDetailsByName);
 	printSummary(keywordAbilityLinks.length, buildResult);
 }
@@ -180,6 +195,7 @@ function resolveKeywordAbilityUrl(hrefValue: string | undefined): string {
  */
 async function buildKeywordAbilityDetails(
 	keywordAbilityLinks: KeywordAbilityLink[],
+	keywordAbilityAliases: KeywordAliasMap = {},
 ): Promise<BuildResult> {
 	const keywordAbilityDetailsByName: Record<string, KeywordAbilityDetails> = {};
 	const incompleteKeywordAbilityReports: string[] = [];
@@ -244,12 +260,20 @@ async function buildKeywordAbilityDetails(
 		}
 	}
 
-	return {
+	const aliasedKeywordAbilityDetailsByName = applyKeywordAbilityAliases(
 		keywordAbilityDetailsByName,
+		keywordAbilityAliases,
+	);
+
+	return {
+		keywordAbilityDetailsByName: aliasedKeywordAbilityDetailsByName,
 		completeCount,
 		incompleteKeywordAbilityReports,
 		duplicateCount,
 		fetchFailureCount,
+		aliasCount:
+			Object.keys(aliasedKeywordAbilityDetailsByName).length -
+			Object.keys(keywordAbilityDetailsByName).length,
 	};
 }
 
@@ -309,6 +333,32 @@ export function normalizeForCollision(keywordAbilityName: string): string {
 }
 
 /**
+ * Loads the checked-in keyword ability alias map.
+ */
+async function loadKeywordAbilityAliases(
+): Promise<KeywordAliasMap> {
+	return loadKeywordAliasesFromFile({
+		aliasFilePath: ALIAS_MAP_FILE_PATH,
+		collisionNormalizer: normalizeForCollision,
+		entityLabel: "Keyword ability",
+		normalizeDisplayName: normalizeWhiteSpace,
+	});
+}
+
+export function applyKeywordAbilityAliases(
+	keywordAbilityDetailsByName: Record<string, KeywordAbilityDetails>,
+	keywordAbilityAliases: KeywordAliasMap,
+): Record<string, KeywordAbilityDetails> {
+	return applyKeywordAliases({
+		aliasesByName: keywordAbilityAliases,
+		canonicalRecordsByName: keywordAbilityDetailsByName,
+		collisionNormalizer: normalizeForCollision,
+		entityLabel: "Keyword ability",
+		normalizeDisplayName: normalizeWhiteSpace,
+	});
+}
+
+/**
  * Prints run statistics and incomplete-record details.
  */
 function printSummary(discoveredCount: number, buildResult: BuildResult): void {
@@ -320,6 +370,7 @@ function printSummary(discoveredCount: number, buildResult: BuildResult): void {
 	);
 	console.log(`Duplicates skipped: ${buildResult.duplicateCount}`);
 	console.log(`Fetch failures: ${buildResult.fetchFailureCount}`);
+	console.log(`Aliases added: ${buildResult.aliasCount}`);
 
 	if (buildResult.incompleteKeywordAbilityReports.length > 0) {
 		console.log("Incomplete keyword ability reports:");

@@ -1,6 +1,12 @@
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { type CheerioAPI, load } from "cheerio";
+import {
+	applyKeywordAliases,
+	type KeywordAliasMap,
+	loadKeywordAliasesFromFile,
+	SHARED_KEYWORD_ALIAS_FILE_RELATIVE_PATH,
+} from "./keyword-alias-utils";
 import { createWikiHtmlPageFetcher } from "./wiki-html-fetcher";
 import {
 	extractTextIncludingImageAlt,
@@ -41,12 +47,17 @@ type BuildResult = {
 	incompleteKeywordActionReports: string[];
 	duplicateCount: number;
 	fetchFailureCount: number;
+	aliasCount: number;
 };
 
 const SCRIPT_FILE_PATH = fileURLToPath(import.meta.url);
 const SCRIPT_DIRECTORY_PATH = dirname(SCRIPT_FILE_PATH);
 const PROJECT_ROOT_PATH = resolve(SCRIPT_DIRECTORY_PATH, "..");
 const OUTPUT_FILE_PATH = resolve(PROJECT_ROOT_PATH, OUTPUT_FILE_RELATIVE_PATH);
+const ALIAS_MAP_FILE_PATH = resolve(
+	PROJECT_ROOT_PATH,
+	SHARED_KEYWORD_ALIAS_FILE_RELATIVE_PATH,
+);
 const WIKI_CACHE_DIRECTORY_PATH = resolve(
 	PROJECT_ROOT_PATH,
 	WIKI_CACHE_DIRECTORY_RELATIVE_PATH,
@@ -62,6 +73,7 @@ const fetchHtmlPage = createWikiHtmlPageFetcher({
  * Runs the end-to-end keyword action import workflow and writes the output JSON.
  */
 async function main(): Promise<void> {
+	const keywordActionAliases = await loadKeywordActionAliases();
 	const keywordActionsPageHtml = await fetchHtmlPage(KEYWORD_ACTIONS_PAGE_URL);
 	const keywordActionLinks = collectKeywordActionLinks(keywordActionsPageHtml);
 	if (keywordActionLinks.length === 0) {
@@ -70,7 +82,10 @@ async function main(): Promise<void> {
 		);
 	}
 
-	const buildResult = await buildKeywordActionDetails(keywordActionLinks);
+	const buildResult = await buildKeywordActionDetails(
+		keywordActionLinks,
+		keywordActionAliases,
+	);
 	await writeJsonFile(OUTPUT_FILE_PATH, buildResult.keywordActionDetailsByName);
 	printSummary(keywordActionLinks.length, buildResult);
 }
@@ -204,6 +219,7 @@ function resolveKeywordActionUrl(hrefValue: string | undefined): string {
  */
 async function buildKeywordActionDetails(
 	keywordActionLinks: KeywordActionLink[],
+	keywordActionAliases: KeywordAliasMap = {},
 ): Promise<BuildResult> {
 	const keywordActionDetailsByName: Record<string, KeywordActionDetails> = {};
 	const incompleteKeywordActionReports: string[] = [];
@@ -268,12 +284,20 @@ async function buildKeywordActionDetails(
 		}
 	}
 
-	return {
+	const aliasedKeywordActionDetailsByName = applyKeywordActionAliases(
 		keywordActionDetailsByName,
+		keywordActionAliases,
+	);
+
+	return {
+		keywordActionDetailsByName: aliasedKeywordActionDetailsByName,
 		completeCount,
 		incompleteKeywordActionReports,
 		duplicateCount,
 		fetchFailureCount,
+		aliasCount:
+			Object.keys(aliasedKeywordActionDetailsByName).length -
+			Object.keys(keywordActionDetailsByName).length,
 	};
 }
 
@@ -333,6 +357,31 @@ export function normalizeForCollision(keywordActionName: string): string {
 }
 
 /**
+ * Loads the checked-in keyword action alias map.
+ */
+async function loadKeywordActionAliases(): Promise<KeywordAliasMap> {
+	return loadKeywordAliasesFromFile({
+		aliasFilePath: ALIAS_MAP_FILE_PATH,
+		collisionNormalizer: normalizeForCollision,
+		entityLabel: "Keyword action",
+		normalizeDisplayName: normalizeWhiteSpace,
+	});
+}
+
+export function applyKeywordActionAliases(
+	keywordActionDetailsByName: Record<string, KeywordActionDetails>,
+	keywordActionAliases: KeywordAliasMap,
+): Record<string, KeywordActionDetails> {
+	return applyKeywordAliases({
+		aliasesByName: keywordActionAliases,
+		canonicalRecordsByName: keywordActionDetailsByName,
+		collisionNormalizer: normalizeForCollision,
+		entityLabel: "Keyword action",
+		normalizeDisplayName: normalizeWhiteSpace,
+	});
+}
+
+/**
  * Prints run statistics and incomplete-record details.
  */
 function printSummary(discoveredCount: number, buildResult: BuildResult): void {
@@ -344,6 +393,7 @@ function printSummary(discoveredCount: number, buildResult: BuildResult): void {
 	);
 	console.log(`Duplicates skipped: ${buildResult.duplicateCount}`);
 	console.log(`Fetch failures: ${buildResult.fetchFailureCount}`);
+	console.log(`Aliases added: ${buildResult.aliasCount}`);
 
 	if (buildResult.incompleteKeywordActionReports.length > 0) {
 		console.log("Incomplete keyword action reports:");
