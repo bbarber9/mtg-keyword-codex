@@ -1,4 +1,4 @@
-import { describe, expect, it } from "bun:test";
+import { describe, expect, it } from "vitest";
 import type { DecklistEntry } from "../utils/decklist";
 import type { ScryfallCard } from "../utils/scryfall";
 import { buildKeywordCounts, formatNormalizedDecklist } from "./processDeckList";

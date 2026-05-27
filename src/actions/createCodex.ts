@@ -30,27 +30,33 @@ export const createCodex = createServerFn({ method: "POST" })
 		const normalizedPrimer = normalizeOptionalValue(data.primer);
 		const normalizedTitle = data.name.trim();
 
-		await db.transaction(async (transaction) => {
-			await transaction.insert(codices).values({
-				id: codexId,
-				owner_id: session.user.id,
-				title: normalizedTitle,
-				link: normalizedLink,
-				primer: normalizedPrimer,
-				normalized_decklist: processedDecklist.normalizedDecklist,
-				created_at: createdAt,
-				last_accessed_at: createdAt,
-				expires_at: expiresAt,
-			});
+		db.transaction((transaction) => {
+			transaction
+				.insert(codices)
+				.values({
+					id: codexId,
+					owner_id: session.user.id,
+					title: normalizedTitle,
+					link: normalizedLink,
+					primer: normalizedPrimer,
+					normalized_decklist: processedDecklist.normalizedDecklist,
+					created_at: createdAt,
+					last_accessed_at: createdAt,
+					expires_at: expiresAt,
+				})
+				.run();
 
 			if (processedDecklist.keywords.length > 0) {
-				await transaction.insert(codexKeywords).values(
-					processedDecklist.keywords.map((keywordCount) => ({
-						codex_id: codexId,
-						keyword: keywordCount.keyword,
-						count: keywordCount.count,
-					})),
-				);
+				transaction
+					.insert(codexKeywords)
+					.values(
+						processedDecklist.keywords.map((keywordCount) => ({
+							codex_id: codexId,
+							keyword: keywordCount.keyword,
+							count: keywordCount.count,
+						})),
+					)
+					.run();
 			}
 		});
 
@@ -89,11 +95,12 @@ export const getCodex = createServerFn({ method: "GET" })
 
 		const now = new Date();
 		if (new Date(codexRecord.expires_at).getTime() <= now.getTime()) {
-			await db.transaction(async (transaction) => {
-				await transaction
+			db.transaction((transaction) => {
+				transaction
 					.delete(codexKeywords)
-					.where(eq(codexKeywords.codex_id, codexRecord.id));
-				await transaction.delete(codices).where(eq(codices.id, codexRecord.id));
+					.where(eq(codexKeywords.codex_id, codexRecord.id))
+					.run();
+				transaction.delete(codices).where(eq(codices.id, codexRecord.id)).run();
 			});
 
 			return null;

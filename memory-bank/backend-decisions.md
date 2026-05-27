@@ -7,7 +7,8 @@
 - Server and routes follow TanStack Start file-based conventions.
 
 ## Server and Runtime
-- Bun runtime.
+- Node 24 LTS runtime.
+- pnpm package manager.
 - TanStack Start server runtime (no separate Fastify app).
 - Env-based config with defaults (location TBD).
 - Server error handling follows TanStack Start conventions.
@@ -24,7 +25,8 @@
 
 ## Auth
 - Better Auth with TanStack Start cookies plugin.
-- Providers: Google OAuth; email/password enabled.
+- Current provider: Google OAuth.
+- Email and password sign-in is not currently configured or exposed in the login UI; treat it as future work unless product requirements change.
 - Use Drizzle adapter with SQLite.
 - Require username setup after first OAuth login (no existing users).
 - Usernames are editable later via account settings.
@@ -34,6 +36,7 @@
 
 ## Data and Storage
 - SQLite for minimal overhead.
+- SQLite access uses `better-sqlite3`, not Node's native `node:sqlite`.
 - Drizzle ORM with `drizzle-kit` for schema/migrations (schema defined in TypeScript).
 - Scryfall cache in same DB.
 
@@ -42,7 +45,8 @@
 
 ## Codex Expiration and Cleanup
 - Cleanup on the fly for expired codices (no cleanup endpoint).
-- Expiration duration configured by env var.
+- Current expiration duration is 30 days hardcoded in `src/actions/createCodex.ts`.
+- Env-configurable expiration is future work if still desired.
 
 ## Deployment
 - Nitro deployment target.

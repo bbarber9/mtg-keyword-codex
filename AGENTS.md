@@ -4,7 +4,7 @@
 There is a folder called "memory-bank" that contains all decisions made so far. Please include them as context when implementing features. Also, please update the relevant memory bank files when I change my mind.
 
 ## Dev environment
-- This project uses Bun. Do not use NPM/PNPM
+- This project uses Node 24 LTS and pnpm. Do not use npm or Bun.
 
 ## Code quality
 - Don't use `any` in typescript code unless there's a comment and no other reasonable way to accomplish your task

@@ -1,4 +1,4 @@
-import { mkdir } from "node:fs/promises";
+import { mkdir, writeFile } from "node:fs/promises";
 import { dirname } from "node:path";
 import type { CheerioAPI } from "cheerio";
 
@@ -159,7 +159,7 @@ export async function writeJsonFile(
 ): Promise<void> {
 	await mkdir(dirname(outputFilePath), { recursive: true });
 	const jsonContent = `${JSON.stringify(jsonObject, null, JSON_INDENT_SPACES)}\n`;
-	await Bun.write(outputFilePath, jsonContent);
+	await writeFile(outputFilePath, jsonContent);
 }
 
 /**

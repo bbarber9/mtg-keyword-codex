@@ -1,3 +1,5 @@
+import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { dirname } from "node:path";
 import { normalizeCardName, type ScryfallCache, type ScryfallCard } from "./scryfall";
 
 export class ScryfallFileCache implements ScryfallCache {
@@ -8,11 +10,17 @@ export class ScryfallFileCache implements ScryfallCache {
     constructor(private filePath: string) { }
 
     private async loadCache() {
-        const file = Bun.file(this.filePath);
-        if (!await file.exists()) {
-            return;
+        let content: string;
+        try {
+            content = await readFile(this.filePath, "utf8");
+        } catch (error) {
+            if (isErrorWithCode(error, "ENOENT")) {
+                return;
+            }
+
+            throw error;
         }
-        const content = await file.text();
+
         const cachedCards = JSON.parse(content) as ScryfallCard[];
         for (const card of cachedCards) {
             const normalizedName = normalizeCardName(card.name);
@@ -29,9 +37,9 @@ export class ScryfallFileCache implements ScryfallCache {
             const normalizedName = normalizeCardName(card.name);
             this.cacheData.set(normalizedName, card);
         }
-        const file = Bun.file(this.filePath);
         const content = JSON.stringify(Array.from(this.cacheData.values()), null, 2);
-        await Bun.write(file, content);
+        await mkdir(dirname(this.filePath), { recursive: true });
+        await writeFile(this.filePath, content);
     }
 
 
@@ -53,4 +61,8 @@ export class ScryfallFileCache implements ScryfallCache {
         }
         return { cards: foundCards, missingNames };
     }
+}
+
+function isErrorWithCode(error: unknown, code: string): boolean {
+    return error instanceof Error && "code" in error && error.code === code;
 }

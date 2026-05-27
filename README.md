@@ -1,15 +1,35 @@
 # mtg-keyword-codex
 
-To install dependencies:
+## Requirements
+
+- Node 24 LTS
+- pnpm 10.29.3 via Corepack or Volta
+
+The package manager is pinned in `package.json`.
+
+## Setup
 
 ```bash
-bun install
+pnpm install
 ```
 
-To run:
+## Development
 
 ```bash
-bun run index.ts
+pnpm dev
 ```
 
-This project was created using `bun init` in bun v1.2.21. [Bun](https://bun.com) is a fast all-in-one JavaScript runtime.
+## Verification
+
+```bash
+pnpm typecheck
+pnpm test
+pnpm build
+```
+
+## Database
+
+```bash
+pnpm db:generate
+pnpm db:migrate
+```

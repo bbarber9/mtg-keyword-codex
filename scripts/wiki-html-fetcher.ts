@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { mkdir, unlink } from "node:fs/promises";
+import { mkdir, readFile, unlink, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 
 const JSON_INDENT_SPACES = 2;
@@ -118,13 +118,19 @@ function getCacheFilePathForUrl(cacheDirectoryPath: string, pageUrl: string): st
  * Loads and validates a cached page record from disk.
  */
 async function loadCachedPage(cacheFilePath: string): Promise<CachedWikiPage | null> {
-	const cacheFile = Bun.file(cacheFilePath);
-	if (!(await cacheFile.exists())) {
-		return null;
+	let cacheFileContent: string;
+	try {
+		cacheFileContent = await readFile(cacheFilePath, "utf8");
+	} catch (error) {
+		if (isErrorWithCode(error, "ENOENT")) {
+			return null;
+		}
+
+		throw error;
 	}
 
 	try {
-		const parsedCache = JSON.parse(await cacheFile.text()) as CachedWikiPage;
+		const parsedCache = JSON.parse(cacheFileContent) as CachedWikiPage;
 		if (!isValidCachedWikiPage(parsedCache)) {
 			return null;
 		}
@@ -296,7 +302,7 @@ async function saveCachedPage(
 	cachedPage: CachedWikiPage,
 ): Promise<void> {
 	await mkdir(dirname(cacheFilePath), { recursive: true });
-	await Bun.write(
+	await writeFile(
 		cacheFilePath,
 		`${JSON.stringify(cachedPage, null, JSON_INDENT_SPACES)}\n`,
 	);
@@ -306,9 +312,14 @@ async function saveCachedPage(
  * Deletes a cache file from disk if it exists.
  */
 async function removeCacheFile(cacheFilePath: string): Promise<void> {
-	const cacheFile = Bun.file(cacheFilePath);
-	if (await cacheFile.exists()) {
+	try {
 		await unlink(cacheFilePath);
+	} catch (error) {
+		if (isErrorWithCode(error, "ENOENT")) {
+			return;
+		}
+
+		throw error;
 	}
 }
 
@@ -334,4 +345,8 @@ async function waitForNetworkRequestDelay(
  */
 function wait(milliseconds: number): Promise<void> {
 	return new Promise((resolvePromise) => setTimeout(resolvePromise, milliseconds));
+}
+
+function isErrorWithCode(error: unknown, code: string): boolean {
+	return error instanceof Error && "code" in error && error.code === code;
 }
