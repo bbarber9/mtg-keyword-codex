@@ -13,3 +13,11 @@
 	max-width: 300px;
 	padding: 8px 12px;
 }
+
+.description {
+	margin: 0;
+}
+
+.error {
+	color: var(--color-error, #ff9b9b);
+}

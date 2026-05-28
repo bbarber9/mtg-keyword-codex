@@ -146,7 +146,7 @@ Current codex read shape
 ## Frontend Guidelines
 - React for UI components and pages.
 - Styling via CSS Modules for component-local styles, with shared theme tokens exposed as CSS custom properties.
-- Component base behavior/accessibility via react-aria, which is a headless component library (https://react-aria.adobe.com/llms.txt).
+- Component base behavior/accessibility via Base UI, which is a headless component library (https://base-ui.com/react/overview/quick-start).
 - Establish a design system with shared tokens (typography, color, spacing, radii, shadows, motion).
 - Support mobile browsers; define breakpoints once initial screens inform them.
 - Browser support: most recent major versions of Chrome, Firefox, Safari, Chrome Mobile, and Safari Mobile.

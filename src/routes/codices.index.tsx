@@ -15,7 +15,7 @@ function RouteComponent() {
 	return (
 		<Button
 			type="button"
-			onPress={() => {
+			onClick={() => {
 				navigate({ to: createCodexRoutePath });
 			}}
 		>

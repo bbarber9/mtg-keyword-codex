@@ -9,7 +9,7 @@ export const LoginForm = () => {
 				<h1 className={styles.title}>Login</h1>
 				<Button
 					variant="primary"
-					onPress={() => {
+					onClick={() => {
 						authClient.signIn
 							.social({
 								provider: "google",

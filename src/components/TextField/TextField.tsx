@@ -1,39 +1,52 @@
-import {
-	TextField as AriaTextField,
-	type TextFieldProps as AriaTextFieldProps,
-	FieldError,
-	Input,
-	Label,
-	Text,
-	type ValidationResult,
-} from "react-aria-components";
+import { Field } from "@base-ui/react/field";
+import { Input } from "@base-ui/react/input";
+import type { ComponentProps } from "react";
 import styles from "./TextField.module.css";
 
-export interface TextFieldProps extends AriaTextFieldProps {
+type BaseInputProps = Omit<
+	ComponentProps<typeof Input>,
+	"className" | "onChange" | "onValueChange" | "required"
+>;
+
+export interface TextFieldProps extends BaseInputProps {
 	label?: string;
 	description?: string;
-	errorMessage?: string | ((validation: ValidationResult) => string);
-	placeholder?: string;
-	autoComplete?: string;
+	errorMessage?: string;
+	isRequired?: boolean;
+	required?: boolean;
+	onChange?: (value: string) => void;
 }
 
 export function TextField({
 	label,
 	description,
 	errorMessage,
-	placeholder,
-	...props
+	isRequired,
+	required,
+	onChange,
+	...inputProps
 }: TextFieldProps) {
+	const fieldIsRequired = required ?? isRequired;
+
 	return (
-		<AriaTextField {...props} className={styles.container}>
-			<Label>{label}</Label>
+		<Field.Root className={styles.container} name={inputProps.name}>
+			{label && <Field.Label>{label}</Field.Label>}
 			<Input
+				{...inputProps}
 				className={styles.input}
-				placeholder={placeholder}
-				autoComplete={props.autoComplete}
+				required={fieldIsRequired}
+				onValueChange={onChange}
 			/>
-			{description && <Text slot="description">{description}</Text>}
-			<FieldError>{errorMessage}</FieldError>
-		</AriaTextField>
+			{description && (
+				<Field.Description className={styles.description}>
+					{description}
+				</Field.Description>
+			)}
+			{errorMessage && (
+				<Field.Error className={styles.error} match={true}>
+					{errorMessage}
+				</Field.Error>
+			)}
+		</Field.Root>
 	);
 }

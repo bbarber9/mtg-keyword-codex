@@ -1,20 +1,23 @@
-import {
-	Label,
-	TextArea as RACTextArea,
-	type TextAreaProps as RACTextAreaProps,
-	TextField,
-} from "react-aria-components";
+import { Field } from "@base-ui/react/field";
+import type { ComponentProps } from "react";
 import styles from "./TextArea.module.css";
 
-interface TextAreaProps extends RACTextAreaProps {
+interface TextAreaProps extends ComponentProps<"textarea"> {
 	label?: string;
+	isRequired?: boolean;
 }
 
-export const TextArea = (props: TextAreaProps) => {
+export const TextArea = ({ label, isRequired, required, ...textAreaProps }: TextAreaProps) => {
+	const fieldIsRequired = required ?? isRequired;
+
 	return (
-		<TextField className={styles.container}>
-			<Label>{props.label}</Label>
-			<RACTextArea {...props} className={styles.textArea} />
-		</TextField>
+		<Field.Root className={styles.container} name={textAreaProps.name}>
+			{label && <Field.Label htmlFor={textAreaProps.id}>{label}</Field.Label>}
+			<textarea
+				{...textAreaProps}
+				className={styles.textArea}
+				required={fieldIsRequired}
+			/>
+		</Field.Root>
 	);
 };

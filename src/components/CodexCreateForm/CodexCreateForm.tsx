@@ -1,6 +1,5 @@
 import { useForm } from "@tanstack/react-form";
 import { useNavigate } from "@tanstack/react-router";
-import { Form, Heading } from "react-aria-components";
 import { createCodex } from "../../actions/createCodex";
 import { Button } from "../Button/Button";
 import { TextArea } from "../TextArea/TextArea";
@@ -26,8 +25,8 @@ export const CodexCreateForm = () => {
 	});
 	return (
 		<div className={styles.page}>
-			<Heading className={styles.heading}>Create a new codex</Heading>
-			<Form
+			<h1 className={styles.heading}>Create a new codex</h1>
+			<form
 				className={styles.form}
 				onSubmit={(e) => {
 					e.preventDefault();
@@ -110,7 +109,7 @@ export const CodexCreateForm = () => {
 				<div className={styles.buttonBar}>
 					<Button type="submit">Create</Button>
 				</div>
-			</Form>
+			</form>
 		</div>
 	);
 };

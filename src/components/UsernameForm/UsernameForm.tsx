@@ -1,5 +1,4 @@
 import { useForm } from "@tanstack/react-form";
-import { Form } from "react-aria-components";
 import { authClient } from "../../utils/client-auth";
 import { Alert } from "../Alert/Alert";
 import { Button } from "../Button/Button";
@@ -22,7 +21,7 @@ export const UsernameForm = () => {
 	});
 	return (
 		<div className={styles.container}>
-			<Form
+			<form
 				className={styles.form}
 				onSubmit={(e) => {
 					e.preventDefault();
@@ -80,7 +79,7 @@ export const UsernameForm = () => {
 				/>
 
 				<Button type="submit">Submit</Button>
-			</Form>
+			</form>
 		</div>
 	);
 };
