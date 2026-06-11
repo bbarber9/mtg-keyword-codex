@@ -1,22 +1,48 @@
 import { useForm } from "@tanstack/react-form";
+import { useNavigate } from "@tanstack/react-router";
 import { authClient } from "../../utils/client-auth";
 import { Alert } from "../Alert/Alert";
 import { Button } from "../Button/Button";
 import { TextField } from "../TextField/TextField";
 import styles from "./UsernameForm.module.css";
 
+type NavigateToTestPage = (options: { to: "/test" }) => Promise<void> | void;
+
+type UpdateUser = (user: {
+	username: string;
+}) => Promise<{ error?: unknown | null }>;
+
+export const submitUsername = async ({
+	navigate,
+	updateUser,
+	username,
+}: {
+	navigate: NavigateToTestPage;
+	updateUser: UpdateUser;
+	username: string;
+}) => {
+	const { error } = await updateUser({
+		username,
+	});
+	if (error) {
+		return;
+	}
+
+	await navigate({ to: "/test" });
+};
+
 export const UsernameForm = () => {
+	const navigate = useNavigate();
 	const form = useForm({
 		defaultValues: {
 			username: "",
 		},
 		onSubmit: async (formData) => {
-			const { error } = await authClient.updateUser({
+			await submitUsername({
+				navigate,
+				updateUser: authClient.updateUser,
 				username: formData.value.username,
 			});
-			if (error) {
-				return;
-			}
 		},
 	});
 	return (
