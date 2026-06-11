@@ -21,6 +21,7 @@ const WIKI_CACHE_DIRECTORY_RELATIVE_PATH = "scripts/mtg-wiki-cache";
 const COUNTER_IMPORTER_USER_AGENT =
 	"mtg-keyword-cheatsheet/0.1 (counter-importer)";
 const NETWORK_REQUEST_DELAY_MS = 150;
+const IGNORE_WIKI_CACHE = process.argv.includes("--ignore-cache");
 const INFOBOX_USE_FIELD_NAMES = [
 	"use",
 	"typical use",
@@ -59,6 +60,7 @@ const fetchHtmlPage = createWikiHtmlPageFetcher({
 	cacheDirectoryPath: WIKI_CACHE_DIRECTORY_PATH,
 	userAgent: COUNTER_IMPORTER_USER_AGENT,
 	requestDelayMs: NETWORK_REQUEST_DELAY_MS,
+	ignoreCache: IGNORE_WIKI_CACHE,
 });
 
 /**

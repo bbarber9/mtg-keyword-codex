@@ -1,25 +1,15 @@
 import { createHash } from "node:crypto";
-import { mkdir, readFile, unlink, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 
 const JSON_INDENT_SPACES = 2;
-const HEADER_CACHE_CONTROL = "cache-control";
-const HEADER_EXPIRES = "expires";
-const HEADER_ETAG = "etag";
-const HEADER_LAST_MODIFIED = "last-modified";
-const HEADER_IF_NONE_MATCH = "If-None-Match";
-const HEADER_IF_MODIFIED_SINCE = "If-Modified-Since";
-const CACHE_CONTROL_NO_STORE = "no-store";
-const CACHE_CONTROL_NO_CACHE = "no-cache";
-const CACHE_CONTROL_MAX_AGE = "max-age";
 const MILLISECONDS_PER_SECOND = 1000;
+const SECONDS_PER_MINUTE = 60;
+const MINUTES_PER_LOCAL_CACHE_WINDOW = 30;
 const DEFAULT_REQUEST_DELAY_MS = 150;
+const DEFAULT_LOCAL_CACHE_TTL_MS =
+	MINUTES_PER_LOCAL_CACHE_WINDOW * SECONDS_PER_MINUTE * MILLISECONDS_PER_SECOND;
 const CACHE_FILE_EXTENSION = ".json";
-
-type ParsedCacheControl = {
-	directives: Set<string>;
-	maxAgeSeconds: number | null;
-};
 
 export type CachedWikiPage = {
 	url: string;
@@ -33,6 +23,8 @@ export type CreateWikiHtmlPageFetcherOptions = {
 	cacheDirectoryPath: string;
 	userAgent: string;
 	requestDelayMs?: number;
+	ignoreCache?: boolean;
+	localCacheTtlMs?: number;
 };
 
 /**
@@ -44,16 +36,22 @@ export function createWikiHtmlPageFetcher(
 	let lastNetworkRequestAtUnixMs = 0;
 	const networkRequestDelayMs =
 		options.requestDelayMs ?? DEFAULT_REQUEST_DELAY_MS;
+	const localCacheTtlMs = options.localCacheTtlMs ?? DEFAULT_LOCAL_CACHE_TTL_MS;
 
 	return async function fetchHtmlPage(pageUrl: string): Promise<string> {
 		const cacheFilePath = getCacheFilePathForUrl(
 			options.cacheDirectoryPath,
 			pageUrl,
 		);
-		const cachedPage = await loadCachedPage(cacheFilePath);
+		const cachedPage = options.ignoreCache
+			? null
+			: await loadCachedPage(cacheFilePath);
 		const nowUnixMs = Date.now();
 
-		if (cachedPage && isCachedPageFresh(cachedPage, nowUnixMs)) {
+		if (
+			cachedPage &&
+			isCachedPageFresh(cachedPage, nowUnixMs, localCacheTtlMs)
+		) {
 			console.log(`[cache-hit] ${pageUrl}`);
 			return cachedPage.body;
 		}
@@ -67,29 +65,12 @@ export function createWikiHtmlPageFetcher(
 			"User-Agent": options.userAgent,
 			Accept: "text/html,application/xhtml+xml",
 		});
-		if (cachedPage) {
-			applyConditionalRequestHeaders(requestHeaders, cachedPage.headers);
-		}
 
 		const response = await fetch(pageUrl, {
 			headers: requestHeaders,
 			redirect: "follow",
 		});
 		lastNetworkRequestAtUnixMs = Date.now();
-
-		if (response.status === 304 && cachedPage) {
-			const mergedHeaders = mergeHeaderRecords(
-				cachedPage.headers,
-				headerRecordFromResponse(response.headers),
-			);
-			await saveCachedPage(cacheFilePath, {
-				...cachedPage,
-				headers: mergedHeaders,
-				fetchedAtUnixMs: nowUnixMs,
-			});
-			console.log(`[cache-hit-304] ${pageUrl}`);
-			return cachedPage.body;
-		}
 
 		if (!response.ok) {
 			throw new Error(`HTTP ${response.status} ${response.statusText}`);
@@ -169,86 +150,14 @@ function isValidCachedWikiPage(
 }
 
 /**
- * Evaluates whether a cached page is still fresh per cache headers.
+ * Evaluates whether a cached page is still fresh per the local scrape TTL.
  */
 function isCachedPageFresh(
 	cachedPage: CachedWikiPage,
 	nowUnixMs: number,
+	localCacheTtlMs: number,
 ): boolean {
-	const parsedCacheControl = parseCacheControlHeader(
-		cachedPage.headers[HEADER_CACHE_CONTROL],
-	);
-	if (parsedCacheControl.directives.has(CACHE_CONTROL_NO_STORE)) {
-		return false;
-	}
-	if (parsedCacheControl.directives.has(CACHE_CONTROL_NO_CACHE)) {
-		return false;
-	}
-
-	const ageSeconds =
-		(nowUnixMs - cachedPage.fetchedAtUnixMs) / MILLISECONDS_PER_SECOND;
-	if (parsedCacheControl.maxAgeSeconds !== null) {
-		return ageSeconds <= parsedCacheControl.maxAgeSeconds;
-	}
-
-	const expiresHeaderValue = cachedPage.headers[HEADER_EXPIRES];
-	if (expiresHeaderValue) {
-		const expiresUnixMs = Date.parse(expiresHeaderValue);
-		if (Number.isFinite(expiresUnixMs)) {
-			return nowUnixMs < expiresUnixMs;
-		}
-	}
-
-	return false;
-}
-
-/**
- * Parses Cache-Control directives used by freshness logic.
- */
-function parseCacheControlHeader(
-	cacheControlHeaderValue: string | undefined,
-): ParsedCacheControl {
-	const directives = new Set<string>();
-	let maxAgeSeconds: number | null = null;
-	if (!cacheControlHeaderValue) {
-		return { directives, maxAgeSeconds };
-	}
-
-	for (const rawDirective of cacheControlHeaderValue.split(",")) {
-		const normalizedDirective = rawDirective.trim().toLowerCase();
-		if (normalizedDirective.length === 0) {
-			continue;
-		}
-
-		const [directiveName, directiveValue] = normalizedDirective.split("=");
-		directives.add(directiveName);
-		if (directiveName === CACHE_CONTROL_MAX_AGE && directiveValue) {
-			const parsedMaxAge = Number.parseInt(directiveValue, 10);
-			if (!Number.isNaN(parsedMaxAge) && parsedMaxAge >= 0) {
-				maxAgeSeconds = parsedMaxAge;
-			}
-		}
-	}
-
-	return { directives, maxAgeSeconds };
-}
-
-/**
- * Adds conditional revalidation headers from cached metadata.
- */
-function applyConditionalRequestHeaders(
-	requestHeaders: Headers,
-	cachedHeaders: Record<string, string>,
-): void {
-	const etagHeaderValue = cachedHeaders[HEADER_ETAG];
-	if (etagHeaderValue) {
-		requestHeaders.set(HEADER_IF_NONE_MATCH, etagHeaderValue);
-	}
-
-	const lastModifiedHeaderValue = cachedHeaders[HEADER_LAST_MODIFIED];
-	if (lastModifiedHeaderValue) {
-		requestHeaders.set(HEADER_IF_MODIFIED_SINCE, lastModifiedHeaderValue);
-	}
+	return nowUnixMs - cachedPage.fetchedAtUnixMs <= localCacheTtlMs;
 }
 
 /**
@@ -266,20 +175,7 @@ function headerRecordFromResponse(
 }
 
 /**
- * Merges cached and response headers for cache updates.
- */
-function mergeHeaderRecords(
-	baseHeaders: Record<string, string>,
-	overrideHeaders: Record<string, string>,
-): Record<string, string> {
-	return {
-		...baseHeaders,
-		...overrideHeaders,
-	};
-}
-
-/**
- * Updates or invalidates the on-disk cache based on response headers.
+ * Updates the on-disk scrape cache.
  */
 async function updateCacheFromResponse(
 	cacheFilePath: string,
@@ -288,15 +184,6 @@ async function updateCacheFromResponse(
 	responseBody: string,
 	fetchedAtUnixMs: number,
 ): Promise<void> {
-	const responseHeaders = headerRecordFromResponse(response.headers);
-	const cacheControl = parseCacheControlHeader(
-		responseHeaders[HEADER_CACHE_CONTROL],
-	);
-	if (cacheControl.directives.has(CACHE_CONTROL_NO_STORE)) {
-		await removeCacheFile(cacheFilePath);
-		return;
-	}
-
 	if (response.status !== 200) {
 		return;
 	}
@@ -306,7 +193,7 @@ async function updateCacheFromResponse(
 		body: responseBody,
 		status: response.status,
 		fetchedAtUnixMs,
-		headers: responseHeaders,
+		headers: headerRecordFromResponse(response.headers),
 	});
 }
 
@@ -322,21 +209,6 @@ async function saveCachedPage(
 		cacheFilePath,
 		`${JSON.stringify(cachedPage, null, JSON_INDENT_SPACES)}\n`,
 	);
-}
-
-/**
- * Deletes a cache file from disk if it exists.
- */
-async function removeCacheFile(cacheFilePath: string): Promise<void> {
-	try {
-		await unlink(cacheFilePath);
-	} catch (error) {
-		if (isErrorWithCode(error, "ENOENT")) {
-			return;
-		}
-
-		throw error;
-	}
 }
 
 /**
