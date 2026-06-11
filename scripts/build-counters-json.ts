@@ -1,5 +1,5 @@
 import { dirname, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import { type CheerioAPI, load } from "cheerio";
 import { createWikiHtmlPageFetcher } from "./wiki-html-fetcher";
 import {
@@ -21,6 +21,11 @@ const WIKI_CACHE_DIRECTORY_RELATIVE_PATH = "scripts/mtg-wiki-cache";
 const COUNTER_IMPORTER_USER_AGENT =
 	"mtg-keyword-cheatsheet/0.1 (counter-importer)";
 const NETWORK_REQUEST_DELAY_MS = 150;
+const INFOBOX_USE_FIELD_NAMES = [
+	"use",
+	"typical use",
+	"reminder text",
+] as const;
 
 type CounterLink = {
 	counterName: string;
@@ -177,7 +182,7 @@ function resolveCounterUrl(hrefValue: string | undefined): string {
 /**
  * Extracts all supported fields for a counter from its page HTML.
  */
-function extractCounterDetails(
+export function extractCounterDetails(
 	counterPageHtml: string,
 	sourceUrl: string,
 ): CounterDetails {
@@ -190,10 +195,24 @@ function extractCounterDetails(
 	return {
 		intro,
 		description: extractDescription($),
-		use: infoBoxData.use ?? "",
+		use: getFirstInfoBoxValue(infoBoxData, INFOBOX_USE_FIELD_NAMES),
 		placedOn: infoBoxData["placed on"] ?? "",
 		sourceUrl,
 	};
+}
+
+function getFirstInfoBoxValue(
+	infoBoxData: Record<string, string>,
+	fieldNames: readonly string[],
+): string {
+	for (const fieldName of fieldNames) {
+		const fieldValue = infoBoxData[fieldName];
+		if (fieldValue) {
+			return fieldValue;
+		}
+	}
+
+	return "";
 }
 
 /**
@@ -248,7 +267,12 @@ function createEmptyCounterDetails(sourceUrl: string): CounterDetails {
 	};
 }
 
-main().catch((error) => {
-	console.error(`Counter generation failed: ${toErrorMessage(error)}`);
-	process.exit(1);
-});
+// Only run the generator when this file is executed as a script. Tests import
+// parser helpers from this file, and those imports should not fetch wiki pages
+// or write the generated JSON file.
+if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
+	main().catch((error) => {
+		console.error(`Counter generation failed: ${toErrorMessage(error)}`);
+		process.exit(1);
+	});
+}
