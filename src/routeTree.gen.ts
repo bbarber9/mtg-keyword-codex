@@ -12,11 +12,11 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as TestRouteImport } from './routes/test'
 import { Route as SetUsernameRouteImport } from './routes/set-username'
 import { Route as LoginRouteImport } from './routes/login'
-import { Route as CodicesRouteImport } from './routes/codices'
+import { Route as CheatsheetsRouteImport } from './routes/cheatsheets'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as CodicesIndexRouteImport } from './routes/codices.index'
-import { Route as CodicesCreateRouteImport } from './routes/codices.create'
-import { Route as CodicesIdRouteImport } from './routes/codices.$id'
+import { Route as CheatsheetsIndexRouteImport } from './routes/cheatsheets.index'
+import { Route as CheatsheetsCreateRouteImport } from './routes/cheatsheets.create'
+import { Route as CheatsheetsIdRouteImport } from './routes/cheatsheets.$id'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
 const TestRoute = TestRouteImport.update({
@@ -34,9 +34,9 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CodicesRoute = CodicesRouteImport.update({
-  id: '/codices',
-  path: '/codices',
+const CheatsheetsRoute = CheatsheetsRouteImport.update({
+  id: '/cheatsheets',
+  path: '/cheatsheets',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -44,20 +44,20 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CodicesIndexRoute = CodicesIndexRouteImport.update({
+const CheatsheetsIndexRoute = CheatsheetsIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => CodicesRoute,
+  getParentRoute: () => CheatsheetsRoute,
 } as any)
-const CodicesCreateRoute = CodicesCreateRouteImport.update({
+const CheatsheetsCreateRoute = CheatsheetsCreateRouteImport.update({
   id: '/create',
   path: '/create',
-  getParentRoute: () => CodicesRoute,
+  getParentRoute: () => CheatsheetsRoute,
 } as any)
-const CodicesIdRoute = CodicesIdRouteImport.update({
+const CheatsheetsIdRoute = CheatsheetsIdRouteImport.update({
   id: '/$id',
   path: '/$id',
-  getParentRoute: () => CodicesRoute,
+  getParentRoute: () => CheatsheetsRoute,
 } as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
@@ -67,13 +67,13 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/codices': typeof CodicesRouteWithChildren
+  '/cheatsheets': typeof CheatsheetsRouteWithChildren
   '/login': typeof LoginRoute
   '/set-username': typeof SetUsernameRoute
   '/test': typeof TestRoute
-  '/codices/$id': typeof CodicesIdRoute
-  '/codices/create': typeof CodicesCreateRoute
-  '/codices/': typeof CodicesIndexRoute
+  '/cheatsheets/$id': typeof CheatsheetsIdRoute
+  '/cheatsheets/create': typeof CheatsheetsCreateRoute
+  '/cheatsheets/': typeof CheatsheetsIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesByTo {
@@ -81,34 +81,34 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/set-username': typeof SetUsernameRoute
   '/test': typeof TestRoute
-  '/codices/$id': typeof CodicesIdRoute
-  '/codices/create': typeof CodicesCreateRoute
-  '/codices': typeof CodicesIndexRoute
+  '/cheatsheets/$id': typeof CheatsheetsIdRoute
+  '/cheatsheets/create': typeof CheatsheetsCreateRoute
+  '/cheatsheets': typeof CheatsheetsIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/codices': typeof CodicesRouteWithChildren
+  '/cheatsheets': typeof CheatsheetsRouteWithChildren
   '/login': typeof LoginRoute
   '/set-username': typeof SetUsernameRoute
   '/test': typeof TestRoute
-  '/codices/$id': typeof CodicesIdRoute
-  '/codices/create': typeof CodicesCreateRoute
-  '/codices/': typeof CodicesIndexRoute
+  '/cheatsheets/$id': typeof CheatsheetsIdRoute
+  '/cheatsheets/create': typeof CheatsheetsCreateRoute
+  '/cheatsheets/': typeof CheatsheetsIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/codices'
+    | '/cheatsheets'
     | '/login'
     | '/set-username'
     | '/test'
-    | '/codices/$id'
-    | '/codices/create'
-    | '/codices/'
+    | '/cheatsheets/$id'
+    | '/cheatsheets/create'
+    | '/cheatsheets/'
     | '/api/auth/$'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -116,26 +116,26 @@ export interface FileRouteTypes {
     | '/login'
     | '/set-username'
     | '/test'
-    | '/codices/$id'
-    | '/codices/create'
-    | '/codices'
+    | '/cheatsheets/$id'
+    | '/cheatsheets/create'
+    | '/cheatsheets'
     | '/api/auth/$'
   id:
     | '__root__'
     | '/'
-    | '/codices'
+    | '/cheatsheets'
     | '/login'
     | '/set-username'
     | '/test'
-    | '/codices/$id'
-    | '/codices/create'
-    | '/codices/'
+    | '/cheatsheets/$id'
+    | '/cheatsheets/create'
+    | '/cheatsheets/'
     | '/api/auth/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  CodicesRoute: typeof CodicesRouteWithChildren
+  CheatsheetsRoute: typeof CheatsheetsRouteWithChildren
   LoginRoute: typeof LoginRoute
   SetUsernameRoute: typeof SetUsernameRoute
   TestRoute: typeof TestRoute
@@ -165,11 +165,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/codices': {
-      id: '/codices'
-      path: '/codices'
-      fullPath: '/codices'
-      preLoaderRoute: typeof CodicesRouteImport
+    '/cheatsheets': {
+      id: '/cheatsheets'
+      path: '/cheatsheets'
+      fullPath: '/cheatsheets'
+      preLoaderRoute: typeof CheatsheetsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -179,26 +179,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/codices/': {
-      id: '/codices/'
+    '/cheatsheets/': {
+      id: '/cheatsheets/'
       path: '/'
-      fullPath: '/codices/'
-      preLoaderRoute: typeof CodicesIndexRouteImport
-      parentRoute: typeof CodicesRoute
+      fullPath: '/cheatsheets/'
+      preLoaderRoute: typeof CheatsheetsIndexRouteImport
+      parentRoute: typeof CheatsheetsRoute
     }
-    '/codices/create': {
-      id: '/codices/create'
+    '/cheatsheets/create': {
+      id: '/cheatsheets/create'
       path: '/create'
-      fullPath: '/codices/create'
-      preLoaderRoute: typeof CodicesCreateRouteImport
-      parentRoute: typeof CodicesRoute
+      fullPath: '/cheatsheets/create'
+      preLoaderRoute: typeof CheatsheetsCreateRouteImport
+      parentRoute: typeof CheatsheetsRoute
     }
-    '/codices/$id': {
-      id: '/codices/$id'
+    '/cheatsheets/$id': {
+      id: '/cheatsheets/$id'
       path: '/$id'
-      fullPath: '/codices/$id'
-      preLoaderRoute: typeof CodicesIdRouteImport
-      parentRoute: typeof CodicesRoute
+      fullPath: '/cheatsheets/$id'
+      preLoaderRoute: typeof CheatsheetsIdRouteImport
+      parentRoute: typeof CheatsheetsRoute
     }
     '/api/auth/$': {
       id: '/api/auth/$'
@@ -210,24 +210,25 @@ declare module '@tanstack/react-router' {
   }
 }
 
-interface CodicesRouteChildren {
-  CodicesIdRoute: typeof CodicesIdRoute
-  CodicesCreateRoute: typeof CodicesCreateRoute
-  CodicesIndexRoute: typeof CodicesIndexRoute
+interface CheatsheetsRouteChildren {
+  CheatsheetsIdRoute: typeof CheatsheetsIdRoute
+  CheatsheetsCreateRoute: typeof CheatsheetsCreateRoute
+  CheatsheetsIndexRoute: typeof CheatsheetsIndexRoute
 }
 
-const CodicesRouteChildren: CodicesRouteChildren = {
-  CodicesIdRoute: CodicesIdRoute,
-  CodicesCreateRoute: CodicesCreateRoute,
-  CodicesIndexRoute: CodicesIndexRoute,
+const CheatsheetsRouteChildren: CheatsheetsRouteChildren = {
+  CheatsheetsIdRoute: CheatsheetsIdRoute,
+  CheatsheetsCreateRoute: CheatsheetsCreateRoute,
+  CheatsheetsIndexRoute: CheatsheetsIndexRoute,
 }
 
-const CodicesRouteWithChildren =
-  CodicesRoute._addFileChildren(CodicesRouteChildren)
+const CheatsheetsRouteWithChildren = CheatsheetsRoute._addFileChildren(
+  CheatsheetsRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  CodicesRoute: CodicesRouteWithChildren,
+  CheatsheetsRoute: CheatsheetsRouteWithChildren,
   LoginRoute: LoginRoute,
   SetUsernameRoute: SetUsernameRoute,
   TestRoute: TestRoute,

@@ -9,8 +9,8 @@ import {
 } from "./keyword-alias-utils";
 import { createWikiHtmlPageFetcher } from "./wiki-html-fetcher";
 import {
-	extractTextIncludingImageAlt,
 	extractSectionTextByHeadingId,
+	extractTextIncludingImageAlt,
 	findMissingFields,
 	loadInfoBoxData,
 	normalizeForCollision as normalizeNameForCollision,
@@ -24,7 +24,7 @@ const KEYWORD_ACTIONS_PAGE_URL = "https://mtg.wiki/page/Keyword_action";
 const OUTPUT_FILE_RELATIVE_PATH = "src/data/wiki/keyword-actions.json";
 const WIKI_CACHE_DIRECTORY_RELATIVE_PATH = "scripts/mtg-wiki-cache";
 const KEYWORD_ACTION_IMPORTER_USER_AGENT =
-	"mtg-keyword-codex/0.1 (keyword-action-importer)";
+	"mtg-keyword-cheatsheet/0.1 (keyword-action-importer)";
 const NETWORK_REQUEST_DELAY_MS = 150;
 const RULE_NUMBER_PATTERN = /^701\.(\d+)\./;
 const MINIMUM_KEYWORD_ACTION_RULE_NUMBER = 2;

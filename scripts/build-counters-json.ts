@@ -3,8 +3,8 @@ import { fileURLToPath } from "node:url";
 import { type CheerioAPI, load } from "cheerio";
 import { createWikiHtmlPageFetcher } from "./wiki-html-fetcher";
 import {
-	extractTextIncludingImageAlt,
 	extractSectionTextByHeadingId,
+	extractTextIncludingImageAlt,
 	findMissingFields,
 	loadInfoBoxData,
 	normalizeForCollision,
@@ -18,7 +18,8 @@ const FULL_LIST_OF_COUNTERS_URL =
 	"https://mtg.wiki/page/Counter_(marker)/Full_List";
 const OUTPUT_FILE_RELATIVE_PATH = "src/data/wiki/counters.json";
 const WIKI_CACHE_DIRECTORY_RELATIVE_PATH = "scripts/mtg-wiki-cache";
-const COUNTER_IMPORTER_USER_AGENT = "mtg-keyword-codex/0.1 (counter-importer)";
+const COUNTER_IMPORTER_USER_AGENT =
+	"mtg-keyword-cheatsheet/0.1 (counter-importer)";
 const NETWORK_REQUEST_DELAY_MS = 150;
 
 type CounterLink = {

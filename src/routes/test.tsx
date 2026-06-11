@@ -1,12 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Button } from "../components/Button/Button";
 import { Frame } from "../components/Frame/Frame";
-import { protectedByLogin } from "../middleware/authMiddleware";
+import { protectedByUsername } from "../middleware/authMiddleware";
 import { authClient } from "../utils/client-auth";
 
 export const Route = createFileRoute("/test")({
 	component: RouteComponent,
-	server: { middleware: [protectedByLogin] },
+	server: { middleware: [protectedByUsername] },
 });
 
 function RouteComponent() {

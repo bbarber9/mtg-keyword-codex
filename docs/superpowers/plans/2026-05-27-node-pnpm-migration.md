@@ -39,7 +39,7 @@ Edit `package.json` to use exact versions from the current `bun.lock`, remove `@
 
 ```json
 {
-  "name": "mtg-keyword-codex",
+  "name": "mtg-keyword-cheatsheet",
   "type": "module",
   "private": true,
   "packageManager": "pnpm@10.29.3",
@@ -132,7 +132,7 @@ Expected: `bun.lock` is deleted and `pnpm-lock.yaml` remains.
 **Files:**
 - Modify: `src/db/db.ts`
 - Modify: `src/db/migrate.ts`
-- Modify: `src/actions/createCodex.ts`
+- Modify: `src/actions/createCheatsheet.ts`
 
 - [x] **Step 1: Convert app DB connection**
 
@@ -144,7 +144,7 @@ import { drizzle } from "drizzle-orm/better-sqlite3";
 import { loadConfig } from "../utils/config";
 
 const config = loadConfig();
-const sqlite = new Database(config.database.codexPath);
+const sqlite = new Database(config.database.cheatsheetPath);
 
 export const db = drizzle(sqlite);
 ```
@@ -161,7 +161,7 @@ import { loadConfig } from "../utils/config";
 
 const MIGRATIONS_DIR = "src/db/migrations";
 const config = loadConfig();
-const sqlite = new Database(config.database.codexPath);
+const sqlite = new Database(config.database.cheatsheetPath);
 const db = drizzle(sqlite);
 
 migrate(db, { migrationsFolder: MIGRATIONS_DIR });
@@ -181,18 +181,18 @@ try {
 
 - [x] **Step 4: Make Drizzle transaction callbacks synchronous**
 
-In `src/actions/createCodex.ts`, keep async work outside transactions, but make transaction callbacks synchronous. Replace:
+In `src/actions/createCheatsheet.ts`, keep async work outside transactions, but make transaction callbacks synchronous. Replace:
 
 ```ts
 await db.transaction(async (transaction) => {
-    await transaction.insert(codices).values({
+    await transaction.insert(cheatsheets).values({
 ```
 
 with:
 
 ```ts
 db.transaction((transaction) => {
-    transaction.insert(codices).values({
+    transaction.insert(cheatsheets).values({
 ```
 
 Also replace transaction-scoped keyword insert/delete calls by removing `await` inside callbacks and appending `.run()` to each sync insert/delete query builder. The outer server function remains `async`.
@@ -212,7 +212,7 @@ Expected: no `bun:sqlite` import errors and no TypeScript errors from the DB fil
 Run:
 
 ```bash
-rg "async \\(transaction\\)|await transaction\\.|await db\\.transaction" src/actions/createCodex.ts src/db/migrate.ts -n
+rg "async \\(transaction\\)|await transaction\\.|await db\\.transaction" src/actions/createCheatsheet.ts src/db/migrate.ts -n
 ```
 
 Expected: no matches.
@@ -392,7 +392,7 @@ Change the dev environment section in `AGENTS.md` to:
 Replace Bun instructions with:
 
 ````md
-# mtg-keyword-codex
+# mtg-keyword-cheatsheet
 
 ## Requirements
 

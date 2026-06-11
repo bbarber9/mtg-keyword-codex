@@ -1,48 +1,55 @@
 {
-  "version": "7",
-  "dialect": "sqlite",
-  "entries": [
-    {
-      "idx": 0,
-      "version": "6",
-      "when": 1768709210345,
-      "tag": "0000_normal_betty_ross",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "6",
-      "when": 1768966157188,
-      "tag": "0001_soft_mongoose",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "6",
-      "when": 1768973621717,
-      "tag": "0002_steady_bushwacker",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "6",
-      "when": 1769041825439,
-      "tag": "0003_fluffy_hannibal_king",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "6",
-      "when": 1769042028029,
-      "tag": "0004_glorious_mercury",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "6",
-      "when": 1773800316125,
-      "tag": "0005_mushy_tony_stark",
-      "breakpoints": true
-    }
-  ]
+	"version": "7",
+	"dialect": "sqlite",
+	"entries": [
+		{
+			"idx": 0,
+			"version": "6",
+			"when": 1768709210345,
+			"tag": "0000_normal_betty_ross",
+			"breakpoints": true
+		},
+		{
+			"idx": 1,
+			"version": "6",
+			"when": 1768966157188,
+			"tag": "0001_soft_mongoose",
+			"breakpoints": true
+		},
+		{
+			"idx": 2,
+			"version": "6",
+			"when": 1768973621717,
+			"tag": "0002_steady_bushwacker",
+			"breakpoints": true
+		},
+		{
+			"idx": 3,
+			"version": "6",
+			"when": 1769041825439,
+			"tag": "0003_fluffy_hannibal_king",
+			"breakpoints": true
+		},
+		{
+			"idx": 4,
+			"version": "6",
+			"when": 1769042028029,
+			"tag": "0004_glorious_mercury",
+			"breakpoints": true
+		},
+		{
+			"idx": 5,
+			"version": "6",
+			"when": 1773800316125,
+			"tag": "0005_mushy_tony_stark",
+			"breakpoints": true
+		},
+		{
+			"idx": 6,
+			"version": "6",
+			"when": 1781131200000,
+			"tag": "0006_rename_cheatsheets",
+			"breakpoints": true
+		}
+	]
 }

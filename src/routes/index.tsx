@@ -1,7 +1,7 @@
 import * as fs from "node:fs";
 import { createFileRoute, useRouter } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
-import { protectedByLogin } from "../middleware/authMiddleware";
+import { protectedByUsername } from "../middleware/authMiddleware";
 
 const filePath = "count.txt";
 
@@ -27,7 +27,7 @@ const updateCount = createServerFn({ method: "POST" })
 export const Route = createFileRoute("/")({
 	component: Home,
 	loader: async () => await getCount(),
-	server: { middleware: [protectedByLogin] },
+	server: { middleware: [protectedByUsername] },
 });
 
 function Home() {

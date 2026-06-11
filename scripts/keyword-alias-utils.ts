@@ -23,7 +23,10 @@ type LoadKeywordAliasesOptions = AliasUtilityOptions & {
 export async function loadKeywordAliasesFromFile(
 	loadKeywordAliasesOptions: LoadKeywordAliasesOptions,
 ): Promise<KeywordAliasMap> {
-	const aliasMapJson = await readFile(loadKeywordAliasesOptions.aliasFilePath, "utf8");
+	const aliasMapJson = await readFile(
+		loadKeywordAliasesOptions.aliasFilePath,
+		"utf8",
+	);
 	const parsedAliasMap: unknown = JSON.parse(aliasMapJson);
 
 	return validateKeywordAliasMap(parsedAliasMap, loadKeywordAliasesOptions);
@@ -90,23 +93,25 @@ function validateKeywordAliasMap(
 		parsedAliasMap === null ||
 		Array.isArray(parsedAliasMap)
 	) {
-		throw new Error(`${aliasUtilityOptions.entityLabel} aliases must be a JSON object.`);
+		throw new Error(
+			`${aliasUtilityOptions.entityLabel} aliases must be a JSON object.`,
+		);
 	}
 
 	const normalizedAliasMap: KeywordAliasMap = {};
 	const seenAliasNames = new Map<string, string>();
-	for (const [rawAliasName, rawTargetRecordName] of Object.entries(parsedAliasMap)) {
+	for (const [rawAliasName, rawTargetRecordName] of Object.entries(
+		parsedAliasMap,
+	)) {
 		if (typeof rawTargetRecordName !== "string") {
 			throw new Error(
 				`${aliasUtilityOptions.entityLabel} alias "${rawAliasName}" must map to a string keyword name.`,
 			);
 		}
 
-		const aliasName =
-			aliasUtilityOptions.normalizeDisplayName(rawAliasName);
-		const targetRecordName = aliasUtilityOptions.normalizeDisplayName(
-			rawTargetRecordName,
-		);
+		const aliasName = aliasUtilityOptions.normalizeDisplayName(rawAliasName);
+		const targetRecordName =
+			aliasUtilityOptions.normalizeDisplayName(rawTargetRecordName);
 		if (aliasName.length === 0) {
 			throw new Error(
 				`${aliasUtilityOptions.entityLabel} aliases cannot use an empty alias name.`,

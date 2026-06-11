@@ -1,12 +1,12 @@
 import { useForm } from "@tanstack/react-form";
 import { useNavigate } from "@tanstack/react-router";
-import { createCodex } from "../../actions/createCodex";
+import { createCheatsheet } from "../../actions/createCheatsheet";
 import { Button } from "../Button/Button";
 import { TextArea } from "../TextArea/TextArea";
 import { TextField } from "../TextField/TextField";
-import styles from "./CodexCreateForm.module.css";
+import styles from "./CheatsheetCreateForm.module.css";
 
-export const CodexCreateForm = () => {
+export const CheatsheetCreateForm = () => {
 	const navigate = useNavigate();
 	const { handleSubmit, Field } = useForm({
 		defaultValues: {
@@ -16,16 +16,18 @@ export const CodexCreateForm = () => {
 			decklist: "",
 		},
 		onSubmit: async (formData) => {
-			const createdCodex = await createCodex({ data: formData.value });
+			const createdCheatsheet = await createCheatsheet({
+				data: formData.value,
+			});
 			await navigate({
-				to: "/codices/$id",
-				params: { id: createdCodex.id },
+				to: "/cheatsheets/$id",
+				params: { id: createdCheatsheet.id },
 			});
 		},
 	});
 	return (
 		<div className={styles.page}>
-			<h1 className={styles.heading}>Create a new codex</h1>
+			<h1 className={styles.heading}>Create a new cheatsheet</h1>
 			<form
 				className={styles.form}
 				onSubmit={(e) => {
@@ -38,7 +40,7 @@ export const CodexCreateForm = () => {
 					{(field) => {
 						return (
 							<TextField
-								label="Codex Name"
+								label="Cheatsheet Name"
 								id={field.name}
 								name={field.name}
 								isRequired={true}

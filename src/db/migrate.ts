@@ -5,7 +5,7 @@ import { loadConfig } from "../utils/config";
 
 const MIGRATIONS_DIR = "src/db/migrations";
 const config = loadConfig();
-const sqlite = new Database(config.database.codexPath);
+const sqlite = new Database(config.database.cheatsheetPath);
 const db = drizzle(sqlite);
 
 try {

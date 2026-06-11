@@ -1,12 +1,12 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Button } from "../components/Button/Button";
-import { protectedByLogin } from "../middleware/authMiddleware";
+import { protectedByUsername } from "../middleware/authMiddleware";
 
-const createCodexRoutePath = "/codices/create";
+const createCheatsheetRoutePath = "/cheatsheets/create";
 
-export const Route = createFileRoute("/codices/")({
+export const Route = createFileRoute("/cheatsheets/")({
 	component: RouteComponent,
-	server: { middleware: [protectedByLogin] },
+	server: { middleware: [protectedByUsername] },
 });
 
 function RouteComponent() {
@@ -16,7 +16,7 @@ function RouteComponent() {
 		<Button
 			type="button"
 			onClick={() => {
-				navigate({ to: createCodexRoutePath });
+				navigate({ to: createCheatsheetRoutePath });
 			}}
 		>
 			Create

@@ -7,7 +7,12 @@ interface TextAreaProps extends ComponentProps<"textarea"> {
 	isRequired?: boolean;
 }
 
-export const TextArea = ({ label, isRequired, required, ...textAreaProps }: TextAreaProps) => {
+export const TextArea = ({
+	label,
+	isRequired,
+	required,
+	...textAreaProps
+}: TextAreaProps) => {
 	const fieldIsRequired = required ?? isRequired;
 
 	return (

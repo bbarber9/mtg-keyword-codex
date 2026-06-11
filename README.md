@@ -1,4 +1,4 @@
-# mtg-keyword-codex
+# mtg-keyword-cheatsheet
 
 ## Requirements
 

@@ -42,7 +42,8 @@ export function createWikiHtmlPageFetcher(
 	options: CreateWikiHtmlPageFetcherOptions,
 ): (pageUrl: string) => Promise<string> {
 	let lastNetworkRequestAtUnixMs = 0;
-	const networkRequestDelayMs = options.requestDelayMs ?? DEFAULT_REQUEST_DELAY_MS;
+	const networkRequestDelayMs =
+		options.requestDelayMs ?? DEFAULT_REQUEST_DELAY_MS;
 
 	return async function fetchHtmlPage(pageUrl: string): Promise<string> {
 		const cacheFilePath = getCacheFilePathForUrl(
@@ -109,7 +110,10 @@ export function createWikiHtmlPageFetcher(
 /**
  * Builds the on-disk cache file path for a page URL.
  */
-function getCacheFilePathForUrl(cacheDirectoryPath: string, pageUrl: string): string {
+function getCacheFilePathForUrl(
+	cacheDirectoryPath: string,
+	pageUrl: string,
+): string {
 	const pageUrlHash = createHash("sha256").update(pageUrl).digest("hex");
 	return join(cacheDirectoryPath, `${pageUrlHash}${CACHE_FILE_EXTENSION}`);
 }
@@ -117,7 +121,9 @@ function getCacheFilePathForUrl(cacheDirectoryPath: string, pageUrl: string): st
 /**
  * Loads and validates a cached page record from disk.
  */
-async function loadCachedPage(cacheFilePath: string): Promise<CachedWikiPage | null> {
+async function loadCachedPage(
+	cacheFilePath: string,
+): Promise<CachedWikiPage | null> {
 	let cacheFileContent: string;
 	try {
 		cacheFileContent = await readFile(cacheFilePath, "utf8");
@@ -144,7 +150,9 @@ async function loadCachedPage(cacheFilePath: string): Promise<CachedWikiPage | n
 /**
  * Validates unknown cache data against the cached page shape.
  */
-function isValidCachedWikiPage(candidate: unknown): candidate is CachedWikiPage {
+function isValidCachedWikiPage(
+	candidate: unknown,
+): candidate is CachedWikiPage {
 	if (!candidate || typeof candidate !== "object") {
 		return false;
 	}
@@ -163,7 +171,10 @@ function isValidCachedWikiPage(candidate: unknown): candidate is CachedWikiPage 
 /**
  * Evaluates whether a cached page is still fresh per cache headers.
  */
-function isCachedPageFresh(cachedPage: CachedWikiPage, nowUnixMs: number): boolean {
+function isCachedPageFresh(
+	cachedPage: CachedWikiPage,
+	nowUnixMs: number,
+): boolean {
 	const parsedCacheControl = parseCacheControlHeader(
 		cachedPage.headers[HEADER_CACHE_CONTROL],
 	);
@@ -174,7 +185,8 @@ function isCachedPageFresh(cachedPage: CachedWikiPage, nowUnixMs: number): boole
 		return false;
 	}
 
-	const ageSeconds = (nowUnixMs - cachedPage.fetchedAtUnixMs) / MILLISECONDS_PER_SECOND;
+	const ageSeconds =
+		(nowUnixMs - cachedPage.fetchedAtUnixMs) / MILLISECONDS_PER_SECOND;
 	if (parsedCacheControl.maxAgeSeconds !== null) {
 		return ageSeconds <= parsedCacheControl.maxAgeSeconds;
 	}
@@ -242,7 +254,9 @@ function applyConditionalRequestHeaders(
 /**
  * Converts response headers to a lowercase keyed record.
  */
-function headerRecordFromResponse(responseHeaders: Headers): Record<string, string> {
+function headerRecordFromResponse(
+	responseHeaders: Headers,
+): Record<string, string> {
 	const headerRecord: Record<string, string> = {};
 	for (const [headerName, headerValue] of responseHeaders.entries()) {
 		headerRecord[headerName.toLowerCase()] = headerValue;
@@ -275,7 +289,9 @@ async function updateCacheFromResponse(
 	fetchedAtUnixMs: number,
 ): Promise<void> {
 	const responseHeaders = headerRecordFromResponse(response.headers);
-	const cacheControl = parseCacheControlHeader(responseHeaders[HEADER_CACHE_CONTROL]);
+	const cacheControl = parseCacheControlHeader(
+		responseHeaders[HEADER_CACHE_CONTROL],
+	);
 	if (cacheControl.directives.has(CACHE_CONTROL_NO_STORE)) {
 		await removeCacheFile(cacheFilePath);
 		return;
@@ -344,7 +360,9 @@ async function waitForNetworkRequestDelay(
  * Sleeps for the specified number of milliseconds.
  */
 function wait(milliseconds: number): Promise<void> {
-	return new Promise((resolvePromise) => setTimeout(resolvePromise, milliseconds));
+	return new Promise((resolvePromise) =>
+		setTimeout(resolvePromise, milliseconds),
+	);
 }
 
 function isErrorWithCode(error: unknown, code: string): boolean {

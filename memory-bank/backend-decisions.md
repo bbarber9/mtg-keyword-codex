@@ -1,4 +1,4 @@
-# MTG Codex Backend Decisions
+# MTG Cheatsheet Backend Decisions
 
 ## Architecture
 - TanStack Start fullstack framework.
@@ -43,9 +43,9 @@
 ## Scryfall Integration
 - Existing client handles rate and caching policy.
 
-## Codex Expiration and Cleanup
-- Cleanup on the fly for expired codices (no cleanup endpoint).
-- Current expiration duration is 30 days hardcoded in `src/actions/createCodex.ts`.
+## Cheatsheet Expiration and Cleanup
+- Cleanup on the fly for expired cheatsheets (no cleanup endpoint).
+- Current expiration duration is 30 days hardcoded in `src/actions/createCheatsheet.ts`.
 - Env-configurable expiration is future work if still desired.
 
 ## Deployment

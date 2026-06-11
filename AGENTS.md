@@ -1,4 +1,4 @@
-# mtg-keyword-codex
+# mtg-keyword-cheatsheet
 
 ## Memory bank
 There is a folder called "memory-bank" that contains all decisions made so far. Please include them as context when implementing features. Also, please update the relevant memory bank files when I change my mind.

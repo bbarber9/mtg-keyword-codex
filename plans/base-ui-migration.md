@@ -35,7 +35,7 @@ Inventory from initial search:
   - `TextField`, `FieldError`, `Input`, `Label`, `Text`, `ValidationResult`
 - `src/components/TextArea/TextArea.tsx`
   - `TextField`, `Label`, `TextArea`
-- `src/components/CodexCreateForm/CodexCreateForm.tsx`
+- `src/components/CheatsheetCreateForm/CheatsheetCreateForm.tsx`
   - `Form`, `Heading`
 - `src/components/UsernameForm/UsernameForm.tsx`
   - `Form`
@@ -169,7 +169,7 @@ Accessibility check:
 
 Target files:
 
-- `src/components/CodexCreateForm/CodexCreateForm.tsx`
+- `src/components/CheatsheetCreateForm/CheatsheetCreateForm.tsx`
 - `src/components/UsernameForm/UsernameForm.tsx`
 
 Plan:
@@ -234,8 +234,8 @@ All must pass before requesting manual sign-off.
 
 Project owner manually verifies:
 
-- Create codex form renders correctly.
-- Create codex form submits and navigates to public codex page.
+- Create cheatsheet form renders correctly.
+- Create cheatsheet form submits and navigates to public cheatsheet page.
 - Username form renders correctly.
 - Username availability feedback still works.
 - Buttons, inputs, and textareas look acceptable with existing styling.

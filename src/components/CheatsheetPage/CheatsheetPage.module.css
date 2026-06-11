@@ -13,7 +13,8 @@
 		var(--color-surface-l2),
 		color-mix(in oklab, var(--color-primary-l1) 25%, var(--color-surface-l1))
 	);
-	border: 1px solid color-mix(in oklab, var(--color-primary-l4) 30%, transparent);
+	border: 1px solid
+		color-mix(in oklab, var(--color-primary-l4) 30%, transparent);
 }
 
 .eyebrow {
@@ -50,7 +51,8 @@
 	padding: var(--space-5);
 	border-radius: var(--radius-lg);
 	background-color: var(--color-surface-l2);
-	border: 1px solid color-mix(in oklab, var(--color-surface-l6) 30%, transparent);
+	border: 1px solid
+		color-mix(in oklab, var(--color-surface-l6) 30%, transparent);
 }
 
 .sectionHeader {
@@ -92,7 +94,11 @@
 	gap: var(--space-3);
 	padding: var(--space-3);
 	border-radius: var(--radius-md);
-	background-color: color-mix(in oklab, var(--color-surface-l3) 65%, transparent);
+	background-color: color-mix(
+		in oklab,
+		var(--color-surface-l3) 65%,
+		transparent
+	);
 }
 
 .keywordCount {

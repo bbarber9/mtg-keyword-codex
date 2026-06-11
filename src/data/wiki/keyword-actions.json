@@ -1,404 +1,404 @@
 {
-  "Activate": {
-    "intro": "Activate is the keyword action for using activated abilities. Activated abilities can be identified by the use of a colon,:, separating a cost and an effect. To activate that ability, the ability is moved to the stack and its cost is paid.",
-    "description": "",
-    "reminderText": "No official reminder text",
-    "sourceUrl": "https://mtg.wiki/page/Activate"
-  },
-  "Attach": {
-    "intro": "Attach is a keyword action. It means \"to move an Aura, Equipment, or Fortification onto another object or player\".",
-    "description": "",
-    "reminderText": "No official reminder text",
-    "sourceUrl": "https://mtg.wiki/page/Attach"
-  },
-  "Behold": {
-    "intro": "Behold is a keyword action introduced in Tarkir: Dragonstorm where it is tied to the Dragon creature type. It allows a player to trade information for an additional effect.",
-    "description": "A player can \"behold an object\" if they have a corresponding object in their hand to be revealed or if they control a corresponding object on the battlefield. The keyword is similar to the Dragons-matter cycle of cards in Dragons of Tarkir, which have additional effects if the controller revealed or controlled a Dragon. Some spells may have an additional effect if a Dragon was beheld. This applies no matter which manner of beholding you chose, and it applies no matter what happened to the Dragon or Dragon card in question.\n\nInitially, the Behold mechanic was restricted to Dragons, tying in with the themes of Tarkir: Dragonstorm. It ties in with Omen, both being mechanics that portent the Dragons that may come later. Mark Rosewater has announced that it will be deciduous. It is especially suited to care about big powerful things that are slow to come into play.\n\nBehold returned in Lorwyn Eclipsed, with two new design directions. Cards may behold any of the five main species types from Lorwyn. One of them is to recall Champion, by exiling the beheld creature. Unlike the other Behold spells, this is mandatory and has no alternative. Another references the \"revealer\" cycle from original Lorwyn, where one would pay a mana tax if a matching species card was not revealed. As these species have creatures along the curve, controlling them is more probable than in Dragonstorm, where Dragons were high on the curve. One card (Celestial Reunion) beholds two creatures that match in subtype; for the effect to work, the player must choose the subtype in advance.",
-    "reminderText": "Behold an [object] (To behold an [object], choose an [object] you control or reveal an [object] card from your hand.)",
-    "sourceUrl": "https://mtg.wiki/page/Behold"
-  },
-  "Cast": {
-    "intro": "Cast is a keyword action. It was introduced in Alpha but temporary replaced with Play in the Sixth Edition rules changes and then reinstated in Magic 2010. When you cast a spell, you take it from where it is (usually the hand), put it on the stack, and pay its costs, so that it will eventually resolve and have its effect.",
-    "description": "",
-    "reminderText": "No official reminder text",
-    "sourceUrl": "https://mtg.wiki/page/Cast"
-  },
-  "Counter": {
-    "intro": "Certain spells and abilities can \"counter target spell\" (or similar effects). Counter in this sense is an evergreen keyword action. A spell that is countered is put into the graveyard instead of doing its effect.",
-    "description": "",
-    "reminderText": "No official reminder text",
-    "sourceUrl": "https://mtg.wiki/page/Counter_(keyword_action)"
-  },
-  "Create": {
-    "intro": "Create is an evergreen keyword action. It was consolidated with a name in Kaladesh and first seen on the FNM promo for October 2016, Rise from the Tides, although Wizards of the Coast defined it just only as a new vocabulary.",
-    "description": "",
-    "reminderText": "No official reminder text",
-    "sourceUrl": "https://mtg.wiki/page/Create"
-  },
-  "Destroy": {
-    "intro": "Destroy is an evergreen keyword action, introduced in Alpha. When a permanent is destroyed, it is moved from the battlefield to its owner’s graveyard. It is also the term used for creatures going to the graveyard due to lethal damage, including the reduced lethal damage threshold caused by Deathtouch.",
-    "description": "",
-    "reminderText": "No official reminder text",
-    "sourceUrl": "https://mtg.wiki/page/Destroy"
-  },
-  "Discard": {
-    "intro": "Discard is an evergreen keyword action which takes cards from a player's hand and puts them in their graveyard.",
-    "description": "Discard is primarily in the black part of the color pie. Discard spells are more often at sorcery speed, though a few have been printed at instant speed. This is to avoid the strategic use of casting it in their opponent's draw step to rid them of the only card they have that turn. The target of a discard spell more often than not gets to choose which cards to discard. More powerful versions are cards which force a random discard or reveal the target's hand to the discard spell's caster (Thoughtseize effects). Typically \"blind\" discards are designed as card advantage spells where they cause attrition through numbers, whereas the revealing discards are used more precisely to slow the opposing strategy. Random discard spells are unpopular game experiences so fewer of them have been made. Due to the diminishing returns of discard spells, they trend to the lower part of the curve and by volume have a maximum value of three cards, as any higher is rarely effectual for the cost it would need to add: Ghost-Lit Stalker at seven and Haunting Hymn at six are the only ones that explicitly discard four, and both are secondary modes. Red and blue have not gotten new cards that cause card-negative discard for decades.\n\nBlack discard spells generally invoke a flavor of insanity or trauma, whereas red discard spells invoke one of fate or fire and blue discard spells invoke one of stealing. The creature type Specter generally are mechanically tied to causing players to discard cards when they are unblocked.\n\nMechanics which include discard as a cost are bloodrush, channel, cycling, and reinforce. Anti-discard effects are rare single designs.\n\nFor Odyssey, Mark Rosewater designed discard spells to challenge to mess around with the concept of card advantage and create threshold. In hindsight, it was an \"interesting\" idea but not \"fun\" to play.\n\nDiscard as a cost is primary in black, and secondary in red, shown most commonly during rummaging. All other colors are tertiary.",
-    "reminderText": "No official reminder text",
-    "sourceUrl": "https://mtg.wiki/page/Discard"
-  },
-  "Double": {
-    "intro": "Double is a keyword action formally introduced in Dominaria for Grunn, the Lonely King.",
-    "description": "Double multiplies certain characteristics or conditions by two. Doubling has existed informally as early as Fifth Dawn with cards like Doubling Cube and Solarion.\n\nDoubling may be applied to:\n\nDamage (e.g. Furnace of Rath, Gratuitous Violence ) The number of counters (e.g. Deepglow Skate, Kalonian Hydra) The amount of each type of mana in your mana pool (e.g. Doubling Cube) Power and toughness (e.g. Grunn, the Lonely King, Unnatural Growth) Life total (e.g. Beacon of Immortality, Angelic Enforcer) Values of X (e.g. Unbound Flourishing)\n\nEffects that double power and toughness or +1/+1 counters exist primarily in green, although power/toughness doubling also exists on some red and white cards. Green holds the most cards with the \"double\" action overall. In particular, six green cards associated with the Quandrix college have doubling effects, to flavorfully complement its mathematical theme. Effects that double damage, on the other hand, exist exclusively in red. Effects that double life total exist only in white.\n\nRelated to doubling is doing actions \"an additional time\", e.g., Panharmonicon, or things that replace with \"twice\" (e.g., Mana Reflection). This is distinct from doubling, as doubling affects existing numbers, whereas \"twice\" and \"additional\" templating usually are in \"if\" statements that are replacement effects for future events. Consequently, they can double other events such as create, proliferate, or mill.",
-    "reminderText": "No official reminder text",
-    "sourceUrl": "https://mtg.wiki/page/Double"
-  },
-  "Triple": {
-    "intro": "Triple is a keyword action formally introduced in Final Fantasy for Tifa's Limit Break.",
-    "description": "Triple multiplies certain characteristics or conditions by three.\n\nPrior to the mechanic being formalized as a keyword action, Nyxbloom Ancient, Virtue of Strength, Jeska, Thrice Reborn, City on Fire and Fiery Emancipation had abilities that tripled certain effects. \"Triple\" as an adjective was first used on Fiery Emancipation (Core Set 2021), where it took the form \"it deals triple that damage.\" The term was not defined in the Comprehensive Rules until Final Fantasy.",
-    "reminderText": "No official reminder text",
-    "sourceUrl": "https://mtg.wiki/page/Triple"
-  },
-  "Exchange": {
-    "intro": "Exchange is a keyword action. One of the big things the Sixth Edition rules change did was to try to consolidate how Magic card text referred to things. The game had always had it, but it wasn't until then that exchange got its own vocabulary word.",
-    "description": "There are three major use cases for the action of \"exchange\", with a fourth obsolete use related to ante.",
-    "reminderText": "No official reminder text",
-    "sourceUrl": "https://mtg.wiki/page/Exchange"
-  },
-  "Exile": {
-    "intro": "Exile is a game zone outside the field of play. It is also a keyword action, meaning \"put into the exile zone\".",
-    "description": "The exile zone is used by a wide variety of abilities as a tool to make the ability work as intended. The Comprehensive Rules describe exile as \"essentially a holding area for objects\" which can be temporary or permanent. Interactions with exile are dictated almost exclusively by abilities - exile is never involved in the core game flow of turn-based actions, playing cards and combat unless an ability is at work. Additionally, extremely few cards can bring another card out of exile that it didn't exile itself. Together, these properties allow for ability designs that place cards in exile, and potentially dictate further actions that will happen to them, with almost no chance of interference or complication by any other effects.\n\nThe zone is often used as a temporary holding place for cards, as with the mechanics Adventure, Flicker, Foretell, Imprint, Madness, Plot and Suspend. Depending on the exiling ability and abilities linked to it, the exiled card may be returned to where it came from or moved to another zone, be copied, have its attributes referenced by other abilities, or be played from exile, among other options. These actions may happen immediately, or after a delay. Sometimes counters are used on such cards; exile is the only zone other than the battlefield in which cards often have counters.\n\nExiling is also a form of removal, as in the classic Swords to Plowshares. This is stronger and more permanent than putting cards into the graveyard, since there are few preventive measures compared to damage or destruction, and there's little chance of getting the card out of exile later. It is extremely difficult to protect against a non-targeted exile card like Final Judgment, since abilities like Indestructible don't prevent exile. The \"imprisoning\" form of exile removal, which is now common among white enchantments and creatures, allows for more counterplay: the removal can be reversed if the exiler is itself eliminated.\n\nExile can serve as a \"graveyard for the graveyard\" - a zone cards go to which is even more final than the graveyard. Graveyard hate cards do this to prevent opponents from retrieving cards from it (Tormod's Crypt, Decompose). Graveyard cards can also be deliberately consumed as resources (Frankenstein's Monster, Escape), or exile themselves after being used from the graveyard to avoid being re-used repeatedly (Flashback, Academy Rector). Some cards even exile themselves immediately upon resolution, to prevent any re-use, most often with easily recurring or powerful spells (All Sun's Dawn, extra turn spells).\n\nOnly a few cards, such as Pull from Eternity, Riftsweeper or Binding Negotiation, can access a card in exile without having exiled it themselves. Battle for Zendikar notably inverted the usual pattern by using the exile zone as a resource through the Ingest ability and a series of Eldrazi Processor cards that moved cards from exile into the graveyard, albeit only the opponent's cards. Head designer Mark Rosewater tries to limit such cards, and does not believe a theme like exile-as-a-resource is likely to be re-used in future sets.\n\nExiling primarily occurs among white, black, and colorless cards.\n\nThe one use of exile by the game rules themselves rather than in connection to card abilities is in multiplayer games. Cards that were controlled by a player that has left the game, but owned by a player still in the game, remain in the game but move to the exile zone.",
-    "reminderText": "",
-    "sourceUrl": "https://mtg.wiki/page/Exile"
-  },
-  "Fight": {
-    "intro": "Fight is a keyword action introduced in Innistrad. The word appears in a phrase like \"[Cardname] fights target creature.\" and it means that both creatures deal damage equal to their Power to each other. Cards using fight appear primary in green and secondary in red. They carry the flavor of an altercation.",
-    "description": "Fight is similar to the mechanic originally introduced with the Land Arena, though slightly altered. A few old cards (including Arena) with the same functionality received updated Oracle wording using the new terminology. Cards with similar, but not identical, functionality do not use the word \"fight\" — the most obvious effect would be due to wither and infect, which would reduce the counter-damage before it happens.\n\nFighting was introduced as a way for Green to interact with creatures in Limited, often at common. With other colors getting more abilities on their creatures, giving Green a way to leverage creature sizing was important for balance, and critically letting them answer utility creatures with [The tap symbol.] abilities that can't be forced into combat with things like Provoke or Lure. However, it has many downsides both in application and design: the most obvious one is that it is extremely vulnerable to not only removal but also opposing combat tricks. It also tends to exacerbate tempo (the player ahead on board gets to fight with a stronger creature, while a player behind on board can't answer the biggest threat) and, as a consequence, tends to be played at the first safe opportunity regardless of impact. Fight spells are often coupled with pump effects to allow creatures to survive fighting, as creatures of the same mana cost tend to trade. These can either be temporary, use +1/+1 counters, or even flipped by having the fight be an enters effect on a pumping Aura. While this also leans into the forward-tempo aspect, it sometimes allows the player who is behind to recover. A notable play pattern with pump-fights is that a pumped creature that has fought usually can't profitably attack into a second blocker.\n\nAs such, the most basic fight effect of Prey Upon has been deemed worth less than a mana: one-mana sorcery Fight spells now have further flexibility, such as Bushwhack or Longstalk Brawl. Instant-speed fight is not common, as incentivizing players to fight into open mana tends to end poorly, so design favors giving players different upsides for the cost increase associated with making a fight spell instant speed.\n\nGarruk Relentless has a unique effect where it deals 3 damage to a creature and the creature deals its power to him; this is functionally similar to a 3/3 that fights, but on a planeswalker.",
-    "reminderText": "Fight [a creature] (Each deals damage equal to its power to the other.)",
-    "sourceUrl": "https://mtg.wiki/page/Fight"
-  },
-  "Goad": {
-    "intro": "Goad is a keyword action introduced in Conspiracy: Take the Crown that forces creatures to attack, preferably someone other than you. It was designed for multiplayer play.",
-    "description": "Goad causes a creature to be goaded until a player’s next turn. A goaded creature has to attack a player (not a planeswalker or battle) other than you if it can. The controller of a goaded creature still chooses who the creature attacks.\n\nIf the creature can't attack a player other than you, then it must attack you or a planeswalker if it can. This is most likely when the game is down to two players.\n\nGoad is primary in blue and red, and secondary in black.",
-    "reminderText": "Goad (Until your next turn, that creature attacks each combat if able and attacks a player other than you if able.)",
-    "sourceUrl": "https://mtg.wiki/page/Goad"
-  },
-  "Investigate": {
-    "intro": "Investigate is a keyword action introduced in Shadows over Innistrad (2016).",
-    "description": "To investigate, you create a Clue token. Clues are colorless artifacts, which have the ability \" [2 generic mana], Sacrifice this artifact: Draw a card.\"\n\nInvestigate sometimes is triggered when specific things happen. For example, Tireless Tracker lets you investigate when a land enters the battlefield under your control, and Ulvenwald Mysteries lets you investigate when a nontoken creature you control dies. Some cards also have abilities that trigger when a Clue is sacrificed. This makes the decision of when to sacrifice a Clue more interesting, and so in some cases sacrificing Clues as soon as possible is not necessarily the best play.",
-    "reminderText": "Investigate (Create a Clue token. It's an artifact with \" [2 generic mana], Sacrifice this artifact: Draw a card.\")",
-    "sourceUrl": "https://mtg.wiki/page/Investigate"
-  },
-  "Mill": {
-    "intro": "Mill is a keyword action used in Magic to describe the action of a player taking cards from the top of their library and putting them into their graveyard. For a player to mill N cards, they put the top N cards from their library into their graveyard. The term alludes to the card Millstone, which was first printed in Antiquities and was the first card to feature this mechanic.",
-    "description": "Milling is a strategy some decks use which takes advantage of the decking rule. Emptying the opponent's library is one way to ensure a victory, although they do not lose until they actually have to draw a card, giving them another untap and upkeep step to potentially win.\n\nThere are two basic types of mill decks. The control deck looks to take over the game through killing the opponent's creatures and countering their spells, using milling as a hard-to-disrupt way to win the game; some actively mill by cards such as Nephalia Drownyard, and some do so passively, most notoriously with Elixir of Immortality like the champion's deck of Pro Tour Magic 2015. The second approach acts like a burn deck by playing primarily mill cards and looks to mill the opponent out as soon as possible. The most aggressive mill spells can mill ten or more cards, letting a player mill 50 cards in four or five spells.\n\nThere is a particular distinction between Limited and Constructed mill cards, directly borne from the twenty-card difference in deck size. Repeated mills of three to five are threatening in Limited but often insufficient in Constructed, while a single card milling fifteen to twenty is the reverse.\n\nCards that cause a player to mill have most often been found in blue (primary) or black (secondary), especially in the Dimir guild of the Ravnica blocks, though most of the earliest milling cards were artifacts. Green (tertiary) usually mills itself caring about what gets milled in some way, but on rare occasion, does that to all players.\n\nFlavor-wise, milling is often portrayed as mental attacks, memory loss, insanity, or drowning.\n\nPlaytesting has shown that less-experienced players have a negative emotional reaction to milling that's on par with creature-destruction effects.",
-    "reminderText": "Mill N cards (Put the top N cards from the library into your/their graveyard.)",
-    "sourceUrl": "https://mtg.wiki/page/Mill"
-  },
-  "Play": {
-    "intro": "Play is a keyword action that encompasses two possible actions, depending on a card's type. Playing a land is a special action that moves that land onto the battlefield. Because it is a special action, it cannot be responded to. Playing any other card means casting that card as a spell, which involves the stack and allows players to respond. Lands are not spells, and cannot be cast.",
-    "description": "",
-    "reminderText": "No official reminder text",
-    "sourceUrl": "https://mtg.wiki/page/Play"
-  },
-  "Regenerate": {
-    "intro": "Regenerate is a former evergreen keyword action until it was removed from evergreen status after Oath of the Gatewatch.",
-    "description": "",
-    "reminderText": "[cost]: Regenerate (The next time this creature would be destroyed this turn, instead tap it, remove it from combat, and heal all damage on it.)",
-    "sourceUrl": "https://mtg.wiki/page/Regenerate"
-  },
-  "Reveal": {
-    "intro": "Reveal is a keyword action. By keywording it, the Sixth Edition rules change clarified that there was a difference between a player looking at hidden information (usually something in a player's hand) and that player revealing it which meant that all players saw it. This distinction isn't important in a two-player game but matters very much when three or more players are involved. Also, the game would later care about things being revealed.",
-    "description": "",
-    "reminderText": "No official reminder text",
-    "sourceUrl": "https://mtg.wiki/page/Reveal"
-  },
-  "Sacrifice": {
-    "intro": "Sacrifice, often shortened to sac, is a keyword action. It means to move a permanent you control to its owner's graveyard.",
-    "description": "Sacrificing or saccing is removing a permanent from play. This can be due to an ability, a spell effect, a cost, or part of inherent rules baggage. Objects intended to be temporary are often sacrificed rather than destroyed, as the latter requires more effort to retain. Still, if the designers wish to avoid death triggers altogether, they may simply be exiled. Downside mechanics are often sacrifice-related. A sacrificed permanent cannot be regenerated and was one of two terms that were born from the obsolete bury keyword. Sacrificing always costs a card as an object, but by virtue of token creation, the card may not necessarily be one that the player had to use a card in hand for.\n\nEven though the card Sacrifice was in Alpha, the keyword action of sacrifice didn't show up until Revised Edition.",
-    "reminderText": "No official reminder text",
-    "sourceUrl": "https://mtg.wiki/page/Sacrifice"
-  },
-  "Scry": {
-    "intro": "Scry is a keyword action that allows a player to look at a certain number of cards from the top of their library and put them on the bottom of the library or back on top in any order. It primarily features on instants and sorceries, but has also appeared on creatures, artifacts, lands (including a cycle first printed in Theros block), and enchantments. It is also part of the Vancouver mulligan.",
-    "description": "",
-    "reminderText": "Scry N (Look at the top N cards of your library, then put any number of them on the bottom and the rest on top in any order.) Scry 1 (Look at the top card of your library. You may put that card on the bottom.)",
-    "sourceUrl": "https://mtg.wiki/page/Scry"
-  },
-  "Search": {
-    "intro": "Search is a keyword action. It was introduced on Demonic Tutor in Alpha. It is exclusively used as the action used to look at the cards in a player's library, though it is also used for known-information zones hand and graveyard when mentioned in conjunction with the library.",
-    "description": "",
-    "reminderText": "No official reminder text",
-    "sourceUrl": "https://mtg.wiki/page/Search"
-  },
-  "Shuffle": {
-    "intro": "Shuffle is a keyword action that was introduced in Alpha. A shuffled deck must be completely randomized. Libraries can only be shuffled when a player is directed to do so by the rules. Piles of cards as few as two may also be shuffled, made when one or more known cards are meant to be randomized with others.",
-    "description": "Before each game, each player must shuffle their deck. While the Comprehensive Rules state only that libraries must be in a state such that no player knows their order, the Tournament Rules go into substantially more detail. Notably, the Tournament Rules state that pile shuffling is not adequate - it is considered only as a form of checking for the correct number of cards in one's deck and is permitted once per game. This means that any in-game instances of shuffling cannot use pile shuffling. Additionally, players must have the option of performing a final shuffle of their opponent's deck. At the Competitive and Professional Rules Enforcement Levels, players must shuffle their opponent's decks.\n\nDuring the game, various effects may require a player to shuffle their library again. This usually follows a player searching that library, and is necessary to avoid that player accurately predicting every draw from that library. Outside of search effects, several cards direct that some set of cards be shuffled into the library from other zones.\n\nR&D tries to minimize the frequency of shuffle effects by avoiding printing them at lower rarities, because they slow down the pace of play, and because many new players are uncomfortable with shuffling. However some recent mechanics increase the density of shuffling at common, such as Omen cards from Tarkir: Dragonstorm and Lander tokens of Edge of Eternities. These have a slightly different texture as they are not related to nonland tutoring, which also runs into repetition of play issues.",
-    "reminderText": "No official reminder text",
-    "sourceUrl": "https://mtg.wiki/page/Shuffle"
-  },
-  "Surveil": {
-    "intro": "Surveil is a keyword action that allows a player to look at a certain number of cards from the top of their library and put them in the graveyard or back on top in any order. It was introduced as the Dimir mechanic in Guilds of Ravnica but later was upgraded to deciduous.",
-    "description": "The instruction to surveil always includes a number, such as surveil 2 on Deadly Visit. Look at that many cards from the top of your library. From those cards, put as many cards as you like back on top of your library in any order. Put the rest into your graveyard. Surveil helps you set up better draws for the future. Even if all the cards you look at end up in the graveyard, you're much closer to what you need. The graveyard is a much readier resource, but be careful of decking yourself - many a Dimir deck in Guilds of Ravnica draft found itself unable to win before running out of cards.\n\nSurveil is very reminiscent of the scry ability, the difference is putting cards into your graveyard instead of putting them at the bottom of your library. Graveyard-matters cards and draw-smoothing effects are commonplace, so their intersection in Surveil returns now and then rather than Scry.",
-    "reminderText": "Surveil N (Look at the top N cards of your library, then put any number of them into your graveyard and the rest on top of your library in any order.) Surveil 1 (Look at the top card of your library. You may put it into your graveyard.)",
-    "sourceUrl": "https://mtg.wiki/page/Surveil"
-  },
-  "Tap and Untap": {
-    "intro": "Tap is a keyword action that is usually represented on cards with [The tap symbol.] symbol.",
-    "description": "To tap a permanent, turn it 90 degrees from an upright position. For example, one of the first things that any player learns about Magic is that you tap your lands to cast your spells. As it is integral to the game and TCGs in general, Wizards of the Coast has the concept of tapping patented.\n\nActions that cause a card to tap include:\n\nUsing its activated ability if that ability requires it to tap (for example, \" [The tap symbol.]: Add [Colorless mana].\") Declaring a creature as an attacker (see Declare Attackers Step) Regenerating a creature that would be destroyed and is not already tapped (see Regeneration) Paying a cost of a spell or ability (see Additional cost, Alternative cost, and Activation cost)",
-    "reminderText": "No official reminder text",
-    "sourceUrl": "https://mtg.wiki/page/Tap_and_untap"
-  },
-  "Transform": {
-    "intro": "Transform is a keyword action introduced in Innistrad and means to turn a double-faced card on the back side, changing the card face that is visible.",
-    "description": "Each double-faced card has a front face. This face is the default; double-faced permanents start on the battlefield with this face upwards. If an ability instructs you to transform the permanent, you turn it over so its other face is up. Whichever face is up at the time tells you what that permanent is and what it can do.",
-    "reminderText": "No official reminder text",
-    "sourceUrl": "https://mtg.wiki/page/Transform"
-  },
-  "Convert": {
-    "intro": "Convert is a keyword action introduced in Transformers and means to turn a double-faced card to the opposite face. It is exactly the same as Transform.",
-    "description": "Similar to Transform, if an ability instructs you to convert the permanent, you turn it over so its other face is up. Whichever face is up at the time tells you what that permanent is and what it can do.",
-    "reminderText": "No official reminder text",
-    "sourceUrl": "https://mtg.wiki/page/Convert"
-  },
-  "Fateseal": {
-    "intro": "Fateseal was an ability introduced in Future Sight as one of four \"pre-print\" abilities that only appeared on timeshifted cards.",
-    "description": "",
-    "reminderText": "Fateseal N (To fateseal N, look at the top N cards of an opponent's library, then put any number of them on the bottom of that player's library and the rest on top in any order.) Fateseal 1 (To fateseal 1, look at the top card of an opponent's library, then you may put that card on the bottom of that library.)",
-    "sourceUrl": "https://mtg.wiki/page/Fateseal"
-  },
-  "Clash": {
-    "intro": "Clash is an keyword action. It first appeared in Lorwyn and was reused in Morningtide.",
-    "description": "To clash, a player reveals the top card of their library. Each clashing player reveals the top card of their library, then puts that card on the top or bottom. A player wins if their card had a higher mana value. The act of using the mana values of the top cards as a contest was previously seen on Psychic Battle and Timesifter.\n\nClash wasn't well received by the players. A design review in 2010 by Rosewater considered it a design failure. Nonetheless, it reappeared with Marvo, Deep Operative in a Murders at Karlov Manor Commander deck, to \"make a narrow band of players very happy\". For Lorwyn Eclipsed, it was rejected.",
-    "reminderText": "Clash (Each clashing player reveals the top card of their library, then puts that card on their choice of the top or bottom. A player wins if their card had a greater mana value.)",
-    "sourceUrl": "https://mtg.wiki/page/Clash"
-  },
-  "Planeswalk": {
-    "intro": "Planeswalk is a keyword action used in the Planechase format. Whenever a player rolls the planeswalker symbol ( [Planeswalker symbol] ) on a planar die, that player planeswalks.",
-    "description": "\"Planeswalk\" means to put each face-up plane card or phenomenon card on the bottom of its owner's planar deck face down, then move the top card of your planar deck off that planar deck and turn it face up in a Planechase game.",
-    "reminderText": "No official reminder text",
-    "sourceUrl": "https://mtg.wiki/page/Planeswalk"
-  },
-  "Set in Motion": {
-    "intro": "Set in motion is a keyword action found on scheme cards in the Archenemy format. To set a scheme in motion, the archenemy turns the top card of the scheme deck face up. That card does not change zones; schemes are always in the command zone. One card, All in Good Time, restricts the archenemy's ability to set schemes in motion.",
-    "description": "",
-    "reminderText": "No official reminder text",
-    "sourceUrl": "https://mtg.wiki/page/Set_in_motion"
-  },
-  "Abandon": {
-    "intro": "Abandon is a keyword action found on scheme cards in the Archenemy format. It is comparable to sacrificing a permanent, except that abandoned schemes are not permanents, return to the bottom of the scheme deck when abandoned, and never leave the command zone.",
-    "description": "",
-    "reminderText": "No official reminder text",
-    "sourceUrl": "https://mtg.wiki/page/Abandon"
-  },
-  "Proliferate": {
-    "intro": "Proliferate is a keyword action introduced in Scars of Mirrodin. When a player proliferates, they choose any number of players and/or permanents with counters on them, then put another of each kind of counter already there on these players or permanents.",
-    "description": "Proliferate allows a player to add an additional counter to all permanents and players in the game, but only if they already have a counter. For example, a player proliferates and chooses an opponent with a Poison counter, a Planeswalker card with a loyalty counter, a creature with a −1/−1 counter, and an artifact with a charge counter on it. That opponent would then get another poison counter, the planeswalker would get another loyalty counter, and the creature now has two −1/−1 counter and the artifact has two charge counters on it. Proliferate does not target, so permanents with shroud or hexproof can still be chosen and will recieve additional counters.\n\nThematically, the proliferate mechanic is tied in with the Phyrexia faction in Scars of Mirrodin and its related Infect mechanic. As such, each of the cards that have been printed with the proliferate ability is marked with the symbol of the Phyrexia faction. Only featured on blue and artifact cards in Scars of Mirrodin, it has spread to black and green in Mirrodin Besieged, illustrating the block theme/storyline of the Phyrexian infestation taking over Mirrodin. In Phyrexia: All Will Be One this is closely associated with the Toxic mechanic, which largely replaced Infect. In order to present proliferate gameplay different from both War and Scars blocks, neither +1/+1 nor −1/−1 counters are present. Instead, the chief interaction is with oil counters (and to a lesser extent poison counters) which are similar to charge counters. The five rare planeswalkers also contribute to this different gameplay.\n\nIn War of the Spark, it instead represents \"the influence of the planeswalkers\": the heroes in blue, white and green - in opposition of Bolas in Grixis - building up creatures with +1/+1 counters and the loyalty counters of the many Planeswalkers, and additionally synergizing with the Amass tokens.",
-    "reminderText": "Proliferate (Choose any number of permanents and/or players, then give each another counter of each kind already there.)",
-    "sourceUrl": "https://mtg.wiki/page/Proliferate"
-  },
-  "Detain": {
-    "intro": "Detain is a keyword action that was introduced in Return to Ravnica as the guild mechanic of the Azorius guild.",
-    "description": "Detain means: \"Until your next turn, that permanent can't attack or block and its activated abilities can't be activated.\" In effect, for one round of turns, it is an Arrest or Faith's Fetters for any permanent.",
-    "reminderText": "Detain (Until your next turn, that permanent can't attack or block and its activated abilities can't be activated.)",
-    "sourceUrl": "https://mtg.wiki/page/Detain"
-  },
-  "Populate": {
-    "intro": "Populate is a keyword action introduced in Return to Ravnica associated with the Selesnya Conclave.",
-    "description": "Populate is a mechanic that creates copies of creature tokens. As it does nothing on its own, it requires a minor amount of setup. Hence, it is designed in two ways: the first is when the effect creates a token, then lets the caster populate. Such an effect is costed for the expected cost of two tokens and can become more powerful with better tokens: compare Horncaller's Chant to Eyes in the Skies. Alternatively, it can be put as a rider on a card mostly on rate, which would become card advantage with other token production.\n\nThe mechanic was given a middling 6 on the Storm Scale. While popular yet easy to balance, it requires a devoted infrastructure to make it both interesting while not overwhelming. As Commander products have fewer restrictions on token density and are fully preconstructed, cards that only populate are more common there, in contrast to randomized premier products.",
-    "reminderText": "Populate (Create a token that's a copy of a creature token you control.)",
-    "sourceUrl": "https://mtg.wiki/page/Populate"
-  },
-  "Monstrosity": {
-    "intro": "Monstrosity is a keyword action introduced in Theros, where it was connected to the monster theme of the set. It is an ability that gives a power boost through a one-time payment.",
-    "description": "Monstrosity is defined as giving the creature the ability to become monstrous. Monstrosity N is an activated ability you can activate any time you can pay for it. When it resolves, it checks whether the creature is already monstrous. If it's not, the ability puts a number of +1/+1 counters on the creature equal to the monstrosity number and causes the creature to become monstrous. The counters don't make the creature monstrous, but assist in tracking the status. Monstrosity skipped Born of the Gods, but reappeared in Journey into Nyx. It was reused in Commander 2015, Conspiracy: Take the Crown and Modern Horizons. It also appeared in Commander 2020, and was considered for Zendikar Rising.\n\nThe Werewolf-to-Eldrazi of Eldritch Moon use double-faced card technology to portray a similar one-way transformation, albeit without the square stat change of +1/+1 counters. The Adapt keyword from Ravnica Allegiance is a tweaked version from Monstrosity that checks for counters rather than using an invisible marker.\n\nMonstrosity is a mechanic that gets considered by a lot of sets because it's flavorful, easy to design to, and has enough \"knobs\" to make balancing it manageable. However, cards in recent sets such as Surge Engine and Mild-Mannered Librarian signify that \"Activate only once.\" is an acceptable rules phrase, which render the need for a \"monstrous\" designation obsolete and hence may lower its chances of returning. Exhaust was the conclusion of this line of thinking: the mechanic is now an ability word linked by \"activate only once\", with the similar tracking method of adding counters.",
-    "reminderText": "[cost]: Monstrosity N (If this permanent isn't monstrous, put N +1/+1 counters on it and it becomes monstrous.)",
-    "sourceUrl": "https://mtg.wiki/page/Monstrosity"
-  },
-  "Vote": {
-    "intro": "Vote is a keyword action first featured in Conspiracy and later used in Conspiracy: Take the Crown, Streets of New Capenna and Lord of the Rings Commander.",
-    "description": "Some cards instruct players to vote from among given options. It is used in conjunction with the Will of the council, Council's dilemma and Secret council mechanics. Secret council is specifically for abilities that require secret voting. Will of the council and council's dilemma both use non-secret voting, with will of the council showing up on cards that care which option got more votes and council's dilemma being used for cards where the number of votes for each option is what matters.",
-    "reminderText": "No official reminder text",
-    "sourceUrl": "https://mtg.wiki/page/Vote"
-  },
-  "Bolster": {
-    "intro": "Bolster is a keyword action introduced in Fate Reforged where it replaced Outlast from Khans of Tarkir as the mechanic associated with the Abzan Houses. Bolster is also featured in Dragons of Tarkir, associated with Clan Dromoka.",
-    "description": "When Bolster N, you choose a creature with the least toughness or tied with the least toughness among creatures you control and put N +1/+1 counters on it.\n\nBolster was considered middling in popularity and could be utilized as a rider on a variety of spells with a low chance of being overpowering. Despite the acceptably middling Storm Scale, Bolster has yet to return, contrasting with Support, a similar mechanic with a worse Storm Scale value, which debuted in Oath of the Gatewatch had a return in Battlebond.",
-    "reminderText": "Bolster N (Choose a creature you control with the least toughness or tied for the least toughness among creatures you control. Put N +1/+1 counters on that creature.)",
-    "sourceUrl": "https://mtg.wiki/page/Bolster"
-  },
-  "Manifest": {
-    "intro": "Manifest is a keyword action introduced in Fate Reforged. When you manifest a card, you put it onto the battlefield face down.",
-    "description": "While face down, a manifested card is a 2/2 colorless creature with no name, no abilities, and no creature types.\n\nUnlike Morph, which is usually cast from your hand, manifested cards are usually played from the top of your library. Specific cards may manifest cards from either your hand, your Graveyard, or your opponent's library.\n\nA manifested creature card may be turned face up for its mana cost. If the creature can be turned face up, the morph, megamorph, or disguise cost can be paid instead. A manifested noncreature card can't be turned face up this way unless it already had morph.\n\nIn Tarkir, manifest represents Ugin's draconic magic from the plane's past, rooted in concealment and deception. It was designed to feel like a proto-morph mechanic.\n\nAfter Fate Reforged, Manifest was featured in Commander 2018, Modern Horizons and Commander 2019. Ugin, the Ineffable of War of the Spark has a loyalty ability reminiscent of Manifest. Manifest also appeared as a one-off in the Streets of New Capenna Commander decks and Modern Horizons 3.",
-    "reminderText": "Manifest [card] (Put it onto the battlefield face down as a 2/2 creature. Turn it face up any time for its mana cost if it's a creature card.) Manifest dread (Look at the top two cards of your library. Put one onto the battlefield face down as a 2/2 creature and the other into your graveyard. Turn it face up any time for its mana cost if it’s a creature card.)",
-    "sourceUrl": "https://mtg.wiki/page/Manifest"
-  },
-  "Support": {
-    "intro": "Support is a keyword action introduced in Oath of the Gatewatch that boosts your (or your teammates') creatures with +1/+1 counters.",
-    "description": "\"Support N\" means \"Put a +1/+1 counter on each of up to N other target creatures.\" You may choose fewer targets at will.\n\nIf a creature (or any other permanent) has an ability that supports, the ability can't target the creature/permanent itself.\n\nYou cannot put multiple +1/+1 counters on one creature. If it has support 3, you have to put a +1/+1 counter on one creature, then another one, then another. It has to be a different creature for each +1/+1 counter.",
-    "reminderText": "Support N (Put a +1/+1 counter on each of up to N (other) target creatures.)",
-    "sourceUrl": "https://mtg.wiki/page/Support"
-  },
-  "Meld": {
-    "intro": "Meld is a keyword action that means to turn two meld cards on the back side into one oversized card, if you control the proper pair. It was introduced in Eldritch Moon with three pairs. Meld returned with three more meld pairs in The Brothers' War and then in Final Fantasy.",
-    "description": "The design of Meld was inspired by the Un-card B.F.M. (Big Furry Monster) and the unreleased mechanic Link.\n\nTwo cards that meld change into one oversized card on the battlefield. That single card only exists on the backs of the two other cards. A melded card is a single permanent represented by two cards. If it is one creature, it behaves as any other creature does. It can attack and block, has abilities, can be enchanted or equipped, or have counters put on it. A single spell that says \"Destroy target creature\" will destroy the whole permanent.\n\nOne of the two cards has the actual keyword action in its rules text; the other card only has the reminder text: \"Melds with (card name)\". All meld pairs will exile themselves before melding, and require ownership and control, to avoid questions of where modifications would go. The card with the action Meld will display the art and name of the card, while the other will contain text, statistics, and types. Additionally, to ease the difficulty of having two specific cards in addition to their expensive meld cast, the pairs are designed so that one of the two cards is more difficult to interact with than the other. Midnight Scavengers, Bruna, the Fading Light and Vanille, Cheerful L'Cie retrieve their melding counterpart from the graveyard, Argoth, Sanctum of Nature and Hanweir Battlements are lands, The Mightstone and Weakstone is an artifact and Phyrexian Dragon Engine has Unearth.\n\nWhenever the melded card leaves the battlefield, both cards go to the same zone where they each turn face up again.",
-    "reminderText": "No official reminder text",
-    "sourceUrl": "https://mtg.wiki/page/Meld"
-  },
-  "Exert": {
-    "intro": "Exert is a keyword action introduced in Amonkhet. Exert is focused in white, red and green.",
-    "description": "When a creature with the exert ability is exerted, then an ability is triggered and the creature doesn't untap at the beginning of its controller's next untap step.\n\nFor easy play, extra \"exerted\" markers were provided on punch cards in the Amonkhet set.\n\nThe flavor of this mechanic is that you have the ability to exert your power over the creatures, making them push themselves a little harder than they should. If the creature exerts, it means the creature is expending a large amount of effort, resulting in a bonus. As a result, the creature is then exhausted by the effort, and thus it doesn't untap in the next untap step.\n\nIn Hour of Devastation the mechanic was tweaked. Instead of being an attack trigger, these creatures exert themselves (aka choose to not untap on the next turn) when they use a specific activated ability.",
-    "reminderText": "Exert (An exerted permanent won't untap during your next untap step.)",
-    "sourceUrl": "https://mtg.wiki/page/Exert"
-  },
-  "Explore": {
-    "intro": "Explore is a keyword action introduced in Ixalan. The mechanic was created by Ken Nagle.",
-    "description": "If a creature you control explores, you reveal the top card of your library. If the revealed card is a land, put that card into your hand. If it's not a land card, put a +1/+1 counter on the exploring creature. Then, you decide whether the nonland card goes back on top of your library or into your graveyard. In a sense, Explore is an alternate version of Surveil.\n\nMost creatures that explore, do so because of a triggered ability when they enter the battlefield. Creatures may also explore as a result of an activated ability.\n\nIxalan has a few cards with abilities that trigger whenever a creature you control explores.",
-    "reminderText": "Explore (Reveal the top card of your library. Put that card into your hand if it's a land. Otherwise, put a +1/+1 counter on this creature, then put the card back on top or into your graveyard.)",
-    "sourceUrl": "https://mtg.wiki/page/Explore"
-  },
-  "Assemble": {
-    "intro": "Assemble is a keyword action introduced as a joke in Future Sight and related to Contraptions. It was greatly expanded upon in Unstable, where it was one of the main silver-bordered mechanics. Contraptions may be assembled by players and/or Creatures (Riggers).",
-    "description": "To assemble a Contraption means putting the top card of your Contraption deck face up onto one of your three sprockets.\n\nThere is no functional difference between players assembling a contraption, and creatures assembling a contraption. However, Steamflogger Boss only cares about Contraptions assembled by creatures.",
-    "reminderText": "Assemble (To assemble a Contraption, put the top card of your Contraption deck face up onto one of your sprockets.)",
-    "sourceUrl": "https://mtg.wiki/page/Assemble"
-  },
-  "Adapt": {
-    "intro": "Adapt is a keyword action introduced in Ravnica Allegiance for the Simic Combine.",
-    "description": "Adapt is tweaked version of Monstrosity. It is written as Adapt N, where N is a positive integer. If a creature has no +1/+1 counters on it, you may pay the adapt cost to put N +1/+1 counters on that creature. Unlike Monstrosity, where a creature can only become monstrous a single time, a creature can Adapt again if all of its +1/+1 counters are removed.",
-    "reminderText": "[cost]: Adapt N (If this creature has no +1/+1 counters on it, put N +1/+1 counter(s) on it.)",
-    "sourceUrl": "https://mtg.wiki/page/Adapt"
-  },
-  "Amass": {
-    "intro": "Amass is a keyword action introduced in War of the Spark that creates and grows an Army.",
-    "description": "If the amass action's controller does not control an Army creature, that player first creates a 0/0 black Army creature token. Then, the player puts a number of +1/+1 counters equal to the number specified by amass to one of their Armies they control, and the amassed Army becomes the creature type after specified by amass in addition to its other types.\n\nAmass was designed to prevent creating more than one Army tokens by itself. However, a player can use other means to control multiple armies, including copying an Army, controlling a creature with Changeling, and modify a creature's type using Artificial Evolution.\n\nConversely, removal and disabling effects in sets featuring amass tend to have limited impact on Army tokens in Limited formats. Examples include:\n\nLaw-Rune Enforcer (cannot target Army tokens, which have mana value 0) Kasmina's Transmutation (Armies do not have abilities to lose and they receive +1/+1 when having their base size 0/0 changed to 1/1) Bewitching Leechcraft (prioritizes removing +1/+1 counters over untap prevention) Fog on the Barrow-Downs (removes the Army subtype, allowing its controller to create a new Army token later) Soothing of Sméagol (cannot target tokens)\n\nAmass has only appeared on [Blue mana], [Black mana], and [Red mana] cards in sets that feature large-scale conflicts with a numerous, but mostly faceless, antagonist force.",
-    "reminderText": "Amass [subtype] N (Put N +1/+1 counters on an Army you control. It’s also a [subtype]. If you don’t control an Army, create a 0/0 black [subtype] Army creature token first.)",
-    "sourceUrl": "https://mtg.wiki/page/Amass"
-  },
-  "Learn": {
-    "intro": "Learn is a keyword action introduced in Strixhaven: School of Mages.",
-    "description": "Learn is strongly correlated to the Lesson subtype, a class of instants and sorceries that are designed to live in the sideboard. A Learner may reveal a Lesson card from outside the game and put it into their hand. Most cards with Learn are not satisfactory spells if not for the extra Learn rider, and inversely most Lesson spells are slightly overcosted in their effects. However, combined, they produce strong resource, being able to tailor for many situations if the drafter or builder had the foresight to bring the right Lessons. However, there can only be so many Lessons one can access; at the point in which the Learner runs out of lessons, they may also discard a card to draw a card. Constructed players have to fit their \"lessonboard\" in their 15-card sideboard, whereas drafters have a much greater space for Lessons, but fewer Lessons during their drafts.\n\nLearn has similarities to Investigate (a rider that appears on many cards as an extra resource), Aftermath (a single card producing two different spell effects), and interestingly Contraptions (a selection of outside resources that is activated by otherwise weaker cards).",
-    "reminderText": "Learn (You may reveal a Lesson card you own from outside the game and put it into your hand, or discard a card to draw a card.)",
-    "sourceUrl": "https://mtg.wiki/page/Learn"
-  },
-  "Venture into the Dungeon": {
-    "intro": "Venture into the dungeon is a keyword action introduced in Dungeons & Dragons: Adventures in the Forgotten Realms. It interacts with the dungeon card type.",
-    "description": "Venture into the dungeon can be the effect of a spell, an activated ability, or a triggered ability.\n\nIf you venture into the dungeon while you don't have any dungeons in the command zone you put the dungeon of your choice into the command zone and put a venture marker on the first room, at the top. The next time you venture into the dungeon, you'll move to the next room by placing the marker on that room. When you enter a room, the room ability of that room triggers. After the final room ability resolves or otherwise leaves the stack, the dungeon is removed from the game. Removing it from the game results in you completing the dungeon. When you complete a dungeon certain cards receive a bonus.\n\nThe next time you venture into the dungeon, you can choose the very same dungeon you were just in or you can head into a new one.",
-    "reminderText": "Venture into the dungeon (Enter the first room or advance to the next room) Venture into [quality] (If you’re in a dungeon, advance to the next room. If you’re not, enter [quality]. Enter the first room or advance to the next room)",
-    "sourceUrl": "https://mtg.wiki/page/Venture_into_the_dungeon"
-  },
-  "Connive": {
-    "intro": "Connive is a keyword action introduced in Streets of New Capenna as the signature Obscura mechanic.",
-    "description": "Connive is the mechanic for the Obscura, the [White mana] [Blue mana] [Black mana] family on New Capenna. The Obscura use magic to manipulate and distract, always looking for a more advantageous position. Connive can put you in a more advantageous position, both in terms of creature strength and hand quality.\n\nIf a creature you control is instructed to connive, you draw a card and discard a card. This might help you find the land you need, or later in the game, might let you trade away an unneeded land while getting to your game-ending threats a little quicker. If you discard a nonland card, you put a +1/+1 counter on the creature that connived.\n\nA creature can connive even if it's not still on the battlefield. So, if e.g. Psychic Pickpocket dies in response to its own triggered ability, you'll still get to draw and discard. Its ability to bounce a nonland permanent also happens, as it is one ability with a reflexive trigger on the connive.\n\nConnive functions similarly to Explore, with the player making the decisions for the action, while the creature performing the ability is the recipient of its counters. It exchanges the chance of raw card advantage for a much greater degree of agency in the outcome.",
-    "reminderText": "Connive N (Draw N cards, then discard N cards. Put a +1/+1 counter on this creature for each nonland card discarded this way.) Connive (Draw a card, then discard a card. If you discarded a nonland card, put a +1/+1 counter on this creature.)",
-    "sourceUrl": "https://mtg.wiki/page/Connive"
-  },
-  "Open an Attraction": {
-    "intro": "Open an attraction is a keyword action introduced in Unfinity.",
-    "description": "Attractions are artifacts, but they don't have a mana cost. They aren't cast, and never even go to your hand. To get them from your Attraction deck to the battlefield, you'll need to open \"open an attraction\". When told to open an Attraction, put the top card of your Attraction deck onto the battlefield face up under your control.",
-    "reminderText": "Open an attraction (Put the top card of your Attraction deck onto the battlefield.)",
-    "sourceUrl": "https://mtg.wiki/page/Open_an_attraction"
-  },
-  "Roll to Visit Your Attractions": {
-    "intro": "Roll to visit your attractions is a keyword action introduced in Unfinity.",
-    "description": "Roll to Visit Your Attractions is primarily a background game mechanic that links the open an attraction and visit mechanics together with the Attraction card. Players who control an Attraction have a turn-based action at the beginning of their precombat main phase that triggers the roll to visit your attractions mechanic. This ability triggers after lore counters are put on Sagas.\n\nRoll to visit your attractions appears on two cards in Unfinity — Command Performance and Line Cutter, and is referred to on \"Lifetime\" Pass Holder.",
-    "reminderText": "No official reminder text",
-    "sourceUrl": "https://mtg.wiki/page/Roll_to_visit_your_attractions"
-  },
-  "Incubate": {
-    "intro": "Incubate is a keyword action introduced in March of the Machine related to the Incubator type. The instruction to incubate includes a number which indicates how many +1/+1 counters to put on the Incubator token.",
-    "description": "Incubate creates an artifact token with N +1/+1 counters on it, which can be transformed into a 0/0 Phyrexian creature for [2 generic mana]. It is a creature equivalent to Investigate, with the payoff being a variably sized creature instead of the card the Clue provides. The token it creates is unique amongst tokens in that it is inherently double-faced and transforms; while there are other forms of \"disabling\" the creature before the payment that keep it a single-faced creature, it is likely that there are tracking issues and too many exploits regarding \"inactive\" creatures.",
-    "reminderText": "Incubate N (Create an Incubator token with N +1/+1 counters on it and “ [2 generic mana]: Transform this artifact.” It transforms into a 0/0 Phyrexian artifact creature.)",
-    "sourceUrl": "https://mtg.wiki/page/Incubate"
-  },
-  "The Ring Tempts You": {
-    "intro": "The Ring tempts you is a keyword action introduced in The Lord of the Rings: Tales of Middle-earth.",
-    "description": "The Ring Tempts You shows the influence of the One Ring on those who possess it. As the temptation grows stronger, so does the Ring-bearer.\n\nMuch like venturing, the phrase \"the Ring tempts you\" activates a command zone effect. This time, each instance of \"tempting\" grants an ability to a particular creature, dubbed the \"Ring-bearer\". The player may change the Ring-bearer for each instance of tempting. Unlike the dungeons, which have single-trigger effects, the temptings create an emblem with up to four abilities, of which each ability specifically affects the Ring-bearer.\n\nEach time the Ring tempts you, two things happen. First, you choose a creature you control to become your Ring-bearer. If you have a Ring-bearer, you may choose to have that creature remain your Ring-bearer, or you may choose another creature you control to carry that burden.\n\nSecond, The Ring gains its next ability, if it can. Once The Ring has all four of its abilities, it has reached its full power and won't gain additional abilities as the Ring tempts you in the future. Notably, The Ring will gain its next ability even if you didn't control any creatures as the Ring tempted you, meaning you didn't choose a Ring-bearer.",
-    "reminderText": "The Ring tempts you (As the Ring tempts you, you get an emblem named The Ring if you don't have one. Then, your emblem gains its next ability and you choose a creature you control to become or remain your Ring-bearer.)",
-    "sourceUrl": "https://mtg.wiki/page/The_ring_tempts_you"
-  },
-  "Face a Villainous Choice": {
-    "intro": "Face a villainous choice is a keyword action introduced in the Universes Beyond set Doctor Who. It is a punisher mechanic.",
-    "description": "Villainous choice affects the player's opponents. They are presented with a choice of two effects which are both detrimental. It is a punisher mechanic, but with targeting it has greater multiplayer appeal with negotiation.",
-    "reminderText": "No official reminder text",
-    "sourceUrl": "https://mtg.wiki/page/Face_a_villainous_choice"
-  },
-  "Time Travel": {
-    "intro": "Time travel is a keyword action introduced in the Universes Beyond set Doctor Who. It allows players to manipulate the time counters on their cards.",
-    "description": "For each suspended card you own and each permanent you control with a time counter on it you may add or remove a time counter. This way, cards with Suspend are accelerated, while cards with Vanishing stay around longer, or the other way around if needed. Some cards in the set use time counters as generic trackers, which can also be manipulated with time travel.\n\nTime travel acts like proliferate with the unbound selection of cards and counters, but it is modified to encapsulate suspended cards in exile. Additionally, it can also remove counters, but it cannot affect an opponent's cards.",
-    "reminderText": "Time travel (For each suspended card you own and each permanent you control with a time counter on it, you may add or remove a time counter.)",
-    "sourceUrl": "https://mtg.wiki/page/Time_travel"
-  },
-  "Discover": {
-    "intro": "Discover is a keyword action introduced in The Lost Caverns of Ixalan.",
-    "description": "Like cascade, discover exiles cards through the top of the controller's library for a valid nonland card and allows them to cast it for free, returning other cards exiled this way to the bottom of the library in a random order.\n\nDiscover is a revamped successor of cascade with more design space. Compared to cascade, discover:\n\nIs a keyword action that can be put on various triggers rather than being restricted to cast triggers; Specifies a mana value independently instead of being tied to cascading card's mana value; and Puts the discovered card to the player's hand if they choose not to cast it, instead of bottoming it alongside other exiled cards.\n\nThere are no cards with discover 1 or 2, making it harder to cast suspend spells with discover such as Hypergenesis. Most cards with \"discover N\" use 3, 4, or 5 as the discover value, with some using discover X and two cards use discover 10. As such, it could also go on cheaper spells and activated abilities such as on lands, though most are still restricted by the mana spent. However, putting it on triggered abilities let it chain with 3-mana clones, which got Geological Appraiser banned in Pioneer quickly.\n\nCurator of Sun's Creation doubles Discover triggers.",
-    "reminderText": "Discover N (Exile cards from the top of your library until you exile a nonland card with mana value N or less. Cast it without paying its mana cost or put it into your hand. Put the rest on the bottom in a random order.)",
-    "sourceUrl": "https://mtg.wiki/page/Discover"
-  },
-  "Cloak": {
-    "intro": "Cloak is a keyword action introduced in Murders at Karlov Manor as an upgraded version of Manifest. When you cloak a card, you put it onto the battlefield face down.",
-    "description": "While face down, a cloaked card is a 2/2 colorless creature with no name, no creature types and ward [2 generic mana].\n\nUnlike Disguise, which is usually cast from your hand, cloaked cards are usually played from other zones.\n\nMost of the rules for Manifest are the same for Cloak. A cloaked creature card may be turned face up for its mana cost. If the creature had morph or disguise, the morph, megamorph or disguise cost can be paid instead. A cloaked noncreature card can't be turned face up this way unless it already had morph or disguise.",
-    "reminderText": "Cloak card (Put it onto the battlefield face down as a 2/2 creature with ward [2 generic mana]. Turn it face up any time for its mana cost if it's a creature card.)",
-    "sourceUrl": "https://mtg.wiki/page/Cloak"
-  },
-  "Collect Evidence": {
-    "intro": "Collect evidence is a keyword action introduced in Murders at Karlov Manor.",
-    "description": "Collecting evidence involves a player exiling any number of cards from their graveyard with combined mana value equal to, or greater than, N (the evidence number). This number appears at its lowest at 2, is most likely 4 or 6, and has its highest at 10, with two cards having a variable cost X. The set mechanics of Disguise, Basic landcycling and split cards offer various ways to put high-cost cards in the graveyard without needing the equivalent mana.\n\nCollecting is done as a cost, mechanically similar to Bargain or Kicker, where doing so is optional and gives a bonus to the spell if \"evidence is collected\". It can also be used on Ward costs.",
-    "reminderText": "Collect evidence N (Exile cards with total mana value N or greater from your graveyard.)",
-    "sourceUrl": "https://mtg.wiki/page/Collect_evidence"
-  },
-  "Suspect": {
-    "intro": "Suspect is a keyword action introduced in Murders at Karlov Manor. It creates a designation on a creature that encourages attacking.",
-    "description": "Cards may \"suspect\" a creature, after which it is suspected: it gains menace and loses the ability to block. Much like goad, it is incentivized to attack, given its new abilities. Creatures that are suspected remain so until they leave the battlefield or an effect removes its suspected status.\n\nAs menace is a positive mechanic, you may want to suspect your own creatures. But as \"can't block\" is a negative characteristic, you also may suspect creatures you don't control. Specific cards interact with suspected creatures, and they may be targets for specific effects.\n\nA punch card with \"suspected\" indicators appears in booster packs for Murders at Karlov Manor.",
-    "reminderText": "Suspect (A suspected creature has menace and can't block.)",
-    "sourceUrl": "https://mtg.wiki/page/Suspect"
-  },
-  "Forage": {
-    "intro": "Forage is a keyword action introduced in Bloomburrow. It can be used as an additional cost.",
-    "description": "To forage, either exile three cards from your graveyard or sacrifice a Food. It is used like a cost like any other, despite the lack of \"pay\".\n\nNote that you can't sacrifice a Food to both forage and for its own ability to gain life. If an ability triggers “whenever you forage,” it's looking specifically for the instruction to forage. If you just exile three cards from your graveyard or sacrifice a Food for other reasons, you haven't foraged.\n\nIn Bloomburrow, foraging is a Squirrel-related mechanic. Bonecache Overseer draws a card when one Forages but allows players to do the actions through other means.",
-    "reminderText": "[cost]: Forage (To forage, exile three cards from your graveyard or sacrifice a Food.)",
-    "sourceUrl": "https://mtg.wiki/page/Forage"
-  },
-  "Manifest Dread": {
-    "intro": "Manifest is a keyword action introduced in Fate Reforged. When you manifest a card, you put it onto the battlefield face down.",
-    "description": "While face down, a manifested card is a 2/2 colorless creature with no name, no abilities, and no creature types.\n\nUnlike Morph, which is usually cast from your hand, manifested cards are usually played from the top of your library. Specific cards may manifest cards from either your hand, your Graveyard, or your opponent's library.\n\nA manifested creature card may be turned face up for its mana cost. If the creature can be turned face up, the morph, megamorph, or disguise cost can be paid instead. A manifested noncreature card can't be turned face up this way unless it already had morph.\n\nIn Tarkir, manifest represents Ugin's draconic magic from the plane's past, rooted in concealment and deception. It was designed to feel like a proto-morph mechanic.\n\nAfter Fate Reforged, Manifest was featured in Commander 2018, Modern Horizons and Commander 2019. Ugin, the Ineffable of War of the Spark has a loyalty ability reminiscent of Manifest. Manifest also appeared as a one-off in the Streets of New Capenna Commander decks and Modern Horizons 3.",
-    "reminderText": "Manifest [card] (Put it onto the battlefield face down as a 2/2 creature. Turn it face up any time for its mana cost if it's a creature card.) Manifest dread (Look at the top two cards of your library. Put one onto the battlefield face down as a 2/2 creature and the other into your graveyard. Turn it face up any time for its mana cost if it’s a creature card.)",
-    "sourceUrl": "https://mtg.wiki/page/Manifest_dread"
-  },
-  "Endure": {
-    "intro": "Endure is a keyword action introduced in Tarkir: Dragonstorm, where it is tied to the Abzan Houses clan.",
-    "description": "Whenever a creature endures N, its controller chooses between putting N +1/+1 counters it, or creating an N/N white Spirit creature token. If the creature is no longer on the battlefield when it endures, the player will have to create the Spirit token. This is similar to Fabricate, except the former creates N tokens, whereas endure creates a single, larger token.\n\nEndure, unlike fabricate, is not intrinsically tied to enter triggers and can occur in other contexts, similar to explore.",
-    "reminderText": "Endure N (Put N +1/+1 counters on it or create a N/N white Spirit creature token.)",
-    "sourceUrl": "https://mtg.wiki/page/Endure"
-  },
-  "Harness": {
-    "intro": "Harness is a keyword action introduced in Marvel's Spider-Man and its associated Universes Within set Through the Omenpaths 1. It is unique to the set's Infinity Stone and its corresponding Terminus Stone, but is expected to be used in future Marvel sets, as well.",
-    "description": "Each Infinity Stone has a pair of linked abilities. The first of the two allows its controller to harness the stone, giving it the \"harnessed\" designation. The second is the stone's [Infinity symbol] ability, which can only be used or becomes active while the card has its \"harnessed\" designation.",
-    "reminderText": "Harness [card name] (Once harnessed, its [Infinity symbol] ability is active.)",
-    "sourceUrl": "https://mtg.wiki/page/Harness"
-  },
-  "Airbend": {
-    "intro": "Airbend is is a keyword action introduced in Avatar: The Last Airbender. An airbended object is exiled; as long as it is exiled this way, its owner may pay [2 generic mana] to cast it from exile. The mechanic represents the art of airbending in the Avatar universe.",
-    "description": "",
-    "reminderText": "Airbend [targets] (Exile them. While each one is exiled, its owner may cast it for [2 generic mana] rather than its mana cost.) Airbend [target] (Exile it. While it's exiled, its owner may cast it from exile by paying [2 generic mana] rather than its mana cost.)",
-    "sourceUrl": "https://mtg.wiki/page/Airbend"
-  },
-  "Earthbend": {
-    "intro": "Earthbend is an keyword action introduced in Avatar: The Last Airbender. Earthbend targets a land, turning it into a 0/0 creature with haste in addition to its other types, and putting a number of +1/+1 counters on it equal to the earthbend value. When the land dies or is exiled, the card is returned to the battlefield tapped.",
-    "description": "",
-    "reminderText": "Earthbend N (Target land you control becomes a 0/0 creature with haste that's still a land. Put N +1/+1 counters on it. When it dies or is exiled, return it to the battlefield tapped.) Earthbend 1 (Target land you control becomes a 0/0 creature with haste that's still a land. Put a +1/+1 counter on it. When it dies or is exiled, return it to the battlefield tapped.)",
-    "sourceUrl": "https://mtg.wiki/page/Earthbend"
-  },
-  "Waterbend": {
-    "intro": "Waterbend is a keyword action introduced in Avatar: The Last Airbender. While paying a waterbend cost, a player can tap an untapped creature or artifact they control to pay for [1 generic mana]. It represents the art of waterbending in the Avatar universe.",
-    "description": "",
-    "reminderText": "Waterbend [cost] (While paying a waterbend cost, you can tap your artifacts and creatures to help. Each one pays for [1 generic mana].)",
-    "sourceUrl": "https://mtg.wiki/page/Waterbend"
-  },
-  "Blight": {
-    "intro": "Blight is a keyword action introduced in Lorwyn Eclipsed. Blight includes a number and is often phrased as a cost you pay, such as to activate an ability or as an additional cost to cast a spell. It forces a player to put a number of −1/−1 counters on a creature they control.",
-    "description": "When a player is instructed to blight N, they put N −1/−1 counters on a creature they control. That creature isn't targeted, so you choose which creature will get the −1/−1 counters as you're taking the blight action. You can put more −1/−1 counters on a creature than it would take to get rid of it. On the other hand, there are several possibilities in the Lorwyn Eclipsed set to negate the negative impact of −1/−1 counters on your creatures. As a cost, it recalls the unnamed \"Ruthless\" mechanic of Amonkhet, another −1/−1 counter mechanic.\n\nBlight also can be used as a ward cost (e.g. Auntie Ool, Cursewretch). High Perfect Morcant and Champion of the Weird are the only cards that can force opponents to blight.\n\nThe mechanic is a play on the Shadowmoor mechanic Wither, which also used −1/−1 counters, and might be named after the card Incremental Blight from that same set. Scarscale Ritual has the effective cost Blight 1 which is a potential precursor to this mechanic. Flavorwise, \"Eyeblight\" is a term Lorwyn's elves use for creatures they deem ugly.",
-    "reminderText": "Blight N (Put N −1/−1 counters on a creature you control.)",
-    "sourceUrl": "https://mtg.wiki/page/Blight"
-  }
+	"Activate": {
+		"intro": "Activate is the keyword action for using activated abilities. Activated abilities can be identified by the use of a colon,:, separating a cost and an effect. To activate that ability, the ability is moved to the stack and its cost is paid.",
+		"description": "",
+		"reminderText": "No official reminder text",
+		"sourceUrl": "https://mtg.wiki/page/Activate"
+	},
+	"Attach": {
+		"intro": "Attach is a keyword action. It means \"to move an Aura, Equipment, or Fortification onto another object or player\".",
+		"description": "",
+		"reminderText": "No official reminder text",
+		"sourceUrl": "https://mtg.wiki/page/Attach"
+	},
+	"Behold": {
+		"intro": "Behold is a keyword action introduced in Tarkir: Dragonstorm where it is tied to the Dragon creature type. It allows a player to trade information for an additional effect.",
+		"description": "A player can \"behold an object\" if they have a corresponding object in their hand to be revealed or if they control a corresponding object on the battlefield. The keyword is similar to the Dragons-matter cycle of cards in Dragons of Tarkir, which have additional effects if the controller revealed or controlled a Dragon. Some spells may have an additional effect if a Dragon was beheld. This applies no matter which manner of beholding you chose, and it applies no matter what happened to the Dragon or Dragon card in question.\n\nInitially, the Behold mechanic was restricted to Dragons, tying in with the themes of Tarkir: Dragonstorm. It ties in with Omen, both being mechanics that portent the Dragons that may come later. Mark Rosewater has announced that it will be deciduous. It is especially suited to care about big powerful things that are slow to come into play.\n\nBehold returned in Lorwyn Eclipsed, with two new design directions. Cards may behold any of the five main species types from Lorwyn. One of them is to recall Champion, by exiling the beheld creature. Unlike the other Behold spells, this is mandatory and has no alternative. Another references the \"revealer\" cycle from original Lorwyn, where one would pay a mana tax if a matching species card was not revealed. As these species have creatures along the curve, controlling them is more probable than in Dragonstorm, where Dragons were high on the curve. One card (Celestial Reunion) beholds two creatures that match in subtype; for the effect to work, the player must choose the subtype in advance.",
+		"reminderText": "Behold an [object] (To behold an [object], choose an [object] you control or reveal an [object] card from your hand.)",
+		"sourceUrl": "https://mtg.wiki/page/Behold"
+	},
+	"Cast": {
+		"intro": "Cast is a keyword action. It was introduced in Alpha but temporary replaced with Play in the Sixth Edition rules changes and then reinstated in Magic 2010. When you cast a spell, you take it from where it is (usually the hand), put it on the stack, and pay its costs, so that it will eventually resolve and have its effect.",
+		"description": "",
+		"reminderText": "No official reminder text",
+		"sourceUrl": "https://mtg.wiki/page/Cast"
+	},
+	"Counter": {
+		"intro": "Certain spells and abilities can \"counter target spell\" (or similar effects). Counter in this sense is an evergreen keyword action. A spell that is countered is put into the graveyard instead of doing its effect.",
+		"description": "",
+		"reminderText": "No official reminder text",
+		"sourceUrl": "https://mtg.wiki/page/Counter_(keyword_action)"
+	},
+	"Create": {
+		"intro": "Create is an evergreen keyword action. It was consolidated with a name in Kaladesh and first seen on the FNM promo for October 2016, Rise from the Tides, although Wizards of the Coast defined it just only as a new vocabulary.",
+		"description": "",
+		"reminderText": "No official reminder text",
+		"sourceUrl": "https://mtg.wiki/page/Create"
+	},
+	"Destroy": {
+		"intro": "Destroy is an evergreen keyword action, introduced in Alpha. When a permanent is destroyed, it is moved from the battlefield to its owner’s graveyard. It is also the term used for creatures going to the graveyard due to lethal damage, including the reduced lethal damage threshold caused by Deathtouch.",
+		"description": "",
+		"reminderText": "No official reminder text",
+		"sourceUrl": "https://mtg.wiki/page/Destroy"
+	},
+	"Discard": {
+		"intro": "Discard is an evergreen keyword action which takes cards from a player's hand and puts them in their graveyard.",
+		"description": "Discard is primarily in the black part of the color pie. Discard spells are more often at sorcery speed, though a few have been printed at instant speed. This is to avoid the strategic use of casting it in their opponent's draw step to rid them of the only card they have that turn. The target of a discard spell more often than not gets to choose which cards to discard. More powerful versions are cards which force a random discard or reveal the target's hand to the discard spell's caster (Thoughtseize effects). Typically \"blind\" discards are designed as card advantage spells where they cause attrition through numbers, whereas the revealing discards are used more precisely to slow the opposing strategy. Random discard spells are unpopular game experiences so fewer of them have been made. Due to the diminishing returns of discard spells, they trend to the lower part of the curve and by volume have a maximum value of three cards, as any higher is rarely effectual for the cost it would need to add: Ghost-Lit Stalker at seven and Haunting Hymn at six are the only ones that explicitly discard four, and both are secondary modes. Red and blue have not gotten new cards that cause card-negative discard for decades.\n\nBlack discard spells generally invoke a flavor of insanity or trauma, whereas red discard spells invoke one of fate or fire and blue discard spells invoke one of stealing. The creature type Specter generally are mechanically tied to causing players to discard cards when they are unblocked.\n\nMechanics which include discard as a cost are bloodrush, channel, cycling, and reinforce. Anti-discard effects are rare single designs.\n\nFor Odyssey, Mark Rosewater designed discard spells to challenge to mess around with the concept of card advantage and create threshold. In hindsight, it was an \"interesting\" idea but not \"fun\" to play.\n\nDiscard as a cost is primary in black, and secondary in red, shown most commonly during rummaging. All other colors are tertiary.",
+		"reminderText": "No official reminder text",
+		"sourceUrl": "https://mtg.wiki/page/Discard"
+	},
+	"Double": {
+		"intro": "Double is a keyword action formally introduced in Dominaria for Grunn, the Lonely King.",
+		"description": "Double multiplies certain characteristics or conditions by two. Doubling has existed informally as early as Fifth Dawn with cards like Doubling Cube and Solarion.\n\nDoubling may be applied to:\n\nDamage (e.g. Furnace of Rath, Gratuitous Violence ) The number of counters (e.g. Deepglow Skate, Kalonian Hydra) The amount of each type of mana in your mana pool (e.g. Doubling Cube) Power and toughness (e.g. Grunn, the Lonely King, Unnatural Growth) Life total (e.g. Beacon of Immortality, Angelic Enforcer) Values of X (e.g. Unbound Flourishing)\n\nEffects that double power and toughness or +1/+1 counters exist primarily in green, although power/toughness doubling also exists on some red and white cards. Green holds the most cards with the \"double\" action overall. In particular, six green cards associated with the Quandrix college have doubling effects, to flavorfully complement its mathematical theme. Effects that double damage, on the other hand, exist exclusively in red. Effects that double life total exist only in white.\n\nRelated to doubling is doing actions \"an additional time\", e.g., Panharmonicon, or things that replace with \"twice\" (e.g., Mana Reflection). This is distinct from doubling, as doubling affects existing numbers, whereas \"twice\" and \"additional\" templating usually are in \"if\" statements that are replacement effects for future events. Consequently, they can double other events such as create, proliferate, or mill.",
+		"reminderText": "No official reminder text",
+		"sourceUrl": "https://mtg.wiki/page/Double"
+	},
+	"Triple": {
+		"intro": "Triple is a keyword action formally introduced in Final Fantasy for Tifa's Limit Break.",
+		"description": "Triple multiplies certain characteristics or conditions by three.\n\nPrior to the mechanic being formalized as a keyword action, Nyxbloom Ancient, Virtue of Strength, Jeska, Thrice Reborn, City on Fire and Fiery Emancipation had abilities that tripled certain effects. \"Triple\" as an adjective was first used on Fiery Emancipation (Core Set 2021), where it took the form \"it deals triple that damage.\" The term was not defined in the Comprehensive Rules until Final Fantasy.",
+		"reminderText": "No official reminder text",
+		"sourceUrl": "https://mtg.wiki/page/Triple"
+	},
+	"Exchange": {
+		"intro": "Exchange is a keyword action. One of the big things the Sixth Edition rules change did was to try to consolidate how Magic card text referred to things. The game had always had it, but it wasn't until then that exchange got its own vocabulary word.",
+		"description": "There are three major use cases for the action of \"exchange\", with a fourth obsolete use related to ante.",
+		"reminderText": "No official reminder text",
+		"sourceUrl": "https://mtg.wiki/page/Exchange"
+	},
+	"Exile": {
+		"intro": "Exile is a game zone outside the field of play. It is also a keyword action, meaning \"put into the exile zone\".",
+		"description": "The exile zone is used by a wide variety of abilities as a tool to make the ability work as intended. The Comprehensive Rules describe exile as \"essentially a holding area for objects\" which can be temporary or permanent. Interactions with exile are dictated almost exclusively by abilities - exile is never involved in the core game flow of turn-based actions, playing cards and combat unless an ability is at work. Additionally, extremely few cards can bring another card out of exile that it didn't exile itself. Together, these properties allow for ability designs that place cards in exile, and potentially dictate further actions that will happen to them, with almost no chance of interference or complication by any other effects.\n\nThe zone is often used as a temporary holding place for cards, as with the mechanics Adventure, Flicker, Foretell, Imprint, Madness, Plot and Suspend. Depending on the exiling ability and abilities linked to it, the exiled card may be returned to where it came from or moved to another zone, be copied, have its attributes referenced by other abilities, or be played from exile, among other options. These actions may happen immediately, or after a delay. Sometimes counters are used on such cards; exile is the only zone other than the battlefield in which cards often have counters.\n\nExiling is also a form of removal, as in the classic Swords to Plowshares. This is stronger and more permanent than putting cards into the graveyard, since there are few preventive measures compared to damage or destruction, and there's little chance of getting the card out of exile later. It is extremely difficult to protect against a non-targeted exile card like Final Judgment, since abilities like Indestructible don't prevent exile. The \"imprisoning\" form of exile removal, which is now common among white enchantments and creatures, allows for more counterplay: the removal can be reversed if the exiler is itself eliminated.\n\nExile can serve as a \"graveyard for the graveyard\" - a zone cards go to which is even more final than the graveyard. Graveyard hate cards do this to prevent opponents from retrieving cards from it (Tormod's Crypt, Decompose). Graveyard cards can also be deliberately consumed as resources (Frankenstein's Monster, Escape), or exile themselves after being used from the graveyard to avoid being re-used repeatedly (Flashback, Academy Rector). Some cards even exile themselves immediately upon resolution, to prevent any re-use, most often with easily recurring or powerful spells (All Sun's Dawn, extra turn spells).\n\nOnly a few cards, such as Pull from Eternity, Riftsweeper or Binding Negotiation, can access a card in exile without having exiled it themselves. Battle for Zendikar notably inverted the usual pattern by using the exile zone as a resource through the Ingest ability and a series of Eldrazi Processor cards that moved cards from exile into the graveyard, albeit only the opponent's cards. Head designer Mark Rosewater tries to limit such cards, and does not believe a theme like exile-as-a-resource is likely to be re-used in future sets.\n\nExiling primarily occurs among white, black, and colorless cards.\n\nThe one use of exile by the game rules themselves rather than in connection to card abilities is in multiplayer games. Cards that were controlled by a player that has left the game, but owned by a player still in the game, remain in the game but move to the exile zone.",
+		"reminderText": "",
+		"sourceUrl": "https://mtg.wiki/page/Exile"
+	},
+	"Fight": {
+		"intro": "Fight is a keyword action introduced in Innistrad. The word appears in a phrase like \"[Cardname] fights target creature.\" and it means that both creatures deal damage equal to their Power to each other. Cards using fight appear primary in green and secondary in red. They carry the flavor of an altercation.",
+		"description": "Fight is similar to the mechanic originally introduced with the Land Arena, though slightly altered. A few old cards (including Arena) with the same functionality received updated Oracle wording using the new terminology. Cards with similar, but not identical, functionality do not use the word \"fight\" — the most obvious effect would be due to wither and infect, which would reduce the counter-damage before it happens.\n\nFighting was introduced as a way for Green to interact with creatures in Limited, often at common. With other colors getting more abilities on their creatures, giving Green a way to leverage creature sizing was important for balance, and critically letting them answer utility creatures with [The tap symbol.] abilities that can't be forced into combat with things like Provoke or Lure. However, it has many downsides both in application and design: the most obvious one is that it is extremely vulnerable to not only removal but also opposing combat tricks. It also tends to exacerbate tempo (the player ahead on board gets to fight with a stronger creature, while a player behind on board can't answer the biggest threat) and, as a consequence, tends to be played at the first safe opportunity regardless of impact. Fight spells are often coupled with pump effects to allow creatures to survive fighting, as creatures of the same mana cost tend to trade. These can either be temporary, use +1/+1 counters, or even flipped by having the fight be an enters effect on a pumping Aura. While this also leans into the forward-tempo aspect, it sometimes allows the player who is behind to recover. A notable play pattern with pump-fights is that a pumped creature that has fought usually can't profitably attack into a second blocker.\n\nAs such, the most basic fight effect of Prey Upon has been deemed worth less than a mana: one-mana sorcery Fight spells now have further flexibility, such as Bushwhack or Longstalk Brawl. Instant-speed fight is not common, as incentivizing players to fight into open mana tends to end poorly, so design favors giving players different upsides for the cost increase associated with making a fight spell instant speed.\n\nGarruk Relentless has a unique effect where it deals 3 damage to a creature and the creature deals its power to him; this is functionally similar to a 3/3 that fights, but on a planeswalker.",
+		"reminderText": "Fight [a creature] (Each deals damage equal to its power to the other.)",
+		"sourceUrl": "https://mtg.wiki/page/Fight"
+	},
+	"Goad": {
+		"intro": "Goad is a keyword action introduced in Conspiracy: Take the Crown that forces creatures to attack, preferably someone other than you. It was designed for multiplayer play.",
+		"description": "Goad causes a creature to be goaded until a player’s next turn. A goaded creature has to attack a player (not a planeswalker or battle) other than you if it can. The controller of a goaded creature still chooses who the creature attacks.\n\nIf the creature can't attack a player other than you, then it must attack you or a planeswalker if it can. This is most likely when the game is down to two players.\n\nGoad is primary in blue and red, and secondary in black.",
+		"reminderText": "Goad (Until your next turn, that creature attacks each combat if able and attacks a player other than you if able.)",
+		"sourceUrl": "https://mtg.wiki/page/Goad"
+	},
+	"Investigate": {
+		"intro": "Investigate is a keyword action introduced in Shadows over Innistrad (2016).",
+		"description": "To investigate, you create a Clue token. Clues are colorless artifacts, which have the ability \" [2 generic mana], Sacrifice this artifact: Draw a card.\"\n\nInvestigate sometimes is triggered when specific things happen. For example, Tireless Tracker lets you investigate when a land enters the battlefield under your control, and Ulvenwald Mysteries lets you investigate when a nontoken creature you control dies. Some cards also have abilities that trigger when a Clue is sacrificed. This makes the decision of when to sacrifice a Clue more interesting, and so in some cases sacrificing Clues as soon as possible is not necessarily the best play.",
+		"reminderText": "Investigate (Create a Clue token. It's an artifact with \" [2 generic mana], Sacrifice this artifact: Draw a card.\")",
+		"sourceUrl": "https://mtg.wiki/page/Investigate"
+	},
+	"Mill": {
+		"intro": "Mill is a keyword action used in Magic to describe the action of a player taking cards from the top of their library and putting them into their graveyard. For a player to mill N cards, they put the top N cards from their library into their graveyard. The term alludes to the card Millstone, which was first printed in Antiquities and was the first card to feature this mechanic.",
+		"description": "Milling is a strategy some decks use which takes advantage of the decking rule. Emptying the opponent's library is one way to ensure a victory, although they do not lose until they actually have to draw a card, giving them another untap and upkeep step to potentially win.\n\nThere are two basic types of mill decks. The control deck looks to take over the game through killing the opponent's creatures and countering their spells, using milling as a hard-to-disrupt way to win the game; some actively mill by cards such as Nephalia Drownyard, and some do so passively, most notoriously with Elixir of Immortality like the champion's deck of Pro Tour Magic 2015. The second approach acts like a burn deck by playing primarily mill cards and looks to mill the opponent out as soon as possible. The most aggressive mill spells can mill ten or more cards, letting a player mill 50 cards in four or five spells.\n\nThere is a particular distinction between Limited and Constructed mill cards, directly borne from the twenty-card difference in deck size. Repeated mills of three to five are threatening in Limited but often insufficient in Constructed, while a single card milling fifteen to twenty is the reverse.\n\nCards that cause a player to mill have most often been found in blue (primary) or black (secondary), especially in the Dimir guild of the Ravnica blocks, though most of the earliest milling cards were artifacts. Green (tertiary) usually mills itself caring about what gets milled in some way, but on rare occasion, does that to all players.\n\nFlavor-wise, milling is often portrayed as mental attacks, memory loss, insanity, or drowning.\n\nPlaytesting has shown that less-experienced players have a negative emotional reaction to milling that's on par with creature-destruction effects.",
+		"reminderText": "Mill N cards (Put the top N cards from the library into your/their graveyard.)",
+		"sourceUrl": "https://mtg.wiki/page/Mill"
+	},
+	"Play": {
+		"intro": "Play is a keyword action that encompasses two possible actions, depending on a card's type. Playing a land is a special action that moves that land onto the battlefield. Because it is a special action, it cannot be responded to. Playing any other card means casting that card as a spell, which involves the stack and allows players to respond. Lands are not spells, and cannot be cast.",
+		"description": "",
+		"reminderText": "No official reminder text",
+		"sourceUrl": "https://mtg.wiki/page/Play"
+	},
+	"Regenerate": {
+		"intro": "Regenerate is a former evergreen keyword action until it was removed from evergreen status after Oath of the Gatewatch.",
+		"description": "",
+		"reminderText": "[cost]: Regenerate (The next time this creature would be destroyed this turn, instead tap it, remove it from combat, and heal all damage on it.)",
+		"sourceUrl": "https://mtg.wiki/page/Regenerate"
+	},
+	"Reveal": {
+		"intro": "Reveal is a keyword action. By keywording it, the Sixth Edition rules change clarified that there was a difference between a player looking at hidden information (usually something in a player's hand) and that player revealing it which meant that all players saw it. This distinction isn't important in a two-player game but matters very much when three or more players are involved. Also, the game would later care about things being revealed.",
+		"description": "",
+		"reminderText": "No official reminder text",
+		"sourceUrl": "https://mtg.wiki/page/Reveal"
+	},
+	"Sacrifice": {
+		"intro": "Sacrifice, often shortened to sac, is a keyword action. It means to move a permanent you control to its owner's graveyard.",
+		"description": "Sacrificing or saccing is removing a permanent from play. This can be due to an ability, a spell effect, a cost, or part of inherent rules baggage. Objects intended to be temporary are often sacrificed rather than destroyed, as the latter requires more effort to retain. Still, if the designers wish to avoid death triggers altogether, they may simply be exiled. Downside mechanics are often sacrifice-related. A sacrificed permanent cannot be regenerated and was one of two terms that were born from the obsolete bury keyword. Sacrificing always costs a card as an object, but by virtue of token creation, the card may not necessarily be one that the player had to use a card in hand for.\n\nEven though the card Sacrifice was in Alpha, the keyword action of sacrifice didn't show up until Revised Edition.",
+		"reminderText": "No official reminder text",
+		"sourceUrl": "https://mtg.wiki/page/Sacrifice"
+	},
+	"Scry": {
+		"intro": "Scry is a keyword action that allows a player to look at a certain number of cards from the top of their library and put them on the bottom of the library or back on top in any order. It primarily features on instants and sorceries, but has also appeared on creatures, artifacts, lands (including a cycle first printed in Theros block), and enchantments. It is also part of the Vancouver mulligan.",
+		"description": "",
+		"reminderText": "Scry N (Look at the top N cards of your library, then put any number of them on the bottom and the rest on top in any order.) Scry 1 (Look at the top card of your library. You may put that card on the bottom.)",
+		"sourceUrl": "https://mtg.wiki/page/Scry"
+	},
+	"Search": {
+		"intro": "Search is a keyword action. It was introduced on Demonic Tutor in Alpha. It is exclusively used as the action used to look at the cards in a player's library, though it is also used for known-information zones hand and graveyard when mentioned in conjunction with the library.",
+		"description": "",
+		"reminderText": "No official reminder text",
+		"sourceUrl": "https://mtg.wiki/page/Search"
+	},
+	"Shuffle": {
+		"intro": "Shuffle is a keyword action that was introduced in Alpha. A shuffled deck must be completely randomized. Libraries can only be shuffled when a player is directed to do so by the rules. Piles of cards as few as two may also be shuffled, made when one or more known cards are meant to be randomized with others.",
+		"description": "Before each game, each player must shuffle their deck. While the Comprehensive Rules state only that libraries must be in a state such that no player knows their order, the Tournament Rules go into substantially more detail. Notably, the Tournament Rules state that pile shuffling is not adequate - it is considered only as a form of checking for the correct number of cards in one's deck and is permitted once per game. This means that any in-game instances of shuffling cannot use pile shuffling. Additionally, players must have the option of performing a final shuffle of their opponent's deck. At the Competitive and Professional Rules Enforcement Levels, players must shuffle their opponent's decks.\n\nDuring the game, various effects may require a player to shuffle their library again. This usually follows a player searching that library, and is necessary to avoid that player accurately predicting every draw from that library. Outside of search effects, several cards direct that some set of cards be shuffled into the library from other zones.\n\nR&D tries to minimize the frequency of shuffle effects by avoiding printing them at lower rarities, because they slow down the pace of play, and because many new players are uncomfortable with shuffling. However some recent mechanics increase the density of shuffling at common, such as Omen cards from Tarkir: Dragonstorm and Lander tokens of Edge of Eternities. These have a slightly different texture as they are not related to nonland tutoring, which also runs into repetition of play issues.",
+		"reminderText": "No official reminder text",
+		"sourceUrl": "https://mtg.wiki/page/Shuffle"
+	},
+	"Surveil": {
+		"intro": "Surveil is a keyword action that allows a player to look at a certain number of cards from the top of their library and put them in the graveyard or back on top in any order. It was introduced as the Dimir mechanic in Guilds of Ravnica but later was upgraded to deciduous.",
+		"description": "The instruction to surveil always includes a number, such as surveil 2 on Deadly Visit. Look at that many cards from the top of your library. From those cards, put as many cards as you like back on top of your library in any order. Put the rest into your graveyard. Surveil helps you set up better draws for the future. Even if all the cards you look at end up in the graveyard, you're much closer to what you need. The graveyard is a much readier resource, but be careful of decking yourself - many a Dimir deck in Guilds of Ravnica draft found itself unable to win before running out of cards.\n\nSurveil is very reminiscent of the scry ability, the difference is putting cards into your graveyard instead of putting them at the bottom of your library. Graveyard-matters cards and draw-smoothing effects are commonplace, so their intersection in Surveil returns now and then rather than Scry.",
+		"reminderText": "Surveil N (Look at the top N cards of your library, then put any number of them into your graveyard and the rest on top of your library in any order.) Surveil 1 (Look at the top card of your library. You may put it into your graveyard.)",
+		"sourceUrl": "https://mtg.wiki/page/Surveil"
+	},
+	"Tap and Untap": {
+		"intro": "Tap is a keyword action that is usually represented on cards with [The tap symbol.] symbol.",
+		"description": "To tap a permanent, turn it 90 degrees from an upright position. For example, one of the first things that any player learns about Magic is that you tap your lands to cast your spells. As it is integral to the game and TCGs in general, Wizards of the Coast has the concept of tapping patented.\n\nActions that cause a card to tap include:\n\nUsing its activated ability if that ability requires it to tap (for example, \" [The tap symbol.]: Add [Colorless mana].\") Declaring a creature as an attacker (see Declare Attackers Step) Regenerating a creature that would be destroyed and is not already tapped (see Regeneration) Paying a cost of a spell or ability (see Additional cost, Alternative cost, and Activation cost)",
+		"reminderText": "No official reminder text",
+		"sourceUrl": "https://mtg.wiki/page/Tap_and_untap"
+	},
+	"Transform": {
+		"intro": "Transform is a keyword action introduced in Innistrad and means to turn a double-faced card on the back side, changing the card face that is visible.",
+		"description": "Each double-faced card has a front face. This face is the default; double-faced permanents start on the battlefield with this face upwards. If an ability instructs you to transform the permanent, you turn it over so its other face is up. Whichever face is up at the time tells you what that permanent is and what it can do.",
+		"reminderText": "No official reminder text",
+		"sourceUrl": "https://mtg.wiki/page/Transform"
+	},
+	"Convert": {
+		"intro": "Convert is a keyword action introduced in Transformers and means to turn a double-faced card to the opposite face. It is exactly the same as Transform.",
+		"description": "Similar to Transform, if an ability instructs you to convert the permanent, you turn it over so its other face is up. Whichever face is up at the time tells you what that permanent is and what it can do.",
+		"reminderText": "No official reminder text",
+		"sourceUrl": "https://mtg.wiki/page/Convert"
+	},
+	"Fateseal": {
+		"intro": "Fateseal was an ability introduced in Future Sight as one of four \"pre-print\" abilities that only appeared on timeshifted cards.",
+		"description": "",
+		"reminderText": "Fateseal N (To fateseal N, look at the top N cards of an opponent's library, then put any number of them on the bottom of that player's library and the rest on top in any order.) Fateseal 1 (To fateseal 1, look at the top card of an opponent's library, then you may put that card on the bottom of that library.)",
+		"sourceUrl": "https://mtg.wiki/page/Fateseal"
+	},
+	"Clash": {
+		"intro": "Clash is an keyword action. It first appeared in Lorwyn and was reused in Morningtide.",
+		"description": "To clash, a player reveals the top card of their library. Each clashing player reveals the top card of their library, then puts that card on the top or bottom. A player wins if their card had a higher mana value. The act of using the mana values of the top cards as a contest was previously seen on Psychic Battle and Timesifter.\n\nClash wasn't well received by the players. A design review in 2010 by Rosewater considered it a design failure. Nonetheless, it reappeared with Marvo, Deep Operative in a Murders at Karlov Manor Commander deck, to \"make a narrow band of players very happy\". For Lorwyn Eclipsed, it was rejected.",
+		"reminderText": "Clash (Each clashing player reveals the top card of their library, then puts that card on their choice of the top or bottom. A player wins if their card had a greater mana value.)",
+		"sourceUrl": "https://mtg.wiki/page/Clash"
+	},
+	"Planeswalk": {
+		"intro": "Planeswalk is a keyword action used in the Planechase format. Whenever a player rolls the planeswalker symbol ( [Planeswalker symbol] ) on a planar die, that player planeswalks.",
+		"description": "\"Planeswalk\" means to put each face-up plane card or phenomenon card on the bottom of its owner's planar deck face down, then move the top card of your planar deck off that planar deck and turn it face up in a Planechase game.",
+		"reminderText": "No official reminder text",
+		"sourceUrl": "https://mtg.wiki/page/Planeswalk"
+	},
+	"Set in Motion": {
+		"intro": "Set in motion is a keyword action found on scheme cards in the Archenemy format. To set a scheme in motion, the archenemy turns the top card of the scheme deck face up. That card does not change zones; schemes are always in the command zone. One card, All in Good Time, restricts the archenemy's ability to set schemes in motion.",
+		"description": "",
+		"reminderText": "No official reminder text",
+		"sourceUrl": "https://mtg.wiki/page/Set_in_motion"
+	},
+	"Abandon": {
+		"intro": "Abandon is a keyword action found on scheme cards in the Archenemy format. It is comparable to sacrificing a permanent, except that abandoned schemes are not permanents, return to the bottom of the scheme deck when abandoned, and never leave the command zone.",
+		"description": "",
+		"reminderText": "No official reminder text",
+		"sourceUrl": "https://mtg.wiki/page/Abandon"
+	},
+	"Proliferate": {
+		"intro": "Proliferate is a keyword action introduced in Scars of Mirrodin. When a player proliferates, they choose any number of players and/or permanents with counters on them, then put another of each kind of counter already there on these players or permanents.",
+		"description": "Proliferate allows a player to add an additional counter to all permanents and players in the game, but only if they already have a counter. For example, a player proliferates and chooses an opponent with a Poison counter, a Planeswalker card with a loyalty counter, a creature with a −1/−1 counter, and an artifact with a charge counter on it. That opponent would then get another poison counter, the planeswalker would get another loyalty counter, and the creature now has two −1/−1 counter and the artifact has two charge counters on it. Proliferate does not target, so permanents with shroud or hexproof can still be chosen and will recieve additional counters.\n\nThematically, the proliferate mechanic is tied in with the Phyrexia faction in Scars of Mirrodin and its related Infect mechanic. As such, each of the cards that have been printed with the proliferate ability is marked with the symbol of the Phyrexia faction. Only featured on blue and artifact cards in Scars of Mirrodin, it has spread to black and green in Mirrodin Besieged, illustrating the block theme/storyline of the Phyrexian infestation taking over Mirrodin. In Phyrexia: All Will Be One this is closely associated with the Toxic mechanic, which largely replaced Infect. In order to present proliferate gameplay different from both War and Scars blocks, neither +1/+1 nor −1/−1 counters are present. Instead, the chief interaction is with oil counters (and to a lesser extent poison counters) which are similar to charge counters. The five rare planeswalkers also contribute to this different gameplay.\n\nIn War of the Spark, it instead represents \"the influence of the planeswalkers\": the heroes in blue, white and green - in opposition of Bolas in Grixis - building up creatures with +1/+1 counters and the loyalty counters of the many Planeswalkers, and additionally synergizing with the Amass tokens.",
+		"reminderText": "Proliferate (Choose any number of permanents and/or players, then give each another counter of each kind already there.)",
+		"sourceUrl": "https://mtg.wiki/page/Proliferate"
+	},
+	"Detain": {
+		"intro": "Detain is a keyword action that was introduced in Return to Ravnica as the guild mechanic of the Azorius guild.",
+		"description": "Detain means: \"Until your next turn, that permanent can't attack or block and its activated abilities can't be activated.\" In effect, for one round of turns, it is an Arrest or Faith's Fetters for any permanent.",
+		"reminderText": "Detain (Until your next turn, that permanent can't attack or block and its activated abilities can't be activated.)",
+		"sourceUrl": "https://mtg.wiki/page/Detain"
+	},
+	"Populate": {
+		"intro": "Populate is a keyword action introduced in Return to Ravnica associated with the Selesnya Conclave.",
+		"description": "Populate is a mechanic that creates copies of creature tokens. As it does nothing on its own, it requires a minor amount of setup. Hence, it is designed in two ways: the first is when the effect creates a token, then lets the caster populate. Such an effect is costed for the expected cost of two tokens and can become more powerful with better tokens: compare Horncaller's Chant to Eyes in the Skies. Alternatively, it can be put as a rider on a card mostly on rate, which would become card advantage with other token production.\n\nThe mechanic was given a middling 6 on the Storm Scale. While popular yet easy to balance, it requires a devoted infrastructure to make it both interesting while not overwhelming. As Commander products have fewer restrictions on token density and are fully preconstructed, cards that only populate are more common there, in contrast to randomized premier products.",
+		"reminderText": "Populate (Create a token that's a copy of a creature token you control.)",
+		"sourceUrl": "https://mtg.wiki/page/Populate"
+	},
+	"Monstrosity": {
+		"intro": "Monstrosity is a keyword action introduced in Theros, where it was connected to the monster theme of the set. It is an ability that gives a power boost through a one-time payment.",
+		"description": "Monstrosity is defined as giving the creature the ability to become monstrous. Monstrosity N is an activated ability you can activate any time you can pay for it. When it resolves, it checks whether the creature is already monstrous. If it's not, the ability puts a number of +1/+1 counters on the creature equal to the monstrosity number and causes the creature to become monstrous. The counters don't make the creature monstrous, but assist in tracking the status. Monstrosity skipped Born of the Gods, but reappeared in Journey into Nyx. It was reused in Commander 2015, Conspiracy: Take the Crown and Modern Horizons. It also appeared in Commander 2020, and was considered for Zendikar Rising.\n\nThe Werewolf-to-Eldrazi of Eldritch Moon use double-faced card technology to portray a similar one-way transformation, albeit without the square stat change of +1/+1 counters. The Adapt keyword from Ravnica Allegiance is a tweaked version from Monstrosity that checks for counters rather than using an invisible marker.\n\nMonstrosity is a mechanic that gets considered by a lot of sets because it's flavorful, easy to design to, and has enough \"knobs\" to make balancing it manageable. However, cards in recent sets such as Surge Engine and Mild-Mannered Librarian signify that \"Activate only once.\" is an acceptable rules phrase, which render the need for a \"monstrous\" designation obsolete and hence may lower its chances of returning. Exhaust was the conclusion of this line of thinking: the mechanic is now an ability word linked by \"activate only once\", with the similar tracking method of adding counters.",
+		"reminderText": "[cost]: Monstrosity N (If this permanent isn't monstrous, put N +1/+1 counters on it and it becomes monstrous.)",
+		"sourceUrl": "https://mtg.wiki/page/Monstrosity"
+	},
+	"Vote": {
+		"intro": "Vote is a keyword action first featured in Conspiracy and later used in Conspiracy: Take the Crown, Streets of New Capenna and Lord of the Rings Commander.",
+		"description": "Some cards instruct players to vote from among given options. It is used in conjunction with the Will of the council, Council's dilemma and Secret council mechanics. Secret council is specifically for abilities that require secret voting. Will of the council and council's dilemma both use non-secret voting, with will of the council showing up on cards that care which option got more votes and council's dilemma being used for cards where the number of votes for each option is what matters.",
+		"reminderText": "No official reminder text",
+		"sourceUrl": "https://mtg.wiki/page/Vote"
+	},
+	"Bolster": {
+		"intro": "Bolster is a keyword action introduced in Fate Reforged where it replaced Outlast from Khans of Tarkir as the mechanic associated with the Abzan Houses. Bolster is also featured in Dragons of Tarkir, associated with Clan Dromoka.",
+		"description": "When Bolster N, you choose a creature with the least toughness or tied with the least toughness among creatures you control and put N +1/+1 counters on it.\n\nBolster was considered middling in popularity and could be utilized as a rider on a variety of spells with a low chance of being overpowering. Despite the acceptably middling Storm Scale, Bolster has yet to return, contrasting with Support, a similar mechanic with a worse Storm Scale value, which debuted in Oath of the Gatewatch had a return in Battlebond.",
+		"reminderText": "Bolster N (Choose a creature you control with the least toughness or tied for the least toughness among creatures you control. Put N +1/+1 counters on that creature.)",
+		"sourceUrl": "https://mtg.wiki/page/Bolster"
+	},
+	"Manifest": {
+		"intro": "Manifest is a keyword action introduced in Fate Reforged. When you manifest a card, you put it onto the battlefield face down.",
+		"description": "While face down, a manifested card is a 2/2 colorless creature with no name, no abilities, and no creature types.\n\nUnlike Morph, which is usually cast from your hand, manifested cards are usually played from the top of your library. Specific cards may manifest cards from either your hand, your Graveyard, or your opponent's library.\n\nA manifested creature card may be turned face up for its mana cost. If the creature can be turned face up, the morph, megamorph, or disguise cost can be paid instead. A manifested noncreature card can't be turned face up this way unless it already had morph.\n\nIn Tarkir, manifest represents Ugin's draconic magic from the plane's past, rooted in concealment and deception. It was designed to feel like a proto-morph mechanic.\n\nAfter Fate Reforged, Manifest was featured in Commander 2018, Modern Horizons and Commander 2019. Ugin, the Ineffable of War of the Spark has a loyalty ability reminiscent of Manifest. Manifest also appeared as a one-off in the Streets of New Capenna Commander decks and Modern Horizons 3.",
+		"reminderText": "Manifest [card] (Put it onto the battlefield face down as a 2/2 creature. Turn it face up any time for its mana cost if it's a creature card.) Manifest dread (Look at the top two cards of your library. Put one onto the battlefield face down as a 2/2 creature and the other into your graveyard. Turn it face up any time for its mana cost if it’s a creature card.)",
+		"sourceUrl": "https://mtg.wiki/page/Manifest"
+	},
+	"Support": {
+		"intro": "Support is a keyword action introduced in Oath of the Gatewatch that boosts your (or your teammates') creatures with +1/+1 counters.",
+		"description": "\"Support N\" means \"Put a +1/+1 counter on each of up to N other target creatures.\" You may choose fewer targets at will.\n\nIf a creature (or any other permanent) has an ability that supports, the ability can't target the creature/permanent itself.\n\nYou cannot put multiple +1/+1 counters on one creature. If it has support 3, you have to put a +1/+1 counter on one creature, then another one, then another. It has to be a different creature for each +1/+1 counter.",
+		"reminderText": "Support N (Put a +1/+1 counter on each of up to N (other) target creatures.)",
+		"sourceUrl": "https://mtg.wiki/page/Support"
+	},
+	"Meld": {
+		"intro": "Meld is a keyword action that means to turn two meld cards on the back side into one oversized card, if you control the proper pair. It was introduced in Eldritch Moon with three pairs. Meld returned with three more meld pairs in The Brothers' War and then in Final Fantasy.",
+		"description": "The design of Meld was inspired by the Un-card B.F.M. (Big Furry Monster) and the unreleased mechanic Link.\n\nTwo cards that meld change into one oversized card on the battlefield. That single card only exists on the backs of the two other cards. A melded card is a single permanent represented by two cards. If it is one creature, it behaves as any other creature does. It can attack and block, has abilities, can be enchanted or equipped, or have counters put on it. A single spell that says \"Destroy target creature\" will destroy the whole permanent.\n\nOne of the two cards has the actual keyword action in its rules text; the other card only has the reminder text: \"Melds with (card name)\". All meld pairs will exile themselves before melding, and require ownership and control, to avoid questions of where modifications would go. The card with the action Meld will display the art and name of the card, while the other will contain text, statistics, and types. Additionally, to ease the difficulty of having two specific cards in addition to their expensive meld cast, the pairs are designed so that one of the two cards is more difficult to interact with than the other. Midnight Scavengers, Bruna, the Fading Light and Vanille, Cheerful L'Cie retrieve their melding counterpart from the graveyard, Argoth, Sanctum of Nature and Hanweir Battlements are lands, The Mightstone and Weakstone is an artifact and Phyrexian Dragon Engine has Unearth.\n\nWhenever the melded card leaves the battlefield, both cards go to the same zone where they each turn face up again.",
+		"reminderText": "No official reminder text",
+		"sourceUrl": "https://mtg.wiki/page/Meld"
+	},
+	"Exert": {
+		"intro": "Exert is a keyword action introduced in Amonkhet. Exert is focused in white, red and green.",
+		"description": "When a creature with the exert ability is exerted, then an ability is triggered and the creature doesn't untap at the beginning of its controller's next untap step.\n\nFor easy play, extra \"exerted\" markers were provided on punch cards in the Amonkhet set.\n\nThe flavor of this mechanic is that you have the ability to exert your power over the creatures, making them push themselves a little harder than they should. If the creature exerts, it means the creature is expending a large amount of effort, resulting in a bonus. As a result, the creature is then exhausted by the effort, and thus it doesn't untap in the next untap step.\n\nIn Hour of Devastation the mechanic was tweaked. Instead of being an attack trigger, these creatures exert themselves (aka choose to not untap on the next turn) when they use a specific activated ability.",
+		"reminderText": "Exert (An exerted permanent won't untap during your next untap step.)",
+		"sourceUrl": "https://mtg.wiki/page/Exert"
+	},
+	"Explore": {
+		"intro": "Explore is a keyword action introduced in Ixalan. The mechanic was created by Ken Nagle.",
+		"description": "If a creature you control explores, you reveal the top card of your library. If the revealed card is a land, put that card into your hand. If it's not a land card, put a +1/+1 counter on the exploring creature. Then, you decide whether the nonland card goes back on top of your library or into your graveyard. In a sense, Explore is an alternate version of Surveil.\n\nMost creatures that explore, do so because of a triggered ability when they enter the battlefield. Creatures may also explore as a result of an activated ability.\n\nIxalan has a few cards with abilities that trigger whenever a creature you control explores.",
+		"reminderText": "Explore (Reveal the top card of your library. Put that card into your hand if it's a land. Otherwise, put a +1/+1 counter on this creature, then put the card back on top or into your graveyard.)",
+		"sourceUrl": "https://mtg.wiki/page/Explore"
+	},
+	"Assemble": {
+		"intro": "Assemble is a keyword action introduced as a joke in Future Sight and related to Contraptions. It was greatly expanded upon in Unstable, where it was one of the main silver-bordered mechanics. Contraptions may be assembled by players and/or Creatures (Riggers).",
+		"description": "To assemble a Contraption means putting the top card of your Contraption deck face up onto one of your three sprockets.\n\nThere is no functional difference between players assembling a contraption, and creatures assembling a contraption. However, Steamflogger Boss only cares about Contraptions assembled by creatures.",
+		"reminderText": "Assemble (To assemble a Contraption, put the top card of your Contraption deck face up onto one of your sprockets.)",
+		"sourceUrl": "https://mtg.wiki/page/Assemble"
+	},
+	"Adapt": {
+		"intro": "Adapt is a keyword action introduced in Ravnica Allegiance for the Simic Combine.",
+		"description": "Adapt is tweaked version of Monstrosity. It is written as Adapt N, where N is a positive integer. If a creature has no +1/+1 counters on it, you may pay the adapt cost to put N +1/+1 counters on that creature. Unlike Monstrosity, where a creature can only become monstrous a single time, a creature can Adapt again if all of its +1/+1 counters are removed.",
+		"reminderText": "[cost]: Adapt N (If this creature has no +1/+1 counters on it, put N +1/+1 counter(s) on it.)",
+		"sourceUrl": "https://mtg.wiki/page/Adapt"
+	},
+	"Amass": {
+		"intro": "Amass is a keyword action introduced in War of the Spark that creates and grows an Army.",
+		"description": "If the amass action's controller does not control an Army creature, that player first creates a 0/0 black Army creature token. Then, the player puts a number of +1/+1 counters equal to the number specified by amass to one of their Armies they control, and the amassed Army becomes the creature type after specified by amass in addition to its other types.\n\nAmass was designed to prevent creating more than one Army tokens by itself. However, a player can use other means to control multiple armies, including copying an Army, controlling a creature with Changeling, and modify a creature's type using Artificial Evolution.\n\nConversely, removal and disabling effects in sets featuring amass tend to have limited impact on Army tokens in Limited formats. Examples include:\n\nLaw-Rune Enforcer (cannot target Army tokens, which have mana value 0) Kasmina's Transmutation (Armies do not have abilities to lose and they receive +1/+1 when having their base size 0/0 changed to 1/1) Bewitching Leechcraft (prioritizes removing +1/+1 counters over untap prevention) Fog on the Barrow-Downs (removes the Army subtype, allowing its controller to create a new Army token later) Soothing of Sméagol (cannot target tokens)\n\nAmass has only appeared on [Blue mana], [Black mana], and [Red mana] cards in sets that feature large-scale conflicts with a numerous, but mostly faceless, antagonist force.",
+		"reminderText": "Amass [subtype] N (Put N +1/+1 counters on an Army you control. It’s also a [subtype]. If you don’t control an Army, create a 0/0 black [subtype] Army creature token first.)",
+		"sourceUrl": "https://mtg.wiki/page/Amass"
+	},
+	"Learn": {
+		"intro": "Learn is a keyword action introduced in Strixhaven: School of Mages.",
+		"description": "Learn is strongly correlated to the Lesson subtype, a class of instants and sorceries that are designed to live in the sideboard. A Learner may reveal a Lesson card from outside the game and put it into their hand. Most cards with Learn are not satisfactory spells if not for the extra Learn rider, and inversely most Lesson spells are slightly overcosted in their effects. However, combined, they produce strong resource, being able to tailor for many situations if the drafter or builder had the foresight to bring the right Lessons. However, there can only be so many Lessons one can access; at the point in which the Learner runs out of lessons, they may also discard a card to draw a card. Constructed players have to fit their \"lessonboard\" in their 15-card sideboard, whereas drafters have a much greater space for Lessons, but fewer Lessons during their drafts.\n\nLearn has similarities to Investigate (a rider that appears on many cards as an extra resource), Aftermath (a single card producing two different spell effects), and interestingly Contraptions (a selection of outside resources that is activated by otherwise weaker cards).",
+		"reminderText": "Learn (You may reveal a Lesson card you own from outside the game and put it into your hand, or discard a card to draw a card.)",
+		"sourceUrl": "https://mtg.wiki/page/Learn"
+	},
+	"Venture into the Dungeon": {
+		"intro": "Venture into the dungeon is a keyword action introduced in Dungeons & Dragons: Adventures in the Forgotten Realms. It interacts with the dungeon card type.",
+		"description": "Venture into the dungeon can be the effect of a spell, an activated ability, or a triggered ability.\n\nIf you venture into the dungeon while you don't have any dungeons in the command zone you put the dungeon of your choice into the command zone and put a venture marker on the first room, at the top. The next time you venture into the dungeon, you'll move to the next room by placing the marker on that room. When you enter a room, the room ability of that room triggers. After the final room ability resolves or otherwise leaves the stack, the dungeon is removed from the game. Removing it from the game results in you completing the dungeon. When you complete a dungeon certain cards receive a bonus.\n\nThe next time you venture into the dungeon, you can choose the very same dungeon you were just in or you can head into a new one.",
+		"reminderText": "Venture into the dungeon (Enter the first room or advance to the next room) Venture into [quality] (If you’re in a dungeon, advance to the next room. If you’re not, enter [quality]. Enter the first room or advance to the next room)",
+		"sourceUrl": "https://mtg.wiki/page/Venture_into_the_dungeon"
+	},
+	"Connive": {
+		"intro": "Connive is a keyword action introduced in Streets of New Capenna as the signature Obscura mechanic.",
+		"description": "Connive is the mechanic for the Obscura, the [White mana] [Blue mana] [Black mana] family on New Capenna. The Obscura use magic to manipulate and distract, always looking for a more advantageous position. Connive can put you in a more advantageous position, both in terms of creature strength and hand quality.\n\nIf a creature you control is instructed to connive, you draw a card and discard a card. This might help you find the land you need, or later in the game, might let you trade away an unneeded land while getting to your game-ending threats a little quicker. If you discard a nonland card, you put a +1/+1 counter on the creature that connived.\n\nA creature can connive even if it's not still on the battlefield. So, if e.g. Psychic Pickpocket dies in response to its own triggered ability, you'll still get to draw and discard. Its ability to bounce a nonland permanent also happens, as it is one ability with a reflexive trigger on the connive.\n\nConnive functions similarly to Explore, with the player making the decisions for the action, while the creature performing the ability is the recipient of its counters. It exchanges the chance of raw card advantage for a much greater degree of agency in the outcome.",
+		"reminderText": "Connive N (Draw N cards, then discard N cards. Put a +1/+1 counter on this creature for each nonland card discarded this way.) Connive (Draw a card, then discard a card. If you discarded a nonland card, put a +1/+1 counter on this creature.)",
+		"sourceUrl": "https://mtg.wiki/page/Connive"
+	},
+	"Open an Attraction": {
+		"intro": "Open an attraction is a keyword action introduced in Unfinity.",
+		"description": "Attractions are artifacts, but they don't have a mana cost. They aren't cast, and never even go to your hand. To get them from your Attraction deck to the battlefield, you'll need to open \"open an attraction\". When told to open an Attraction, put the top card of your Attraction deck onto the battlefield face up under your control.",
+		"reminderText": "Open an attraction (Put the top card of your Attraction deck onto the battlefield.)",
+		"sourceUrl": "https://mtg.wiki/page/Open_an_attraction"
+	},
+	"Roll to Visit Your Attractions": {
+		"intro": "Roll to visit your attractions is a keyword action introduced in Unfinity.",
+		"description": "Roll to Visit Your Attractions is primarily a background game mechanic that links the open an attraction and visit mechanics together with the Attraction card. Players who control an Attraction have a turn-based action at the beginning of their precombat main phase that triggers the roll to visit your attractions mechanic. This ability triggers after lore counters are put on Sagas.\n\nRoll to visit your attractions appears on two cards in Unfinity — Command Performance and Line Cutter, and is referred to on \"Lifetime\" Pass Holder.",
+		"reminderText": "No official reminder text",
+		"sourceUrl": "https://mtg.wiki/page/Roll_to_visit_your_attractions"
+	},
+	"Incubate": {
+		"intro": "Incubate is a keyword action introduced in March of the Machine related to the Incubator type. The instruction to incubate includes a number which indicates how many +1/+1 counters to put on the Incubator token.",
+		"description": "Incubate creates an artifact token with N +1/+1 counters on it, which can be transformed into a 0/0 Phyrexian creature for [2 generic mana]. It is a creature equivalent to Investigate, with the payoff being a variably sized creature instead of the card the Clue provides. The token it creates is unique amongst tokens in that it is inherently double-faced and transforms; while there are other forms of \"disabling\" the creature before the payment that keep it a single-faced creature, it is likely that there are tracking issues and too many exploits regarding \"inactive\" creatures.",
+		"reminderText": "Incubate N (Create an Incubator token with N +1/+1 counters on it and “ [2 generic mana]: Transform this artifact.” It transforms into a 0/0 Phyrexian artifact creature.)",
+		"sourceUrl": "https://mtg.wiki/page/Incubate"
+	},
+	"The Ring Tempts You": {
+		"intro": "The Ring tempts you is a keyword action introduced in The Lord of the Rings: Tales of Middle-earth.",
+		"description": "The Ring Tempts You shows the influence of the One Ring on those who possess it. As the temptation grows stronger, so does the Ring-bearer.\n\nMuch like venturing, the phrase \"the Ring tempts you\" activates a command zone effect. This time, each instance of \"tempting\" grants an ability to a particular creature, dubbed the \"Ring-bearer\". The player may change the Ring-bearer for each instance of tempting. Unlike the dungeons, which have single-trigger effects, the temptings create an emblem with up to four abilities, of which each ability specifically affects the Ring-bearer.\n\nEach time the Ring tempts you, two things happen. First, you choose a creature you control to become your Ring-bearer. If you have a Ring-bearer, you may choose to have that creature remain your Ring-bearer, or you may choose another creature you control to carry that burden.\n\nSecond, The Ring gains its next ability, if it can. Once The Ring has all four of its abilities, it has reached its full power and won't gain additional abilities as the Ring tempts you in the future. Notably, The Ring will gain its next ability even if you didn't control any creatures as the Ring tempted you, meaning you didn't choose a Ring-bearer.",
+		"reminderText": "The Ring tempts you (As the Ring tempts you, you get an emblem named The Ring if you don't have one. Then, your emblem gains its next ability and you choose a creature you control to become or remain your Ring-bearer.)",
+		"sourceUrl": "https://mtg.wiki/page/The_ring_tempts_you"
+	},
+	"Face a Villainous Choice": {
+		"intro": "Face a villainous choice is a keyword action introduced in the Universes Beyond set Doctor Who. It is a punisher mechanic.",
+		"description": "Villainous choice affects the player's opponents. They are presented with a choice of two effects which are both detrimental. It is a punisher mechanic, but with targeting it has greater multiplayer appeal with negotiation.",
+		"reminderText": "No official reminder text",
+		"sourceUrl": "https://mtg.wiki/page/Face_a_villainous_choice"
+	},
+	"Time Travel": {
+		"intro": "Time travel is a keyword action introduced in the Universes Beyond set Doctor Who. It allows players to manipulate the time counters on their cards.",
+		"description": "For each suspended card you own and each permanent you control with a time counter on it you may add or remove a time counter. This way, cards with Suspend are accelerated, while cards with Vanishing stay around longer, or the other way around if needed. Some cards in the set use time counters as generic trackers, which can also be manipulated with time travel.\n\nTime travel acts like proliferate with the unbound selection of cards and counters, but it is modified to encapsulate suspended cards in exile. Additionally, it can also remove counters, but it cannot affect an opponent's cards.",
+		"reminderText": "Time travel (For each suspended card you own and each permanent you control with a time counter on it, you may add or remove a time counter.)",
+		"sourceUrl": "https://mtg.wiki/page/Time_travel"
+	},
+	"Discover": {
+		"intro": "Discover is a keyword action introduced in The Lost Caverns of Ixalan.",
+		"description": "Like cascade, discover exiles cards through the top of the controller's library for a valid nonland card and allows them to cast it for free, returning other cards exiled this way to the bottom of the library in a random order.\n\nDiscover is a revamped successor of cascade with more design space. Compared to cascade, discover:\n\nIs a keyword action that can be put on various triggers rather than being restricted to cast triggers; Specifies a mana value independently instead of being tied to cascading card's mana value; and Puts the discovered card to the player's hand if they choose not to cast it, instead of bottoming it alongside other exiled cards.\n\nThere are no cards with discover 1 or 2, making it harder to cast suspend spells with discover such as Hypergenesis. Most cards with \"discover N\" use 3, 4, or 5 as the discover value, with some using discover X and two cards use discover 10. As such, it could also go on cheaper spells and activated abilities such as on lands, though most are still restricted by the mana spent. However, putting it on triggered abilities let it chain with 3-mana clones, which got Geological Appraiser banned in Pioneer quickly.\n\nCurator of Sun's Creation doubles Discover triggers.",
+		"reminderText": "Discover N (Exile cards from the top of your library until you exile a nonland card with mana value N or less. Cast it without paying its mana cost or put it into your hand. Put the rest on the bottom in a random order.)",
+		"sourceUrl": "https://mtg.wiki/page/Discover"
+	},
+	"Cloak": {
+		"intro": "Cloak is a keyword action introduced in Murders at Karlov Manor as an upgraded version of Manifest. When you cloak a card, you put it onto the battlefield face down.",
+		"description": "While face down, a cloaked card is a 2/2 colorless creature with no name, no creature types and ward [2 generic mana].\n\nUnlike Disguise, which is usually cast from your hand, cloaked cards are usually played from other zones.\n\nMost of the rules for Manifest are the same for Cloak. A cloaked creature card may be turned face up for its mana cost. If the creature had morph or disguise, the morph, megamorph or disguise cost can be paid instead. A cloaked noncreature card can't be turned face up this way unless it already had morph or disguise.",
+		"reminderText": "Cloak card (Put it onto the battlefield face down as a 2/2 creature with ward [2 generic mana]. Turn it face up any time for its mana cost if it's a creature card.)",
+		"sourceUrl": "https://mtg.wiki/page/Cloak"
+	},
+	"Collect Evidence": {
+		"intro": "Collect evidence is a keyword action introduced in Murders at Karlov Manor.",
+		"description": "Collecting evidence involves a player exiling any number of cards from their graveyard with combined mana value equal to, or greater than, N (the evidence number). This number appears at its lowest at 2, is most likely 4 or 6, and has its highest at 10, with two cards having a variable cost X. The set mechanics of Disguise, Basic landcycling and split cards offer various ways to put high-cost cards in the graveyard without needing the equivalent mana.\n\nCollecting is done as a cost, mechanically similar to Bargain or Kicker, where doing so is optional and gives a bonus to the spell if \"evidence is collected\". It can also be used on Ward costs.",
+		"reminderText": "Collect evidence N (Exile cards with total mana value N or greater from your graveyard.)",
+		"sourceUrl": "https://mtg.wiki/page/Collect_evidence"
+	},
+	"Suspect": {
+		"intro": "Suspect is a keyword action introduced in Murders at Karlov Manor. It creates a designation on a creature that encourages attacking.",
+		"description": "Cards may \"suspect\" a creature, after which it is suspected: it gains menace and loses the ability to block. Much like goad, it is incentivized to attack, given its new abilities. Creatures that are suspected remain so until they leave the battlefield or an effect removes its suspected status.\n\nAs menace is a positive mechanic, you may want to suspect your own creatures. But as \"can't block\" is a negative characteristic, you also may suspect creatures you don't control. Specific cards interact with suspected creatures, and they may be targets for specific effects.\n\nA punch card with \"suspected\" indicators appears in booster packs for Murders at Karlov Manor.",
+		"reminderText": "Suspect (A suspected creature has menace and can't block.)",
+		"sourceUrl": "https://mtg.wiki/page/Suspect"
+	},
+	"Forage": {
+		"intro": "Forage is a keyword action introduced in Bloomburrow. It can be used as an additional cost.",
+		"description": "To forage, either exile three cards from your graveyard or sacrifice a Food. It is used like a cost like any other, despite the lack of \"pay\".\n\nNote that you can't sacrifice a Food to both forage and for its own ability to gain life. If an ability triggers “whenever you forage,” it's looking specifically for the instruction to forage. If you just exile three cards from your graveyard or sacrifice a Food for other reasons, you haven't foraged.\n\nIn Bloomburrow, foraging is a Squirrel-related mechanic. Bonecache Overseer draws a card when one Forages but allows players to do the actions through other means.",
+		"reminderText": "[cost]: Forage (To forage, exile three cards from your graveyard or sacrifice a Food.)",
+		"sourceUrl": "https://mtg.wiki/page/Forage"
+	},
+	"Manifest Dread": {
+		"intro": "Manifest is a keyword action introduced in Fate Reforged. When you manifest a card, you put it onto the battlefield face down.",
+		"description": "While face down, a manifested card is a 2/2 colorless creature with no name, no abilities, and no creature types.\n\nUnlike Morph, which is usually cast from your hand, manifested cards are usually played from the top of your library. Specific cards may manifest cards from either your hand, your Graveyard, or your opponent's library.\n\nA manifested creature card may be turned face up for its mana cost. If the creature can be turned face up, the morph, megamorph, or disguise cost can be paid instead. A manifested noncreature card can't be turned face up this way unless it already had morph.\n\nIn Tarkir, manifest represents Ugin's draconic magic from the plane's past, rooted in concealment and deception. It was designed to feel like a proto-morph mechanic.\n\nAfter Fate Reforged, Manifest was featured in Commander 2018, Modern Horizons and Commander 2019. Ugin, the Ineffable of War of the Spark has a loyalty ability reminiscent of Manifest. Manifest also appeared as a one-off in the Streets of New Capenna Commander decks and Modern Horizons 3.",
+		"reminderText": "Manifest [card] (Put it onto the battlefield face down as a 2/2 creature. Turn it face up any time for its mana cost if it's a creature card.) Manifest dread (Look at the top two cards of your library. Put one onto the battlefield face down as a 2/2 creature and the other into your graveyard. Turn it face up any time for its mana cost if it’s a creature card.)",
+		"sourceUrl": "https://mtg.wiki/page/Manifest_dread"
+	},
+	"Endure": {
+		"intro": "Endure is a keyword action introduced in Tarkir: Dragonstorm, where it is tied to the Abzan Houses clan.",
+		"description": "Whenever a creature endures N, its controller chooses between putting N +1/+1 counters it, or creating an N/N white Spirit creature token. If the creature is no longer on the battlefield when it endures, the player will have to create the Spirit token. This is similar to Fabricate, except the former creates N tokens, whereas endure creates a single, larger token.\n\nEndure, unlike fabricate, is not intrinsically tied to enter triggers and can occur in other contexts, similar to explore.",
+		"reminderText": "Endure N (Put N +1/+1 counters on it or create a N/N white Spirit creature token.)",
+		"sourceUrl": "https://mtg.wiki/page/Endure"
+	},
+	"Harness": {
+		"intro": "Harness is a keyword action introduced in Marvel's Spider-Man and its associated Universes Within set Through the Omenpaths 1. It is unique to the set's Infinity Stone and its corresponding Terminus Stone, but is expected to be used in future Marvel sets, as well.",
+		"description": "Each Infinity Stone has a pair of linked abilities. The first of the two allows its controller to harness the stone, giving it the \"harnessed\" designation. The second is the stone's [Infinity symbol] ability, which can only be used or becomes active while the card has its \"harnessed\" designation.",
+		"reminderText": "Harness [card name] (Once harnessed, its [Infinity symbol] ability is active.)",
+		"sourceUrl": "https://mtg.wiki/page/Harness"
+	},
+	"Airbend": {
+		"intro": "Airbend is is a keyword action introduced in Avatar: The Last Airbender. An airbended object is exiled; as long as it is exiled this way, its owner may pay [2 generic mana] to cast it from exile. The mechanic represents the art of airbending in the Avatar universe.",
+		"description": "",
+		"reminderText": "Airbend [targets] (Exile them. While each one is exiled, its owner may cast it for [2 generic mana] rather than its mana cost.) Airbend [target] (Exile it. While it's exiled, its owner may cast it from exile by paying [2 generic mana] rather than its mana cost.)",
+		"sourceUrl": "https://mtg.wiki/page/Airbend"
+	},
+	"Earthbend": {
+		"intro": "Earthbend is an keyword action introduced in Avatar: The Last Airbender. Earthbend targets a land, turning it into a 0/0 creature with haste in addition to its other types, and putting a number of +1/+1 counters on it equal to the earthbend value. When the land dies or is exiled, the card is returned to the battlefield tapped.",
+		"description": "",
+		"reminderText": "Earthbend N (Target land you control becomes a 0/0 creature with haste that's still a land. Put N +1/+1 counters on it. When it dies or is exiled, return it to the battlefield tapped.) Earthbend 1 (Target land you control becomes a 0/0 creature with haste that's still a land. Put a +1/+1 counter on it. When it dies or is exiled, return it to the battlefield tapped.)",
+		"sourceUrl": "https://mtg.wiki/page/Earthbend"
+	},
+	"Waterbend": {
+		"intro": "Waterbend is a keyword action introduced in Avatar: The Last Airbender. While paying a waterbend cost, a player can tap an untapped creature or artifact they control to pay for [1 generic mana]. It represents the art of waterbending in the Avatar universe.",
+		"description": "",
+		"reminderText": "Waterbend [cost] (While paying a waterbend cost, you can tap your artifacts and creatures to help. Each one pays for [1 generic mana].)",
+		"sourceUrl": "https://mtg.wiki/page/Waterbend"
+	},
+	"Blight": {
+		"intro": "Blight is a keyword action introduced in Lorwyn Eclipsed. Blight includes a number and is often phrased as a cost you pay, such as to activate an ability or as an additional cost to cast a spell. It forces a player to put a number of −1/−1 counters on a creature they control.",
+		"description": "When a player is instructed to blight N, they put N −1/−1 counters on a creature they control. That creature isn't targeted, so you choose which creature will get the −1/−1 counters as you're taking the blight action. You can put more −1/−1 counters on a creature than it would take to get rid of it. On the other hand, there are several possibilities in the Lorwyn Eclipsed set to negate the negative impact of −1/−1 counters on your creatures. As a cost, it recalls the unnamed \"Ruthless\" mechanic of Amonkhet, another −1/−1 counter mechanic.\n\nBlight also can be used as a ward cost (e.g. Auntie Ool, Cursewretch). High Perfect Morcant and Champion of the Weird are the only cards that can force opponents to blight.\n\nThe mechanic is a play on the Shadowmoor mechanic Wither, which also used −1/−1 counters, and might be named after the card Incremental Blight from that same set. Scarscale Ritual has the effective cost Blight 1 which is a potential precursor to this mechanic. Flavorwise, \"Eyeblight\" is a term Lorwyn's elves use for creatures they deem ugly.",
+		"reminderText": "Blight N (Put N −1/−1 counters on a creature you control.)",
+		"sourceUrl": "https://mtg.wiki/page/Blight"
+	}
 }

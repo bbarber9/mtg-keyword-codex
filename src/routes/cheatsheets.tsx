@@ -1,7 +1,7 @@
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { Frame } from "../components/Frame/Frame";
 
-export const Route = createFileRoute("/codices")({
+export const Route = createFileRoute("/cheatsheets")({
 	component: RouteComponent,
 });
 

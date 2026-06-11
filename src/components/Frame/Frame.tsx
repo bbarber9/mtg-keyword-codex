@@ -10,7 +10,7 @@ export const Frame = ({ children }: FrameProps) => {
 		<>
 			<nav className={styles.nav}>
 				<Link className={styles.logo} to="/test">
-					📔 MTG Cheatsheet Codex
+					MTG Keyword Cheatsheets
 				</Link>
 				<Button variant="toolbar">Logout</Button>
 			</nav>

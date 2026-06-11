@@ -22,7 +22,12 @@ const getButtonClass = (variant: ButtonProps["variant"]) => {
 	return variant ? mapping[variant] : mapping.primary;
 };
 
-export function Button({ variant, className, children, ...buttonProps }: ButtonProps) {
+export function Button({
+	variant,
+	className,
+	children,
+	...buttonProps
+}: ButtonProps) {
 	const variantClassName = getButtonClass(variant);
 	const composedClassName = [styles.button, variantClassName, className]
 		.filter(Boolean)

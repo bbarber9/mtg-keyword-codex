@@ -1,26 +1,26 @@
-# MTG Codex - Design
+# MTG Cheatsheet - Design
 
 ## Overview
-This project provides a web app that generates shareable "codex" pages from a pasted Magic: The Gathering decklist. Each codex summarizes Scryfall keywords across the list and highlights interactions from a static rules file. Codices are public by default, but creation requires login.
+This project provides a web app that generates shareable "cheatsheet" pages from a pasted Magic: The Gathering decklist. Each cheatsheet summarizes Scryfall keywords across the list and highlights interactions from a static rules file. Cheatsheets are public by default, but creation requires login.
 
 ## Product Goals
 - Generate a keyword cheat sheet from a pasted decklist.
-- Persist codices with public, shareable URLs.
-- Provide a "My Codices" page for logged-in users.
+- Persist cheatsheets with public, shareable URLs.
+- Provide a "My Cheatsheets" page for logged-in users.
 - Keep Scryfall usage within rate and caching policies. Policies can be found here: https://scryfall.com/docs/api
 - Enable future multi-language support without changing logic.
 
 ## Key Decisions
 - Ingest method: paste-only decklist (no Archidekt/Moxfield URL parsing).
-- Terminology: generated pages are called "codices" (not decks).
-- Auth: Google OAuth; login required to create codices. Implement via Better Auth with the TanStack Start cookies plugin.
-- Visibility: codices are public and readable without login.
+- Terminology: generated pages are called "cheatsheets" (not decks).
+- Auth: Google OAuth; login required to create cheatsheets. Implement via Better Auth with the TanStack Start cookies plugin.
+- Visibility: cheatsheets are public and readable without login.
 - Storage: SQLite for minimal overhead; Node 24 LTS runtime with pnpm.
 - SQLite access uses `better-sqlite3`, not Node's native `node:sqlite`.
-- Expiration: codices expire after 30 days of inactivity; visiting refreshes the timer. This is currently hardcoded in `src/actions/createCodex.ts`; site-owner configuration is future work if still desired.
+- Expiration: cheatsheets expire after 30 days of inactivity; visiting refreshes the timer. This is currently hardcoded in `src/actions/createCheatsheet.ts`; site-owner configuration is future work if still desired.
 - Keywords source: trust Scryfall's keywords field.
 - Keyword data: static JSON file in `src/data/keyword-descriptions.json`.
-- UI: TanStack Start fullstack app. Current `/` route is still the starter protected counter route; product navigation lives under `/codices`.
+- UI: TanStack Start fullstack app. Current `/` route is still the starter protected counter route; product navigation lives under `/cheatsheets`.
 
 ## Data Model (SQLite)
 
@@ -28,7 +28,7 @@ This project provides a web app that generates shareable "codex" pages from a pa
 - Better Auth owns the auth schema. Do not build a custom `users` table with `provider` or `provider_user_id`.
 - Generated tables are `user`, `account`, `session`, and `verification`.
 - The Better Auth username plugin adds `username` and `display_username` fields to `user`.
-- `codices.owner_id` stores the Better Auth `user.id`.
+- `cheatsheets.owner_id` stores the Better Auth `user.id`.
 
 ### cards
 - id (PK, text) - Scryfall ID
@@ -36,7 +36,7 @@ This project provides a web app that generates shareable "codex" pages from a pa
 - data_json (text) - raw Scryfall payload
 - updated_at (datetime)
 
-### codices
+### cheatsheets
 - id (PK, text, short id)
 - owner_id (FK user.id)
 - title (text)
@@ -47,36 +47,36 @@ This project provides a web app that generates shareable "codex" pages from a pa
 - last_accessed_at (datetime)
 - expires_at (datetime)
 
-### codex_keywords
-- codex_id (FK codices.id)
+### cheatsheet_keywords
+- cheatsheet_id (FK cheatsheets.id)
 - keyword (text) - normalized keyword name or ID
 - count (integer) - number of card copies in the normalized decklist that reference the keyword
 
 Indexes
 - cards(name)
-- codices(owner_id)
-- codices(expires_at)
-- codex_keywords(codex_id)
+- cheatsheets(owner_id)
+- cheatsheets(expires_at)
+- cheatsheet_keywords(cheatsheet_id)
 
 ## Server Functions and Routes
 
-- Codex create/read flow uses TanStack server functions and route loaders, not duplicate REST API routes.
-- Do not add `/api` codex endpoints for the current codex flow unless a separate API-only use case appears.
+- Cheatsheet create/read flow uses TanStack server functions and route loaders, not duplicate REST API routes.
+- Do not add `/api` cheatsheet endpoints for the current cheatsheet flow unless a separate API-only use case appears.
 - Better Auth endpoints are mounted at `/api/auth/$`.
 
-`createCodex`
+`createCheatsheet`
 - TanStack server function with `method: "POST"`.
 - Auth required via Better Auth session from request headers.
 - Input follows decklist processing input: name/title, decklist text, optional link, optional primer.
 - Returns `{ id: string }`.
 
-`getCodex`
+`getCheatsheet`
 - TanStack server function with `method: "GET"`.
-- Public read by codex id from route loader.
-- Returns `null` for missing or expired codices.
+- Public read by cheatsheet id from route loader.
+- Returns `null` for missing or expired cheatsheets.
 - On successful read, refreshes `last_accessed_at` and `expires_at`.
 
-Current codex read shape
+Current cheatsheet read shape
 - id
 - title
 - link
@@ -102,7 +102,7 @@ Current codex read shape
 - Build a keyword index with counts based on deck quantity, not just unique card names.
 
 ## Keyword data
-- This static file maps keywords to their descriptions to be used in the codex: `src/data/keyword-descriptions.json`.
+- This static file maps keywords to their descriptions to be used in the cheatsheet: `src/data/keyword-descriptions.json`.
 
 ## Counter data
 - Counter descriptions are generated by `/scripts/build-counters-json.ts`.
@@ -130,18 +130,18 @@ Current codex read shape
 - Wiki page fetches for this generator reuse `/scripts/wiki-html-fetcher.ts` and `/scripts/mtg-wiki-cache` with the same browser-style cache semantics as counter generation.
 
 ## Expiration Policy
-- On codex GET, update:
+- On cheatsheet GET, update:
   - last_accessed_at = now
   - expires_at = now + 30 days
-- Cleanup: on-the-fly deletion of expired codices.
+- Cleanup: on-the-fly deletion of expired cheatsheets.
 
 ## Frontend UX
 - Current `/` route is still the TanStack starter protected counter route and should be replaced before product launch.
-- Current `/codices` route is protected and has a create entry point that navigates to `/codices/create`; it is not yet a completed "My Codices" list.
-- Current `/codices/create` route renders the codex create form.
-- After creation, redirect to the public codex page at `/codices/:id`.
+- Current `/cheatsheets` route is protected and has a create entry point that navigates to `/cheatsheets/create`; it is not yet a completed "My Cheatsheets" list.
+- Current `/cheatsheets/create` route renders the cheatsheet create form.
+- After creation, redirect to the public cheatsheet page at `/cheatsheets/:id`.
 - Login screen available at `/login` and used for the current landing route; includes Google sign-in CTA.
-- Intended next direction: replace the starter `/` route with the product entry flow and build the authenticated "My Codices" list under `/codices`.
+- Intended next direction: replace the starter `/` route with the product entry flow and build the authenticated "My Cheatsheets" list under `/cheatsheets`.
 
 ## Frontend Guidelines
 - React for UI components and pages.

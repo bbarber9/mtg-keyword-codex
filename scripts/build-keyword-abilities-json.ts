@@ -9,8 +9,8 @@ import {
 } from "./keyword-alias-utils";
 import { createWikiHtmlPageFetcher } from "./wiki-html-fetcher";
 import {
-	extractTextIncludingImageAlt,
 	extractSectionTextByHeadingId,
+	extractTextIncludingImageAlt,
 	findMissingFields,
 	loadInfoBoxData,
 	normalizeForCollision as normalizeNameForCollision,
@@ -24,7 +24,7 @@ const KEYWORD_ABILITIES_PAGE_URL = "https://mtg.wiki/page/Keyword_ability";
 const OUTPUT_FILE_RELATIVE_PATH = "src/data/wiki/keyword-abilities.json";
 const WIKI_CACHE_DIRECTORY_RELATIVE_PATH = "scripts/mtg-wiki-cache";
 const KEYWORD_ABILITY_IMPORTER_USER_AGENT =
-	"mtg-keyword-codex/0.1 (keyword-ability-importer)";
+	"mtg-keyword-cheatsheet/0.1 (keyword-ability-importer)";
 const NETWORK_REQUEST_DELAY_MS = 150;
 const RULE_NUMBER_PATTERN = /^702\.(\d+)\./;
 const MINIMUM_KEYWORD_ABILITY_RULE_NUMBER = 2;
@@ -74,8 +74,12 @@ const fetchHtmlPage = createWikiHtmlPageFetcher({
  */
 async function main(): Promise<void> {
 	const keywordAbilityAliases = await loadKeywordAbilityAliases();
-	const keywordAbilitiesPageHtml = await fetchHtmlPage(KEYWORD_ABILITIES_PAGE_URL);
-	const keywordAbilityLinks = collectKeywordAbilityLinks(keywordAbilitiesPageHtml);
+	const keywordAbilitiesPageHtml = await fetchHtmlPage(
+		KEYWORD_ABILITIES_PAGE_URL,
+	);
+	const keywordAbilityLinks = collectKeywordAbilityLinks(
+		keywordAbilitiesPageHtml,
+	);
 	if (keywordAbilityLinks.length === 0) {
 		throw new Error(
 			"Could not parse any keyword abilities from the keyword ability page.",
@@ -86,7 +90,10 @@ async function main(): Promise<void> {
 		keywordAbilityLinks,
 		keywordAbilityAliases,
 	);
-	await writeJsonFile(OUTPUT_FILE_PATH, buildResult.keywordAbilityDetailsByName);
+	await writeJsonFile(
+		OUTPUT_FILE_PATH,
+		buildResult.keywordAbilityDetailsByName,
+	);
 	printSummary(keywordAbilityLinks.length, buildResult);
 }
 
@@ -335,8 +342,7 @@ export function normalizeForCollision(keywordAbilityName: string): string {
 /**
  * Loads the checked-in keyword ability alias map.
  */
-async function loadKeywordAbilityAliases(
-): Promise<KeywordAliasMap> {
+async function loadKeywordAbilityAliases(): Promise<KeywordAliasMap> {
 	return loadKeywordAliasesFromFile({
 		aliasFilePath: ALIAS_MAP_FILE_PATH,
 		collisionNormalizer: normalizeForCollision,
@@ -396,7 +402,9 @@ function createEmptyKeywordAbilityDetails(
 
 if (import.meta.main) {
 	main().catch((error) => {
-		console.error(`Keyword ability generation failed: ${toErrorMessage(error)}`);
+		console.error(
+			`Keyword ability generation failed: ${toErrorMessage(error)}`,
+		);
 		process.exit(1);
 	});
 }

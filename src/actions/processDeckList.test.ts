@@ -1,7 +1,10 @@
 import { describe, expect, it } from "vitest";
 import type { DecklistEntry } from "../utils/decklist";
 import type { ScryfallCard } from "../utils/scryfall";
-import { buildKeywordCounts, formatNormalizedDecklist } from "./processDeckList";
+import {
+	buildKeywordCounts,
+	formatNormalizedDecklist,
+} from "./processDeckList";
 
 describe("processDeckList helpers", () => {
 	it("formats a normalized decklist from parsed entries", () => {

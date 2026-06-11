@@ -1,15 +1,18 @@
-import { asc, desc, eq } from "drizzle-orm";
 import { createServerFn } from "@tanstack/react-start";
 import { getRequestHeaders } from "@tanstack/react-start/server";
+import { asc, desc, eq } from "drizzle-orm";
 import { db } from "../db/db";
-import { codices, codexKeywords } from "../db/schema/codex-schema";
+import {
+	cheatsheetKeywords,
+	cheatsheets,
+} from "../db/schema/cheatsheet-schema";
 import { auth } from "../utils/auth";
-import { processDeckList, type ProcessDeckListInput } from "./processDeckList";
+import { type ProcessDeckListInput, processDeckList } from "./processDeckList";
 
-const DEFAULT_CODEX_EXPIRATION_DAYS = 30;
+const DEFAULT_CHEATSHEET_EXPIRATION_DAYS = 30;
 const MILLISECONDS_PER_DAY = 24 * 60 * 60 * 1000;
 
-export const createCodex = createServerFn({ method: "POST" })
+export const createCheatsheet = createServerFn({ method: "POST" })
 	.inputValidator((data: ProcessDeckListInput) => data)
 	.handler(async ({ data }) => {
 		const headers = getRequestHeaders();
@@ -21,10 +24,10 @@ export const createCodex = createServerFn({ method: "POST" })
 
 		const processedDecklist = await processDeckList(data);
 		const now = new Date();
-		const codexId = crypto.randomUUID();
+		const cheatsheetId = crypto.randomUUID();
 		const createdAt = now.toISOString();
 		const expiresAt = new Date(
-			now.getTime() + DEFAULT_CODEX_EXPIRATION_DAYS * MILLISECONDS_PER_DAY,
+			now.getTime() + DEFAULT_CHEATSHEET_EXPIRATION_DAYS * MILLISECONDS_PER_DAY,
 		).toISOString();
 		const normalizedLink = normalizeOptionalValue(data.link);
 		const normalizedPrimer = normalizeOptionalValue(data.primer);
@@ -32,9 +35,9 @@ export const createCodex = createServerFn({ method: "POST" })
 
 		db.transaction((transaction) => {
 			transaction
-				.insert(codices)
+				.insert(cheatsheets)
 				.values({
-					id: codexId,
+					id: cheatsheetId,
 					owner_id: session.user.id,
 					title: normalizedTitle,
 					link: normalizedLink,
@@ -48,10 +51,10 @@ export const createCodex = createServerFn({ method: "POST" })
 
 			if (processedDecklist.keywords.length > 0) {
 				transaction
-					.insert(codexKeywords)
+					.insert(cheatsheetKeywords)
 					.values(
 						processedDecklist.keywords.map((keywordCount) => ({
-							codex_id: codexId,
+							cheatsheet_id: cheatsheetId,
 							keyword: keywordCount.keyword,
 							count: keywordCount.count,
 						})),
@@ -60,15 +63,15 @@ export const createCodex = createServerFn({ method: "POST" })
 			}
 		});
 
-		return { id: codexId };
+		return { id: cheatsheetId };
 	});
 
-export type CodexKeywordRecord = {
+export type CheatsheetKeywordRecord = {
 	keyword: string;
 	count: number;
 };
 
-export type CodexRecord = {
+export type CheatsheetRecord = {
 	id: string;
 	title: string;
 	link: string | null;
@@ -77,30 +80,33 @@ export type CodexRecord = {
 	createdAt: string;
 	lastAccessedAt: string;
 	expiresAt: string;
-	keywords: CodexKeywordRecord[];
+	keywords: CheatsheetKeywordRecord[];
 };
 
-export const getCodex = createServerFn({ method: "GET" })
+export const getCheatsheet = createServerFn({ method: "GET" })
 	.inputValidator((data: { id: string }) => data)
 	.handler(async ({ data }) => {
-		const codexRecord = await db
+		const cheatsheetRecord = await db
 			.select()
-			.from(codices)
-			.where(eq(codices.id, data.id))
+			.from(cheatsheets)
+			.where(eq(cheatsheets.id, data.id))
 			.get();
 
-		if (!codexRecord) {
+		if (!cheatsheetRecord) {
 			return null;
 		}
 
 		const now = new Date();
-		if (new Date(codexRecord.expires_at).getTime() <= now.getTime()) {
+		if (new Date(cheatsheetRecord.expires_at).getTime() <= now.getTime()) {
 			db.transaction((transaction) => {
 				transaction
-					.delete(codexKeywords)
-					.where(eq(codexKeywords.codex_id, codexRecord.id))
+					.delete(cheatsheetKeywords)
+					.where(eq(cheatsheetKeywords.cheatsheet_id, cheatsheetRecord.id))
 					.run();
-				transaction.delete(codices).where(eq(codices.id, codexRecord.id)).run();
+				transaction
+					.delete(cheatsheets)
+					.where(eq(cheatsheets.id, cheatsheetRecord.id))
+					.run();
 			});
 
 			return null;
@@ -108,37 +114,37 @@ export const getCodex = createServerFn({ method: "GET" })
 
 		const lastAccessedAt = now.toISOString();
 		const expiresAt = new Date(
-			now.getTime() + DEFAULT_CODEX_EXPIRATION_DAYS * MILLISECONDS_PER_DAY,
+			now.getTime() + DEFAULT_CHEATSHEET_EXPIRATION_DAYS * MILLISECONDS_PER_DAY,
 		).toISOString();
 
 		await db
-			.update(codices)
+			.update(cheatsheets)
 			.set({
 				last_accessed_at: lastAccessedAt,
 				expires_at: expiresAt,
 			})
-			.where(eq(codices.id, codexRecord.id));
+			.where(eq(cheatsheets.id, cheatsheetRecord.id));
 
 		const keywordRecords = await db
 			.select()
-			.from(codexKeywords)
-			.where(eq(codexKeywords.codex_id, codexRecord.id))
-			.orderBy(desc(codexKeywords.count), asc(codexKeywords.keyword));
+			.from(cheatsheetKeywords)
+			.where(eq(cheatsheetKeywords.cheatsheet_id, cheatsheetRecord.id))
+			.orderBy(desc(cheatsheetKeywords.count), asc(cheatsheetKeywords.keyword));
 
 		return {
-			id: codexRecord.id,
-			title: codexRecord.title,
-			link: codexRecord.link,
-			primer: codexRecord.primer,
-			normalizedDecklist: codexRecord.normalized_decklist,
-			createdAt: codexRecord.created_at,
+			id: cheatsheetRecord.id,
+			title: cheatsheetRecord.title,
+			link: cheatsheetRecord.link,
+			primer: cheatsheetRecord.primer,
+			normalizedDecklist: cheatsheetRecord.normalized_decklist,
+			createdAt: cheatsheetRecord.created_at,
 			lastAccessedAt,
 			expiresAt,
 			keywords: keywordRecords.map((keywordRecord) => ({
 				keyword: keywordRecord.keyword,
 				count: keywordRecord.count,
 			})),
-		} satisfies CodexRecord;
+		} satisfies CheatsheetRecord;
 	});
 
 function normalizeOptionalValue(value: string): string | null {
